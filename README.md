@@ -1,7 +1,9 @@
 # Unofficial SpaceTraders API for Bevy
 
 SpaceTraders API implemented for Bevy the game engine.
+
 Consult official [Docs](https://spacetraders.stoplight.io/docs/spacetraders/) for APIs explanations.
+
 Learm more about Bevy [here](https://bevyengine.org) and about SpaceTraders [here](https://spacetraders.io).
 
 Issues / Pull requests / criticism / requests welcome.
@@ -69,4 +71,5 @@ fn get_status(mut status: ResMut<markers::GetStatus>) {
 ## License
 
 `/openapi` is probably licensed under `Apache-2.0` ... idk
+
 Rest of the repo is dual licensed under `MIT` or `Apache-2.0`
