@@ -1,0 +1,29 @@
+use crate::internal::{
+    client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
+    marker::Marker,
+};
+
+pub type RegisterNewAgent =
+    Marker<openapi::models::RegisterRequest, openapi::models::Register201Response>;
+
+impl TMinreqRequest for RegisterNewAgent {
+    fn try_create_minreq_request<B: serde::Serialize>(
+        config: ClientConnectionConfig,
+        body: &B,
+        _: &Option<QueryConf>,
+        _: Vec<String>,
+    ) -> Result<minreq::Request, ClientError> {
+        config
+            .new_builder::<B>()
+            .with_method(minreq::Method::Post)
+            .with_path("register")
+            .with_body(body)
+            .build()
+    }
+}
+
+impl RegisterNewAgent {
+    pub fn set_request(&mut self, request: openapi::models::RegisterRequest) {
+        self.push_request(request);
+    }
+}
