@@ -6,7 +6,7 @@ license = "MIT OR Apache-2.0"
 categories = ["api-bindings", "game-development"]
 keywords =  [ "bevy", "spacetraders" ]
 include = ["/src", "/openapi", "/examples"]
-description = "SpaceTraders SDK implemented for Bevy the game engine."
+description = "SpaceTraders API implemented for Bevy the game engine."
 authors = ["github.com/Pieresqi"]
 repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
 
