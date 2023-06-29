@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type RegisterNewAgent =
-    Marker<pies_openapi_spacetraders_api::models::RegisterRequest, pies_openapi_spacetraders_api::models::Register201Response>;
+pub type RegisterNewAgent = Marker<
+    pies_openapi_spacetraders_api::models::RegisterRequest,
+    pies_openapi_spacetraders_api::models::Register201Response,
+>;
 
 impl TMinreqRequest for RegisterNewAgent {
     fn try_create_minreq_request<B: serde::Serialize>(

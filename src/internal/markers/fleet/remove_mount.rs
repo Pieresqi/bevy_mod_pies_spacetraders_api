@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type RemoveMount =
-    Marker<pies_openapi_spacetraders_api::models::RemoveMountRequest, pies_openapi_spacetraders_api::models::RemoveMount201Response>;
+pub type RemoveMount = Marker<
+    pies_openapi_spacetraders_api::models::RemoveMountRequest,
+    pies_openapi_spacetraders_api::models::RemoveMount201Response,
+>;
 
 impl TMinreqRequest for RemoveMount {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

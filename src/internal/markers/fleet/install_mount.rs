@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type InstallMount =
-    Marker<pies_openapi_spacetraders_api::models::InstallMountRequest, pies_openapi_spacetraders_api::models::InstallMount201Response>;
+pub type InstallMount = Marker<
+    pies_openapi_spacetraders_api::models::InstallMountRequest,
+    pies_openapi_spacetraders_api::models::InstallMount201Response,
+>;
 
 impl TMinreqRequest for InstallMount {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

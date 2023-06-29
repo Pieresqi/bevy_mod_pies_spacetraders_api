@@ -3,7 +3,8 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type WarpShip = Marker<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
+pub type WarpShip =
+    Marker<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
 
 impl TMinreqRequest for WarpShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

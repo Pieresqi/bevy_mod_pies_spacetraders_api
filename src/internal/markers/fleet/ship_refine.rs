@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type ShipRefine =
-    Marker<pies_openapi_spacetraders_api::models::ShipRefineRequest, pies_openapi_spacetraders_api::models::ShipRefine201Response>;
+pub type ShipRefine = Marker<
+    pies_openapi_spacetraders_api::models::ShipRefineRequest,
+    pies_openapi_spacetraders_api::models::ShipRefine201Response,
+>;
 
 impl TMinreqRequest for ShipRefine {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

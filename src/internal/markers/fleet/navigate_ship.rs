@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type NavigateShip =
-    Marker<pies_openapi_spacetraders_api::models::NavigateShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
+pub type NavigateShip = Marker<
+    pies_openapi_spacetraders_api::models::NavigateShipRequest,
+    pies_openapi_spacetraders_api::models::NavigateShip200Response,
+>;
 
 impl TMinreqRequest for NavigateShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type PurchaseCargo =
-    Marker<pies_openapi_spacetraders_api::models::PurchaseCargoRequest, pies_openapi_spacetraders_api::models::PurchaseCargo201Response>;
+pub type PurchaseCargo = Marker<
+    pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
+    pies_openapi_spacetraders_api::models::PurchaseCargo201Response,
+>;
 
 impl TMinreqRequest for PurchaseCargo {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

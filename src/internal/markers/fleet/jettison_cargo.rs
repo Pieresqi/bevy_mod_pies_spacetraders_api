@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type JettisonCargo =
-    Marker<pies_openapi_spacetraders_api::models::JettisonRequest, pies_openapi_spacetraders_api::models::Jettison200Response>;
+pub type JettisonCargo = Marker<
+    pies_openapi_spacetraders_api::models::JettisonRequest,
+    pies_openapi_spacetraders_api::models::Jettison200Response,
+>;
 
 impl TMinreqRequest for JettisonCargo {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -24,7 +26,11 @@ impl TMinreqRequest for JettisonCargo {
 }
 
 impl JettisonCargo {
-    pub fn set_request(&mut self, request: pies_openapi_spacetraders_api::models::JettisonRequest, ship_symbol: String) {
+    pub fn set_request(
+        &mut self,
+        request: pies_openapi_spacetraders_api::models::JettisonRequest,
+        ship_symbol: String,
+    ) {
         self.add_arg(ship_symbol);
         self.push_request(request);
     }

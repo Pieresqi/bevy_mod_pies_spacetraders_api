@@ -3,7 +3,8 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type ListWaypointsInSystem = Marker<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
+pub type ListWaypointsInSystem =
+    Marker<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
 
 impl TMinreqRequest for ListWaypointsInSystem {
     fn try_create_minreq_request<B: serde::Serialize>(

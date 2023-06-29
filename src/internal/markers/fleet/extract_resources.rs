@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type ExtractResources =
-    Marker<pies_openapi_spacetraders_api::models::ExtractResourcesRequest, pies_openapi_spacetraders_api::models::ExtractResources201Response>;
+pub type ExtractResources = Marker<
+    pies_openapi_spacetraders_api::models::ExtractResourcesRequest,
+    pies_openapi_spacetraders_api::models::ExtractResources201Response,
+>;
 
 impl TMinreqRequest for ExtractResources {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

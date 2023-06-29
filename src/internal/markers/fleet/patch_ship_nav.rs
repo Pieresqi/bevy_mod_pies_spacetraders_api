@@ -3,8 +3,10 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type PatchShipNav =
-    Marker<pies_openapi_spacetraders_api::models::PatchShipNavRequest, pies_openapi_spacetraders_api::models::GetShipNav200Response>;
+pub type PatchShipNav = Marker<
+    pies_openapi_spacetraders_api::models::PatchShipNavRequest,
+    pies_openapi_spacetraders_api::models::GetShipNav200Response,
+>;
 
 impl TMinreqRequest for PatchShipNav {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
