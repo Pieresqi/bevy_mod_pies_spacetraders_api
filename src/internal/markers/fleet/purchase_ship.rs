@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type PurchaseShip =
-    Marker<openapi::models::PurchaseShipRequest, openapi::models::PurchaseShip201Response>;
+    Marker<pies_openapi_spacetraders_api::models::PurchaseShipRequest, pies_openapi_spacetraders_api::models::PurchaseShip201Response>;
 
 impl TMinreqRequest for PurchaseShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -24,7 +24,7 @@ impl TMinreqRequest for PurchaseShip {
 }
 
 impl PurchaseShip {
-    pub fn set_request(&mut self, request: openapi::models::PurchaseShipRequest) {
+    pub fn set_request(&mut self, request: pies_openapi_spacetraders_api::models::PurchaseShipRequest) {
         self.push_request(request);
     }
 }

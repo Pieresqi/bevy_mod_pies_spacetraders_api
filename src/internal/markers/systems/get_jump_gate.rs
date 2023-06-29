@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetJumpGate = Marker<(), openapi::models::GetJumpGate200Response>;
+pub type GetJumpGate = Marker<(), pies_openapi_spacetraders_api::models::GetJumpGate200Response>;
 
 impl TMinreqRequest for GetJumpGate {
     fn try_create_minreq_request<B: serde::Serialize>(

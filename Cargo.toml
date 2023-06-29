@@ -8,6 +8,7 @@ keywords =  [ "bevy", "spacetraders" ]
 include = ["/src", "/openapi", "/examples"]
 description = "SpaceTraders SDK implemented for Bevy the game engine."
 authors = ["github.com/Pieresqi"]
+repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -16,9 +17,10 @@ futures-lite = "1.13.0"
 minreq = { version = "2.8.1", features = ["https", "json-using-serde"] }
 serde = "1.0.164"
 serde_json = "1.0.96"
-openapi = { path = "openapi", version = "2.0.0" }
 htb = "0.2.2"
 bevy_ecs = "0.10.1"
 bevy_tasks = "0.10.1"
 bevy_time = "0.10.1"
 bevy_app = "0.10.1"
+pies_openapi_spacetraders_api = "2023.6.24"
+

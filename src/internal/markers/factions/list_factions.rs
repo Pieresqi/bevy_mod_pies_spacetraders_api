@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type ListFactions = Marker<(), openapi::models::GetFactions200Response>;
+pub type ListFactions = Marker<(), pies_openapi_spacetraders_api::models::GetFactions200Response>;
 
 impl TMinreqRequest for ListFactions {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

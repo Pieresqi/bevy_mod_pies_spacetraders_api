@@ -18,8 +18,8 @@ pub mod prelude {
 
     pub use super::internal::markers::fleet::warp_ship::WarpShip;
 
-    pub use openapi::models;
-    pub use openapi::models::*;
+    pub use pies_openapi_spacetraders_api::models;
+    pub use pies_openapi_spacetraders_api::models::*;
 
     pub use super::markers;
     pub use super::markers::*;

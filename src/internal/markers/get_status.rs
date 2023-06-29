@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetStatus = Marker<(), openapi::models::GetStatus200Response>;
+pub type GetStatus = Marker<(), pies_openapi_spacetraders_api::models::GetStatus200Response>;
 
 impl TMinreqRequest for GetStatus {
     fn try_create_minreq_request<B: serde::Serialize>(

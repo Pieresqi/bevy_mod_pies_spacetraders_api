@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetSystem = Marker<(), openapi::models::GetSystem200Response>;
+pub type GetSystem = Marker<(), pies_openapi_spacetraders_api::models::GetSystem200Response>;
 
 impl TMinreqRequest for GetSystem {
     fn try_create_minreq_request<B: serde::Serialize>(

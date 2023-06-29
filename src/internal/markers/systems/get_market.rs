@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetMarket = Marker<(), openapi::models::GetMarket200Response>;
+pub type GetMarket = Marker<(), pies_openapi_spacetraders_api::models::GetMarket200Response>;
 
 impl TMinreqRequest for GetMarket {
     fn try_create_minreq_request<B: serde::Serialize>(

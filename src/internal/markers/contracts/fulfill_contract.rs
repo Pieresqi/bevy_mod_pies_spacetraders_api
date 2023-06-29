@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type FulfillContract = Marker<(), openapi::models::FulfillContract200Response>;
+pub type FulfillContract = Marker<(), pies_openapi_spacetraders_api::models::FulfillContract200Response>;
 
 impl TMinreqRequest for FulfillContract {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

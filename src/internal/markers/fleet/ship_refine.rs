@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type ShipRefine =
-    Marker<openapi::models::ShipRefineRequest, openapi::models::ShipRefine201Response>;
+    Marker<pies_openapi_spacetraders_api::models::ShipRefineRequest, pies_openapi_spacetraders_api::models::ShipRefine201Response>;
 
 impl TMinreqRequest for ShipRefine {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for ShipRefine {
 impl ShipRefine {
     pub fn set_request(
         &mut self,
-        request: openapi::models::ShipRefineRequest,
+        request: pies_openapi_spacetraders_api::models::ShipRefineRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);

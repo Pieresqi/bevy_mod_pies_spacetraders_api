@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type JumpShip = Marker<openapi::models::JumpShipRequest, openapi::models::JumpShip200Response>;
+pub type JumpShip = Marker<pies_openapi_spacetraders_api::models::JumpShipRequest, pies_openapi_spacetraders_api::models::JumpShip200Response>;
 
 impl TMinreqRequest for JumpShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -23,7 +23,7 @@ impl TMinreqRequest for JumpShip {
 }
 
 impl JumpShip {
-    pub fn set_request(&mut self, request: openapi::models::JumpShipRequest, ship_symbol: String) {
+    pub fn set_request(&mut self, request: pies_openapi_spacetraders_api::models::JumpShipRequest, ship_symbol: String) {
         self.add_arg(ship_symbol);
         self.push_request(request);
     }

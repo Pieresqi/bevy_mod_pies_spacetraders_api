@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type ExtractResources =
-    Marker<openapi::models::ExtractResourcesRequest, openapi::models::ExtractResources201Response>;
+    Marker<pies_openapi_spacetraders_api::models::ExtractResourcesRequest, pies_openapi_spacetraders_api::models::ExtractResources201Response>;
 
 impl TMinreqRequest for ExtractResources {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for ExtractResources {
 impl ExtractResources {
     pub fn set_request(
         &mut self,
-        request: openapi::models::ExtractResourcesRequest,
+        request: pies_openapi_spacetraders_api::models::ExtractResourcesRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);

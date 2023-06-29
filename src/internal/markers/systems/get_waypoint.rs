@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetWaypoint = Marker<(), openapi::models::GetWaypoint200Response>;
+pub type GetWaypoint = Marker<(), pies_openapi_spacetraders_api::models::GetWaypoint200Response>;
 
 impl TMinreqRequest for GetWaypoint {
     fn try_create_minreq_request<B: serde::Serialize>(

@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type InstallMount =
-    Marker<openapi::models::InstallMountRequest, openapi::models::InstallMount201Response>;
+    Marker<pies_openapi_spacetraders_api::models::InstallMountRequest, pies_openapi_spacetraders_api::models::InstallMount201Response>;
 
 impl TMinreqRequest for InstallMount {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for InstallMount {
 impl InstallMount {
     pub fn set_request(
         &mut self,
-        request: openapi::models::InstallMountRequest,
+        request: pies_openapi_spacetraders_api::models::InstallMountRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);

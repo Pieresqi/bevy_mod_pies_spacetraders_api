@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type NavigateShip =
-    Marker<openapi::models::NavigateShipRequest, openapi::models::NavigateShip200Response>;
+    Marker<pies_openapi_spacetraders_api::models::NavigateShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
 
 impl TMinreqRequest for NavigateShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for NavigateShip {
 impl NavigateShip {
     pub fn set_request(
         &mut self,
-        request: openapi::models::NavigateShipRequest,
+        request: pies_openapi_spacetraders_api::models::NavigateShipRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);

@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetShipCooldown = Marker<(), openapi::models::GetShipCooldown200Response>;
+pub type GetShipCooldown = Marker<(), pies_openapi_spacetraders_api::models::GetShipCooldown200Response>;
 
 impl TMinreqRequest for GetShipCooldown {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

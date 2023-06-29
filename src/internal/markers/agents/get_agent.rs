@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetAgent = Marker<(), openapi::models::GetMyAgent200Response>;
+pub type GetAgent = Marker<(), pies_openapi_spacetraders_api::models::GetMyAgent200Response>;
 
 impl TMinreqRequest for GetAgent {
     fn try_create_minreq_request<B: serde::Serialize>(

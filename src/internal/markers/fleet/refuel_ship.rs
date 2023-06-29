@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type RefuelShip =
-    Marker<openapi::models::RefuelShipRequest, openapi::models::RefuelShip200Response>;
+    Marker<pies_openapi_spacetraders_api::models::RefuelShipRequest, pies_openapi_spacetraders_api::models::RefuelShip200Response>;
 
 impl TMinreqRequest for RefuelShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for RefuelShip {
 impl RefuelShip {
     pub fn set_request(
         &mut self,
-        request: openapi::models::RefuelShipRequest,
+        request: pies_openapi_spacetraders_api::models::RefuelShipRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);

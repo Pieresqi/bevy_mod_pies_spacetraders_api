@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type CreateSurvey = Marker<(), openapi::models::CreateSurvey201Response>;
+pub type CreateSurvey = Marker<(), pies_openapi_spacetraders_api::models::CreateSurvey201Response>;
 
 impl TMinreqRequest for CreateSurvey {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type CreateChart = Marker<(), openapi::models::CreateChart201Response>;
+pub type CreateChart = Marker<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
 
 impl TMinreqRequest for CreateChart {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

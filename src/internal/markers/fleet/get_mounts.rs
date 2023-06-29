@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetMounts = Marker<(), openapi::models::GetMounts200Response>;
+pub type GetMounts = Marker<(), pies_openapi_spacetraders_api::models::GetMounts200Response>;
 
 impl TMinreqRequest for GetMounts {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type GetShipyard = Marker<(), openapi::models::GetShipyard200Response>;
+pub type GetShipyard = Marker<(), pies_openapi_spacetraders_api::models::GetShipyard200Response>;
 
 impl TMinreqRequest for GetShipyard {
     fn try_create_minreq_request<B: serde::Serialize>(

@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type ListContracts = Marker<(), openapi::models::GetContracts200Response>;
+pub type ListContracts = Marker<(), pies_openapi_spacetraders_api::models::GetContracts200Response>;
 
 impl TMinreqRequest for ListContracts {
     fn try_create_minreq_request<B: serde::Serialize>(

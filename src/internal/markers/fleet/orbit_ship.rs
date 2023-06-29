@@ -3,7 +3,7 @@ use crate::internal::{
     marker::Marker,
 };
 
-pub type OrbitShip = Marker<(), openapi::models::OrbitShip200Response>;
+pub type OrbitShip = Marker<(), pies_openapi_spacetraders_api::models::OrbitShip200Response>;
 
 impl TMinreqRequest for OrbitShip {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(

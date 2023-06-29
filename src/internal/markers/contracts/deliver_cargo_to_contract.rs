@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type DeliverCargoToContract =
-    Marker<openapi::models::DeliverContractRequest, openapi::models::DeliverContract200Response>;
+    Marker<pies_openapi_spacetraders_api::models::DeliverContractRequest, pies_openapi_spacetraders_api::models::DeliverContract200Response>;
 
 impl TMinreqRequest for DeliverCargoToContract {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for DeliverCargoToContract {
 impl DeliverCargoToContract {
     pub fn set_request(
         &mut self,
-        request: openapi::models::DeliverContractRequest,
+        request: pies_openapi_spacetraders_api::models::DeliverContractRequest,
         contract_id: String,
     ) {
         self.add_arg(contract_id);

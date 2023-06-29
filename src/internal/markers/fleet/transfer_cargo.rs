@@ -4,7 +4,7 @@ use crate::internal::{
 };
 
 pub type TransferCargo =
-    Marker<openapi::models::TransferCargoRequest, openapi::models::TransferCargo200Response>;
+    Marker<pies_openapi_spacetraders_api::models::TransferCargoRequest, pies_openapi_spacetraders_api::models::TransferCargo200Response>;
 
 impl TMinreqRequest for TransferCargo {
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
@@ -26,7 +26,7 @@ impl TMinreqRequest for TransferCargo {
 impl TransferCargo {
     pub fn set_request(
         &mut self,
-        request: openapi::models::TransferCargoRequest,
+        request: pies_openapi_spacetraders_api::models::TransferCargoRequest,
         ship_symbol: String,
     ) {
         self.add_arg(ship_symbol);
