@@ -70,6 +70,4 @@ fn get_status(mut status: ResMut<markers::GetStatus>) {
 
 ## License
 
-`/openapi` is probably licensed under `Apache-2.0` ... idk
-
 Rest of the repo is dual licensed under `MIT` or `Apache-2.0`
