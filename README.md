@@ -33,7 +33,7 @@ fn main() {
 }
 
 fn add_token(mut config: ResMut<ClientConnectionConfig>) {
-    // bearer token, not every API needs it
+    // bearer token, almost every API needs it
     config.bearer_token = Some("Bearer XXXX".to_string());
 }
 // there's no need to specify 'markers::' but it makes it easy to know available apis
@@ -70,4 +70,4 @@ fn get_status(mut status: ResMut<markers::GetStatus>) {
 
 ## License
 
-Rest of the repo is dual licensed under `MIT` or `Apache-2.0`
+Repo is dual licensed under `MIT` or `Apache-2.0`
