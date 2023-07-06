@@ -33,7 +33,7 @@ use super::{
         systems::{
             get_jump_gate::GetJumpGate, get_market::GetMarket, get_shipyard::GetShipyard,
             get_system::GetSystem, get_waypoint::GetWaypoint, list_systems::ListSystems,
-            list_waypoints_in_system::ListWaypointsInSystem,
+            list_waypoints_in_system::ListWaypointsInSystem, all_systems::AllSystems,
         },
     },
     minreq_request_builder::MinreqRequestBuilderUnready,
@@ -106,7 +106,8 @@ impl Plugin for ClientPlugin {
         .init_resource::<GetSystem>()
         .init_resource::<GetWaypoint>()
         .init_resource::<ListSystems>()
-        .init_resource::<ListWaypointsInSystem>();
+        .init_resource::<ListWaypointsInSystem>()
+        .init_resource::<AllSystems>();
     }
 }
 

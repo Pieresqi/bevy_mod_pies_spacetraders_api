@@ -48,6 +48,7 @@ pub mod markers {
     pub use super::internal::markers::systems::get_waypoint::GetWaypoint;
     pub use super::internal::markers::systems::list_systems::ListSystems;
     pub use super::internal::markers::systems::list_waypoints_in_system::ListWaypointsInSystem;
+    pub use super::internal::markers::systems::all_systems::AllSystems;
 
     pub use super::internal::markers::fleet::create_chart::CreateChart;
     pub use super::internal::markers::fleet::create_survey::CreateSurvey;
