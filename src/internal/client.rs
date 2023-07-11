@@ -1,6 +1,6 @@
-use bevy_app::{App, CoreSet, Plugin};
+use bevy_app::{App, Plugin, PostUpdate, Update};
 use bevy_ecs::{
-    schedule::IntoSystemConfig,
+    schedule::IntoSystemConfigs,
     system::{Res, ResMut, Resource},
 };
 use bevy_tasks::IoTaskPool;
@@ -46,13 +46,13 @@ pub struct ClientPlugin;
 
 impl Plugin for ClientPlugin {
     fn build(&self, app: &mut App) {
-        app.add_system(dispatch_requests.in_base_set(CoreSet::PostUpdate).run_if(
+        app.add_systems(PostUpdate, dispatch_requests.run_if(
             move |new: Res<RequestsNew>, old: Res<RequestsOld>, bucket: Res<RateBucket>| {
                 (!new.requests.lock().unwrap().is_empty() || !old.requests.is_empty())
                     && (bucket.inner.peek(RateLimit::Normal) || bucket.inner.peek(RateLimit::Burst))
             },
         ))
-        .add_system(replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))))
+        .add_systems(Update, replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))))
         .init_resource::<RequestsNew>()
         .init_resource::<RequestsOld>()
         .init_resource::<RateBucket>()

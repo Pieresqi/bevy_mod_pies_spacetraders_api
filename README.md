@@ -66,6 +66,7 @@ fn get_status(mut status: ResMut<markers::GetStatus>) {
 
 |SpaceTraders|Bevy|Crate|
 |-|-|-|
+|`June 24, 2023`|`0.11.0`|`0.2.0`|
 |`June 24, 2023`|`0.10.1`|`0.1.0`, `0.1.1`|
 
 ## License
