@@ -53,7 +53,7 @@ fn set_status(mut status: ResMut<markers::GetStatus>) {
 
 // each API is it's own Resource (on surface, interior mutability goes BRRRRR)
 fn get_status(mut status: ResMut<markers::GetStatus>) {
-    for status in status.write_unwrap().drain(..) /* or pop() */ {
+    for status in status.write_unwrap().drain(..) {
         match status {
             Ok(status) => info!("{:?}", status),
             Err(error) => warn!("{:?}", error),
@@ -70,4 +70,4 @@ fn get_status(mut status: ResMut<markers::GetStatus>) {
 
 ## License
 
-Repo is dual licensed under `MIT` or `Apache-2.0`
+Repo is dual licensed under `MIT` or `Apache-2.0` unless stated othervise.
