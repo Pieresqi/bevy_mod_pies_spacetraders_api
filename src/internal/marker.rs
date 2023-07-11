@@ -61,6 +61,18 @@ where
     pub fn write_unwrap(&mut self) -> std::sync::RwLockWriteGuard<'_, Vec<Result<S, ClientError>>> {
         self.storage.responds.write().unwrap()
     }
+
+    pub fn get_last_and_clear(&mut self) -> Option<Result<S, ClientError>> {
+        let mut storage = self.write_unwrap();
+
+        let Some(respnse) = storage.pop() else {
+            return None;
+        };
+    
+        storage.clear();
+
+        Some(respnse)
+    }
 }
 
 impl<Q, S> FromWorld for Marker<Q, S>
