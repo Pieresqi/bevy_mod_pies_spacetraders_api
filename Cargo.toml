@@ -1,11 +1,11 @@
 [package]
 name = "bevy_mod_pies_spacetraders_api"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT OR Apache-2.0"
 categories = ["api-bindings", "game-development"]
 keywords =  [ "bevy", "spacetraders" ]
-include = ["/src", "/openapi", "/examples"]
+include = ["/src", "/examples"]
 description = "SpaceTraders API implemented for Bevy the game engine."
 authors = ["github.com/Pieresqi"]
 repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
