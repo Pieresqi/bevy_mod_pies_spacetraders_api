@@ -30,12 +30,11 @@ pub struct RequestsOld {
 pub struct RequestHolder {
     pub rates: Rates,
     pub data: Box<dyn TRequest + Send + Sync>,
-    pub args: Vec<String>,
 }
 
 pub trait TRequest: std::fmt::Debug {
     /// sends requests and stores responses
-    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig, args: Vec<String>);
+    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig);
 }
 
 #[derive(Debug)]
@@ -47,9 +46,12 @@ where
     /// put endpoint responses here
     pub responds: RespondsInner<Result<S, ClientError>>,
     /// actual data to be sent to the endpoint
-    pub request: Q,
+    pub request: Option<Q>,
     /// not all endpoints support query (page, limit)
     pub query: Option<QueryConf>,
+    pub method: Option<minreq::Method>,
+    pub path: Option<String>,
+    pub needs_token: bool,
 }
 
 impl<Q, S> TRequest for Request<Q, S>
@@ -59,12 +61,14 @@ where
     Marker<Q, S>: TMinreqRequest,
 {
     /// sends requests and stores responses
-    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig, args: Vec<String>) {
+    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig) {
         let min_req = Marker::<Q, S>::try_create_minreq_request(
             connection_config,
-            &self.request,
-            &self.query,
-            args,
+            self.request.take(),
+            self.query.take(),
+            self.method.take(),
+            self.path.take(),
+            self.needs_token,
         );
 
         let respond = match min_req {

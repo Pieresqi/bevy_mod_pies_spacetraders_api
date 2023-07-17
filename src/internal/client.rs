@@ -130,9 +130,11 @@ pub trait TMinreqRequest {
     /// tries to create marker specific endpoint request
     fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
         config: ClientConnectionConfig,
-        body: &B,
-        query: &Option<QueryConf>,
-        args: Vec<String>,
+        body: Option<B>,
+        query: Option<QueryConf>,
+        method: Option<minreq::Method>,
+        path: Option<String>,
+        token: bool,
     ) -> Result<minreq::Request, ClientError>;
 }
 
@@ -163,9 +165,7 @@ fn dispatch_requests(
         pool.spawn(async move {
             let mut request = request;
 
-            request
-                .data
-                .send_and_receive(connection_config, request.args);
+            request.data.send_and_receive(connection_config);
         })
         .detach();
 
@@ -183,9 +183,7 @@ fn dispatch_requests(
         pool.spawn(async move {
             let mut request = request;
 
-            request
-                .data
-                .send_and_receive(connection_config, request.args);
+            request.data.send_and_receive(connection_config);
         })
         .detach();
 
@@ -226,7 +224,7 @@ pub struct ClientConnectionConfig {
 
 impl ClientConnectionConfig {
     /// creates new request builder from connection config
-    pub fn new_builder<'a, B: serde::Serialize>(self) -> MinreqRequestBuilderUnready<'a, B> {
+    pub fn new_builder<B: serde::Serialize>(self) -> MinreqRequestBuilderUnready<B> {
         MinreqRequestBuilderUnready::new(self.bearer_token, self.path)
     }
 }

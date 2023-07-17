@@ -1,5 +1,7 @@
 use bevy_ecs::{system::Resource, world::FromWorld};
 
+use crate::prelude::ClientConnectionConfig;
+
 use super::{
     client::{ClientError, QueryConf, TMinreqRequest},
     rate_limiter::Rates,
@@ -18,10 +20,6 @@ where
     pub storage: Responds<Q, S>,
 
     pub rates: Option<Rates>,
-    // some endpoints require adding limit, page query params to endpoint
-    pub query: Option<QueryConf>,
-    // some endpoints require string arguments like contract_id, page....
-    pub args: Vec<String>,
 }
 
 impl<Q, S> Marker<Q, S>
@@ -34,27 +32,24 @@ where
         self.rates = Some(rates);
     }
 
-    pub fn add_query(
+    pub fn push_request(
         &mut self,
-        limit: Option<core::num::NonZeroU8>,
-        page: Option<core::num::NonZeroU8>,
+        method: minreq::Method,
+        path: Option<&str>,
+        query: Option<QueryConf>,
+        request: Option<Q>,
+        needs_token: bool,
     ) {
-        self.query = Some(QueryConf { limit, page });
-    }
-
-    pub fn add_arg(&mut self, arg: String) {
-        self.args.push(arg);
-    }
-
-    pub fn push_request(&mut self, request: Q) {
         self.target.requests.lock().unwrap().push(RequestHolder {
             rates: self.rates.take().unwrap_or_default(),
             data: Box::new(Request {
                 responds: self.storage.responds.clone(),
                 request,
-                query: self.query.take(),
+                query,
+                method: Some(method),
+                path: path.map(|inner| inner.to_string()),
+                needs_token,
             }),
-            args: core::mem::take(&mut self.args),
         });
     }
 
@@ -68,7 +63,7 @@ where
         let Some(respnse) = storage.pop() else {
             return None;
         };
-    
+
         storage.clear();
 
         Some(respnse)
@@ -90,8 +85,30 @@ where
                 _request: std::marker::PhantomData::<Q>,
             },
             rates: None,
-            query: None,
-            args: Vec::new(),
         }
+    }
+}
+
+impl<Q, S> TMinreqRequest for Marker<Q, S>
+where
+    for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
+    for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
+{
+    fn try_create_minreq_request<B: serde::Serialize>(
+        config: ClientConnectionConfig,
+        body: Option<B>,
+        query: Option<QueryConf>,
+        method: Option<minreq::Method>,
+        path: Option<String>,
+        token: bool,
+    ) -> Result<minreq::Request, ClientError> {
+        config
+            .new_builder::<B>()
+            .with_method(method.unwrap())
+            .with_path(path)
+            .with_body(body)
+            .with_query(query)
+            .with_bearer(token)
+            .build()
     }
 }

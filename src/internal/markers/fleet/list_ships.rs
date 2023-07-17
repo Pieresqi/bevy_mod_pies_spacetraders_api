@@ -1,26 +1,6 @@
-use crate::internal::{
-    client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
-    marker::Marker,
-};
+use crate::internal::{client::QueryConf, marker::Marker};
 
 pub type ListShips = Marker<(), pies_openapi_spacetraders_api::models::GetMyShips200Response>;
-
-impl TMinreqRequest for ListShips {
-    fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
-        config: ClientConnectionConfig,
-        _: &B,
-        query: &Option<QueryConf>,
-        _: Vec<String>,
-    ) -> Result<minreq::Request, ClientError> {
-        config
-            .new_builder::<B>()
-            .with_method(minreq::Method::Get)
-            .with_path("my/ships")
-            .needs_bearer()
-            .with_query(query)
-            .build()
-    }
-}
 
 impl ListShips {
     pub fn set_request(
@@ -28,7 +8,12 @@ impl ListShips {
         limit: Option<core::num::NonZeroU8>,
         page: Option<core::num::NonZeroU8>,
     ) {
-        self.add_query(limit, page);
-        self.push_request(());
+        self.push_request(
+            minreq::Method::Get,
+            "my/ships".into(),
+            QueryConf { limit, page }.into(),
+            None,
+            true,
+        );
     }
 }

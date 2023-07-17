@@ -1,29 +1,9 @@
-use crate::internal::{
-    client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
-    marker::Marker,
-};
+use crate::internal::marker::Marker;
 
 pub type PurchaseCargo = Marker<
     pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
     pies_openapi_spacetraders_api::models::PurchaseCargo201Response,
 >;
-
-impl TMinreqRequest for PurchaseCargo {
-    fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
-        config: ClientConnectionConfig,
-        body: &B,
-        _: &Option<QueryConf>,
-        args: Vec<String>,
-    ) -> Result<minreq::Request, ClientError> {
-        config
-            .new_builder::<B>()
-            .with_method(minreq::Method::Post)
-            .with_path(&format!("my/ships/{}/purchase", args[0]))
-            .needs_bearer()
-            .with_body(body)
-            .build()
-    }
-}
 
 impl PurchaseCargo {
     pub fn set_request(
@@ -31,7 +11,12 @@ impl PurchaseCargo {
         request: pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
         ship_symbol: String,
     ) {
-        self.add_arg(ship_symbol);
-        self.push_request(request);
+        self.push_request(
+            minreq::Method::Post,
+            Some(&format!("my/ships/{}/purchase", ship_symbol)),
+            None,
+            request.into(),
+            true,
+        );
     }
 }

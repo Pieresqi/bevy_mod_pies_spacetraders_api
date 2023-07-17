@@ -4,16 +4,16 @@ use super::{
 };
 
 /// first stage of minreq request builder
-pub struct MinreqRequestBuilderUnready<'a, B: serde::Serialize> {
+pub struct MinreqRequestBuilderUnready<B: serde::Serialize> {
     bearer_token: Option<String>,
     path: String,
     needs_bearer: bool,
-    body: Option<&'a B>,
-    query: &'a Option<QueryConf>,
-    additional_path: Option<&'a str>,
+    body: Option<B>,
+    query: Option<QueryConf>,
+    additional_path: Option<String>,
 }
 
-impl<'a, B: serde::Serialize> MinreqRequestBuilderUnready<'a, B> {
+impl<'a, B: serde::Serialize> MinreqRequestBuilderUnready<B> {
     /// out of supplied bearer token and base endpoint path builds itself
     pub fn new(bearer_token: Option<String>, path: String) -> Self {
         Self {
@@ -21,13 +21,13 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderUnready<'a, B> {
             path,
             needs_bearer: false,
             body: None,
-            query: &None,
+            query: None,
             additional_path: None,
         }
     }
 
     /// what method should the http request be (get, post, etc)
-    pub fn with_method(self, method: minreq::Method) -> MinreqRequestBuilderReady<'a, B> {
+    pub fn with_method(self, method: minreq::Method) -> MinreqRequestBuilderReady<B> {
         MinreqRequestBuilderReady {
             builder: self,
             request_method: method,
@@ -36,33 +36,33 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderUnready<'a, B> {
 }
 
 /// second and final stage of minreq request builder
-pub struct MinreqRequestBuilderReady<'a, B: serde::Serialize> {
-    builder: MinreqRequestBuilderUnready<'a, B>,
+pub struct MinreqRequestBuilderReady<B: serde::Serialize> {
+    builder: MinreqRequestBuilderUnready<B>,
     request_method: minreq::Method,
 }
 
-impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<'a, B> {
+impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<B> {
     /// bearer token will be needed for request
-    pub fn needs_bearer(mut self) -> Self {
-        self.builder.needs_bearer = true;
+    pub fn with_bearer(mut self, token: bool) -> Self {
+        self.builder.needs_bearer = token;
         self
     }
 
     /// adds additional endpoint path after base endpoint path
-    pub fn with_path(mut self, path: &'a str) -> Self {
-        self.builder.additional_path = Some(path);
+    pub fn with_path(mut self, path: Option<String>) -> Self {
+        self.builder.additional_path = path;
         self
     }
 
     /// adds limit and page query to the request
-    pub fn with_query(mut self, query: &'a Option<QueryConf>) -> Self {
+    pub fn with_query(mut self, query: Option<QueryConf>) -> Self {
         self.builder.query = query;
         self
     }
 
     /// adds json payload to the request
-    pub fn with_body(mut self, body: &'a B) -> Self {
-        self.builder.body = Some(body);
+    pub fn with_body(mut self, body: Option<B>) -> Self {
+        self.builder.body = body;
         self
     }
 
@@ -73,7 +73,7 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<'a, B> {
             format!(
                 "{}{}",
                 self.builder.path,
-                self.builder.additional_path.unwrap_or("")
+                self.builder.additional_path.unwrap_or("".to_string())
             ),
         );
 
@@ -99,7 +99,7 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<'a, B> {
 
         // add optional json body
         if let Some(body) = self.builder.body {
-            match serde_json::to_string(body) {
+            match serde_json::to_string(&body) {
                 Ok(body) => {
                     request = request
                         .with_body(body)

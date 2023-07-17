@@ -21,6 +21,8 @@ pub mod prelude {
     pub use pies_openapi_spacetraders_api::models;
     pub use pies_openapi_spacetraders_api::models::*;
 
+    pub use minreq::Method;
+
     pub use super::markers;
     pub use super::markers::*;
 }
