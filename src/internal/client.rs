@@ -31,9 +31,9 @@ use super::{
         get_status::GetStatus,
         register_new_agent::RegisterNewAgent,
         systems::{
-            get_jump_gate::GetJumpGate, get_market::GetMarket, get_shipyard::GetShipyard,
-            get_system::GetSystem, get_waypoint::GetWaypoint, list_systems::ListSystems,
-            list_waypoints_in_system::ListWaypointsInSystem, all_systems::AllSystems,
+            all_systems::AllSystems, get_jump_gate::GetJumpGate, get_market::GetMarket,
+            get_shipyard::GetShipyard, get_system::GetSystem, get_waypoint::GetWaypoint,
+            list_systems::ListSystems, list_waypoints_in_system::ListWaypointsInSystem,
         },
     },
     minreq_request_builder::MinreqRequestBuilderUnready,
@@ -46,13 +46,20 @@ pub struct ClientPlugin;
 
 impl Plugin for ClientPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(PostUpdate, dispatch_requests.run_if(
-            move |new: Res<RequestsNew>, old: Res<RequestsOld>, bucket: Res<RateBucket>| {
-                (!new.requests.lock().unwrap().is_empty() || !old.requests.is_empty())
-                    && (bucket.inner.peek(RateLimit::Normal) || bucket.inner.peek(RateLimit::Burst))
-            },
-        ))
-        .add_systems(Update, replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))))
+        app.add_systems(
+            PostUpdate,
+            dispatch_requests.run_if(
+                move |new: Res<RequestsNew>, old: Res<RequestsOld>, bucket: Res<RateBucket>| {
+                    (!new.requests.lock().unwrap().is_empty() || !old.requests.is_empty())
+                        && (bucket.inner.peek(RateLimit::Normal)
+                            || bucket.inner.peek(RateLimit::Burst))
+                },
+            ),
+        )
+        .add_systems(
+            Update,
+            replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))),
+        )
         .init_resource::<RequestsNew>()
         .init_resource::<RequestsOld>()
         .init_resource::<RateBucket>()
