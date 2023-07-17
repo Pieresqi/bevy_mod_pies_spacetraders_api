@@ -4,17 +4,17 @@ use bevy_mod_pies_spacetraders_api::prelude::*;
 fn main() {
     App::new()
         .add_plugins(MinimalPlugins)
-        .add_plugin(LogPlugin::default())
+        .add_plugins(LogPlugin::default())
         // we will need this, it sets up stuff
-        .add_plugin(ClientPlugin)
-        .add_system(add_token.in_schedule(CoreSchedule::Startup))
-        .add_system(set_status.run_if(run_once()))
-        .add_system(get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
+        .add_plugins(ClientPlugin)
+        .add_systems(Startup, add_token)
+        .add_systems(Update, set_status.run_if(run_once()))
+        .add_systems(Update, get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
         .run();
 }
 
 fn add_token(mut config: ResMut<ClientConnectionConfig>) {
-    // bearer token, not every API needs it
+    // bearer token, almost every API needs it
     config.bearer_token = Some("Bearer XXXX".to_string());
 }
 // there's no need to specify 'markers::' but it makes it easy to know available apis
@@ -34,7 +34,7 @@ fn set_status(mut status: ResMut<markers::GetStatus>) {
 
 // each API is it's own Resource (on surface, interior mutability goes BRRRRR)
 fn get_status(mut status: ResMut<markers::GetStatus>) {
-    for status in status.write_unwrap().drain(..) /* or pop() */ {
+    for status in status.write_unwrap().drain(..) {
         match status {
             Ok(status) => info!("{:?}", status),
             Err(error) => warn!("{:?}", error),

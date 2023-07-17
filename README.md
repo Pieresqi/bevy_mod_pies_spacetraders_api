@@ -23,12 +23,12 @@ use bevy_mod_pies_spacetraders_api::prelude::*;
 fn main() {
     App::new()
         .add_plugins(MinimalPlugins)
-        .add_plugin(LogPlugin::default())
+        .add_plugins(LogPlugin::default())
         // we will need this, it sets up stuff
-        .add_plugin(ClientPlugin)
-        .add_system(add_token.in_schedule(CoreSchedule::Startup))
-        .add_system(set_status.run_if(run_once()))
-        .add_system(get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
+        .add_plugins(ClientPlugin)
+        .add_systems(Startup, add_token)
+        .add_systems(Update, set_status.run_if(run_once()))
+        .add_systems(Update, get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
         .run();
 }
 
