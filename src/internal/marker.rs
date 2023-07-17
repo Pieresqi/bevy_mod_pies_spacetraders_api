@@ -28,7 +28,7 @@ where
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
     Self: TMinreqRequest,
 {
-    pub fn add_rates(&mut self, rates: Rates) {
+    pub fn set_rates(&mut self, rates: Rates) {
         self.rates = Some(rates);
     }
 

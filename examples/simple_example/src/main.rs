@@ -21,7 +21,7 @@ fn add_token(mut config: ResMut<ClientConnectionConfig>) {
 fn set_status(mut status: ResMut<markers::GetStatus>) {
     // setting rates is optional (defaults: RateLimit::Normal, RateStrategy::Queued, RatePriority::Normal)
     // will be reset after sending request
-    status.add_rates(Rates {
+    status.set_rates(Rates {
         // we will use Burst limiter - up to 10 requests per second over 10 seconds
         limit: RateLimit::Burst,
         // request will be queued untill wa can send it
