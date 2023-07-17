@@ -64,7 +64,7 @@ pub fn handle_response<S: for<'d> serde::Deserialize<'d>>(
     }
 }
 
-pub fn response_received<T>() -> impl FnMut(Res<T>) -> bool
+pub fn response_received<T>() -> impl Fn(Res<T>) -> bool
 where
     T: Resource + TRespondsReceived,
 {
