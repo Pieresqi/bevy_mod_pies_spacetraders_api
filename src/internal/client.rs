@@ -36,7 +36,6 @@ use super::{
             list_systems::ListSystems, list_waypoints_in_system::ListWaypointsInSystem,
         },
     },
-    minreq_request_builder::MinreqRequestBuilderUnready,
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
     request::{RequestError, RequestsNew, RequestsOld},
     respond::RespondError,
@@ -217,16 +216,35 @@ pub enum ClientError {
 /// client config
 pub struct ClientConnectionConfig {
     /// endpoind base path
-    pub path: String,
+    pub(crate) path: String,
     /// private token for auth
-    pub bearer_token: Option<String>,
+    pub(crate) bearer_token: Option<String>,
 }
 
 impl ClientConnectionConfig {
-    /// creates new request builder from connection config
-    pub fn new_builder<B: serde::Serialize>(self) -> MinreqRequestBuilderUnready<B> {
-        MinreqRequestBuilderUnready::new(self.bearer_token, self.path)
+    pub fn set_endpoint_path<I: Into<String>>(&mut self, end_path: I) {
+        self.path = end_path.into();
+        if !self.path.ends_with("/") {
+            self.path.push_str("/");
+        }
     }
+
+    pub fn set_bearer_token<I: Into<String>>(&mut self, bear_token: I) {
+        self.bearer_token = bear_token.into().into();
+        if !self.bearer_token.as_mut().unwrap().starts_with("Bearer ") {
+            let token = core::mem::take(self.bearer_token.as_mut().unwrap());
+            self.bearer_token = Some(format!("Bearer {}", token));
+        }
+    }
+
+    pub fn get_endpoint_path(&self) -> &str {
+        &self.path
+    }
+
+    pub fn get_bearer_token(&self) -> Option<&str> {
+        self.bearer_token.as_deref()
+    }
+
 }
 
 impl Default for ClientConnectionConfig {

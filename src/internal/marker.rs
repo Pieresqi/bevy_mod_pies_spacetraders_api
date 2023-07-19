@@ -6,7 +6,7 @@ use super::{
     client::{ClientError, QueryConf, TMinreqRequest},
     rate_limiter::Rates,
     request::{Request, RequestHolder, RequestsNew},
-    respond::Responds,
+    respond::Responds, minreq_request_builder::MinreqRequestBuilderUnready,
 };
 
 #[derive(Debug, Resource)]
@@ -102,8 +102,7 @@ where
         path: Option<String>,
         token: bool,
     ) -> Result<minreq::Request, ClientError> {
-        config
-            .new_builder::<B>()
+        MinreqRequestBuilderUnready::new(config.bearer_token, config.path)
             .with_method(method.unwrap())
             .with_path(path)
             .with_body(body)
