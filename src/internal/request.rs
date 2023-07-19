@@ -7,13 +7,6 @@ use super::{
     respond::{handle_response, RespondsInner},
 };
 
-#[derive(Debug)]
-/// errors caused by bad data in request
-pub enum RequestError {
-    BearerPrivateTokenNotSet,
-    Serde(serde_json::Error),
-}
-
 #[derive(Debug, Default, Resource, Clone)]
 /// stores all new requests to be processed
 pub struct RequestsNew {

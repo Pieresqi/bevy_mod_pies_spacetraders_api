@@ -37,7 +37,7 @@ use super::{
         },
     },
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
-    request::{RequestError, RequestsNew, RequestsOld},
+    request::{RequestsNew, RequestsOld},
     respond::RespondError,
 };
 
@@ -207,7 +207,6 @@ fn dispatch_requests(
 #[derive(Debug)]
 /// represents all, ignoring panics, possible errors produced by this crate
 pub enum ClientError {
-    Request(RequestError),
     Respond(RespondError),
     Connection(minreq::Error),
 }
@@ -218,7 +217,7 @@ pub struct ClientConnectionConfig {
     /// endpoind base path
     pub(crate) path: String,
     /// private token for auth
-    pub(crate) bearer_token: Option<String>,
+    pub(crate) bearer_token: String,
 }
 
 impl ClientConnectionConfig {
@@ -231,9 +230,8 @@ impl ClientConnectionConfig {
 
     pub fn set_bearer_token<I: Into<String>>(&mut self, bear_token: I) {
         self.bearer_token = bear_token.into().into();
-        if !self.bearer_token.as_mut().unwrap().starts_with("Bearer ") {
-            let token = core::mem::take(self.bearer_token.as_mut().unwrap());
-            self.bearer_token = Some(format!("Bearer {}", token));
+        if !self.bearer_token.starts_with("Bearer ") {
+            self.bearer_token = format!("Bearer {}", self.bearer_token);
         }
     }
 
@@ -241,17 +239,16 @@ impl ClientConnectionConfig {
         &self.path
     }
 
-    pub fn get_bearer_token(&self) -> Option<&str> {
-        self.bearer_token.as_deref()
+    pub fn get_bearer_token(&self) -> &str {
+        &self.bearer_token
     }
-
 }
 
 impl Default for ClientConnectionConfig {
     fn default() -> Self {
         Self {
             path: AD.to_string(),
-            bearer_token: None,
+            bearer_token: String::new(),
         }
     }
 }

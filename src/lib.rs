@@ -4,8 +4,6 @@ pub mod prelude {
     pub use super::internal::respond::response_received;
     pub use super::internal::respond::RespondError;
 
-    pub use super::internal::request::RequestError;
-
     pub use super::internal::marker::Marker;
 
     pub use super::internal::rate_limiter::RateLimit;

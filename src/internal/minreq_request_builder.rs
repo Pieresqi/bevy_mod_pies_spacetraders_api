@@ -1,11 +1,8 @@
-use super::{
-    client::{ClientError, QueryConf},
-    request::RequestError,
-};
+use super::client::{ClientError, QueryConf};
 
 /// first stage of minreq request builder
 pub struct MinreqRequestBuilderUnready<B: serde::Serialize> {
-    bearer_token: Option<String>,
+    bearer_token: String,
     path: String,
     needs_bearer: bool,
     body: Option<B>,
@@ -15,7 +12,7 @@ pub struct MinreqRequestBuilderUnready<B: serde::Serialize> {
 
 impl<'a, B: serde::Serialize> MinreqRequestBuilderUnready<B> {
     /// out of supplied bearer token and base endpoint path builds itself
-    pub fn new(bearer_token: Option<String>, path: String) -> Self {
+    pub fn new(bearer_token: String, path: String) -> Self {
         Self {
             bearer_token,
             path,
@@ -79,11 +76,7 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<B> {
 
         // add optional bearer token
         if self.builder.needs_bearer {
-            let Some(token) = &self.builder.bearer_token else {
-                return Err(ClientError::Request(RequestError::BearerPrivateTokenNotSet))
-            };
-
-            request = request.with_header("Authorization", token);
+            request = request.with_header("Authorization", self.builder.bearer_token);
         }
 
         // add optional query
@@ -99,14 +92,9 @@ impl<'a, B: serde::Serialize> MinreqRequestBuilderReady<B> {
 
         // add optional json body
         if let Some(body) = self.builder.body {
-            match serde_json::to_string(&body) {
-                Ok(body) => {
-                    request = request
-                        .with_body(body)
-                        .with_header("Content-Type", "application/json")
-                }
-                Err(error) => return Err(ClientError::Request(RequestError::Serde(error))),
-            }
+            request = request
+                .with_body(serde_json::to_string(&body).unwrap())
+                .with_header("Content-Type", "application/json")
         }
 
         Ok(request)

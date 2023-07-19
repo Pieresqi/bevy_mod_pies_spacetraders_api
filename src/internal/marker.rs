@@ -4,9 +4,10 @@ use crate::prelude::ClientConnectionConfig;
 
 use super::{
     client::{ClientError, QueryConf, TMinreqRequest},
+    minreq_request_builder::MinreqRequestBuilderUnready,
     rate_limiter::Rates,
     request::{Request, RequestHolder, RequestsNew},
-    respond::Responds, minreq_request_builder::MinreqRequestBuilderUnready,
+    respond::Responds,
 };
 
 #[derive(Debug, Resource)]
