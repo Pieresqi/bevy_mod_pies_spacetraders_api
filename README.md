@@ -36,8 +36,8 @@ fn add_token(mut config: ResMut<ClientConnectionConfig>) {
     // bearer token, almost every API needs it
     config.set_bearer_token("XXX");
 }
-// there's no need to specify 'markers::' but it makes it easy to know available apis
-fn set_status(mut status: ResMut<markers::GetStatus>) {
+// there's no need to specify 'endpoints::' but it makes it easy to know available apis
+fn set_status(mut status: ResMut<endpoints::GetStatus>) {
     // setting rates is optional (defaults: RateLimit::Normal, RateStrategy::Queued, RatePriority::Normal)
     // will be reset after sending request
     status.set_rates(Rates {
@@ -52,7 +52,7 @@ fn set_status(mut status: ResMut<markers::GetStatus>) {
 }
 
 // each API is it's own Resource (on surface, interior mutability goes BRRRRR)
-fn get_status(mut status: ResMut<markers::GetStatus>) {
+fn get_status(mut status: ResMut<endpoints::GetStatus>) {
     for status in status.write_unwrap().drain(..) {
         match status {
             Ok(status) => info!("{:?}", status),
