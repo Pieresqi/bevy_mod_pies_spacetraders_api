@@ -2,7 +2,7 @@ use bevy_ecs::system::Resource;
 
 use super::{
     client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
-    marker::Endpoint,
+    endpoint::Endpoint,
     rate_limiter::Rates,
     respond::{handle_response, RespondsInner},
 };

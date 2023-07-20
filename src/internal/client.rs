@@ -7,7 +7,7 @@ use bevy_tasks::IoTaskPool;
 use bevy_time::common_conditions::on_timer;
 
 use super::{
-    markers::{
+    endpoints::{
         agents::get_agent::GetAgent,
         contracts::{
             accept_contract::AcceptContract, deliver_cargo_to_contract::DeliverCargoToContract,

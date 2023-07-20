@@ -1,6 +1,6 @@
 pub mod client;
-pub mod marker;
-pub mod markers;
+pub mod endpoint;
+pub mod endpoints;
 pub mod minreq_request_builder;
 pub mod rate_limiter;
 pub mod request;

@@ -2,7 +2,7 @@ use bevy_ecs::system::{Res, Resource};
 
 use super::{
     client::{ClientError, TMinreqRequest},
-    marker::Endpoint,
+    endpoint::Endpoint,
 };
 
 pub type RespondsInner<S> = std::sync::Arc<std::sync::RwLock<Vec<S>>>;
