@@ -13,6 +13,7 @@ Issues / Pull requests / criticism / requests welcome.
 - Simple and Ergonomic (I hope) API
 - Integrated rate limiter
 - Made for Bevy
+- Easily create new API (endpoints)
 
 ## Simple Example
 
@@ -64,7 +65,7 @@ fn get_status(mut status: ResMut<endpoints::GetStatus>) {
 
 ## Version Compatibility Table
 
-|SpaceTraders*|Bevy|Crate|
+|SpaceTraders|Bevy|Crate*|
 |-|-|-|
 |`June 24, 2023`|`0.11.0`|`0.2.0`|
 |`June 24, 2023`|`0.10.1`|`0.1.1`, `0.1.0`|
