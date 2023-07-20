@@ -2,7 +2,7 @@ use bevy_ecs::system::{Res, Resource};
 
 use super::{
     client::{ClientError, TMinreqRequest},
-    marker::Marker,
+    marker::Endpoint,
 };
 
 pub type RespondsInner<S> = std::sync::Arc<std::sync::RwLock<Vec<S>>>;
@@ -19,7 +19,7 @@ pub trait TRespondsReceived {
     fn read_unwrap_is_empty(&self) -> bool;
 }
 
-impl<Q, S> TRespondsReceived for Marker<Q, S>
+impl<Q, S> TRespondsReceived for Endpoint<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,

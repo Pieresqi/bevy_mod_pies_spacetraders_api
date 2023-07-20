@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetShipyard = Marker<(), pies_openapi_spacetraders_api::models::GetShipyard200Response>;
+pub type GetShipyard = Endpoint<(), pies_openapi_spacetraders_api::models::GetShipyard200Response>;
 
 impl GetShipyard {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {

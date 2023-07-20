@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetAgent = Marker<(), pies_openapi_spacetraders_api::models::GetMyAgent200Response>;
+pub type GetAgent = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyAgent200Response>;
 
 impl GetAgent {
     pub fn set_request(&mut self) {

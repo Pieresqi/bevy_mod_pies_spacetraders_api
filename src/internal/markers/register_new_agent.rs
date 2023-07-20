@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type RegisterNewAgent = Marker<
+pub type RegisterNewAgent = Endpoint<
     pies_openapi_spacetraders_api::models::RegisterRequest,
     pies_openapi_spacetraders_api::models::Register201Response,
 >;

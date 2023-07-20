@@ -1,7 +1,7 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
 pub type ScanWaypoints =
-    Marker<(), pies_openapi_spacetraders_api::models::CreateShipWaypointScan201Response>;
+    Endpoint<(), pies_openapi_spacetraders_api::models::CreateShipWaypointScan201Response>;
 
 impl ScanWaypoints {
     pub fn set_request(&mut self, ship_symbol: String) {

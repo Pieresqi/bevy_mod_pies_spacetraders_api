@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetSystem = Marker<(), pies_openapi_spacetraders_api::models::GetSystem200Response>;
+pub type GetSystem = Endpoint<(), pies_openapi_spacetraders_api::models::GetSystem200Response>;
 
 impl GetSystem {
     pub fn set_request(&mut self, system_symbol: String) {

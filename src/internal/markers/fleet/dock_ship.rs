@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type DockShip = Marker<(), pies_openapi_spacetraders_api::models::DockShip200Response>;
+pub type DockShip = Endpoint<(), pies_openapi_spacetraders_api::models::DockShip200Response>;
 
 impl DockShip {
     pub fn set_request(&mut self, ship_symbol: String) {

@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type PatchShipNav = Marker<
+pub type PatchShipNav = Endpoint<
     pies_openapi_spacetraders_api::models::PatchShipNavRequest,
     pies_openapi_spacetraders_api::models::GetShipNav200Response,
 >;

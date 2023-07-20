@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type DeliverCargoToContract = Marker<
+pub type DeliverCargoToContract = Endpoint<
     pies_openapi_spacetraders_api::models::DeliverContractRequest,
     pies_openapi_spacetraders_api::models::DeliverContract200Response,
 >;

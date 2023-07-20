@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetWaypoint = Marker<(), pies_openapi_spacetraders_api::models::GetWaypoint200Response>;
+pub type GetWaypoint = Endpoint<(), pies_openapi_spacetraders_api::models::GetWaypoint200Response>;
 
 impl GetWaypoint {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {

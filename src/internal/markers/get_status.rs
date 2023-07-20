@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetStatus = Marker<(), pies_openapi_spacetraders_api::models::GetStatus200Response>;
+pub type GetStatus = Endpoint<(), pies_openapi_spacetraders_api::models::GetStatus200Response>;
 
 impl GetStatus {
     pub fn set_request(&mut self) {

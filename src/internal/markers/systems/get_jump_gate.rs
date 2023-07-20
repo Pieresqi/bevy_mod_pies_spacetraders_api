@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetJumpGate = Marker<(), pies_openapi_spacetraders_api::models::GetJumpGate200Response>;
+pub type GetJumpGate = Endpoint<(), pies_openapi_spacetraders_api::models::GetJumpGate200Response>;
 
 impl GetJumpGate {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {

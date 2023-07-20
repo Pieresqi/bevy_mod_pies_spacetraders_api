@@ -1,7 +1,7 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
 pub type AcceptContract =
-    Marker<(), pies_openapi_spacetraders_api::models::AcceptContract200Response>;
+    Endpoint<(), pies_openapi_spacetraders_api::models::AcceptContract200Response>;
 
 impl AcceptContract {
     pub fn set_request(&mut self, contract_id: String) {

@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type NavigateShip = Marker<
+pub type NavigateShip = Endpoint<
     pies_openapi_spacetraders_api::models::NavigateShipRequest,
     pies_openapi_spacetraders_api::models::NavigateShip200Response,
 >;

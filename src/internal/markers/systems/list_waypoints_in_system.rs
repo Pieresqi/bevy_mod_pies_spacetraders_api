@@ -1,7 +1,7 @@
-use crate::internal::{client::QueryConf, marker::Marker};
+use crate::internal::{client::QueryConf, marker::Endpoint};
 
 pub type ListWaypointsInSystem =
-    Marker<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
+    Endpoint<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
 
 impl ListWaypointsInSystem {
     pub fn set_request(

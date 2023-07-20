@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type ShipRefine = Marker<
+pub type ShipRefine = Endpoint<
     pies_openapi_spacetraders_api::models::ShipRefineRequest,
     pies_openapi_spacetraders_api::models::ShipRefine201Response,
 >;

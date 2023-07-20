@@ -1,7 +1,7 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
 pub type WarpShip =
-    Marker<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
+    Endpoint<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
 
 impl WarpShip {
     pub fn set_request(&mut self, request: WarpShipRequest, ship_symbol: String) {

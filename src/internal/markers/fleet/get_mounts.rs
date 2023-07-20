@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetMounts = Marker<(), pies_openapi_spacetraders_api::models::GetMounts200Response>;
+pub type GetMounts = Endpoint<(), pies_openapi_spacetraders_api::models::GetMounts200Response>;
 
 impl GetMounts {
     pub fn set_request(&mut self, ship_symbol: String) {

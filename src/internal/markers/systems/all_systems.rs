@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type AllSystems = Marker<(), Vec<pies_openapi_spacetraders_api::models::System>>;
+pub type AllSystems = Endpoint<(), Vec<pies_openapi_spacetraders_api::models::System>>;
 
 impl AllSystems {
     pub fn set_request(&mut self) {

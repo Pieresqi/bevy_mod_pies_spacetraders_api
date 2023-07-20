@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type InstallMount = Marker<
+pub type InstallMount = Endpoint<
     pies_openapi_spacetraders_api::models::InstallMountRequest,
     pies_openapi_spacetraders_api::models::InstallMount201Response,
 >;

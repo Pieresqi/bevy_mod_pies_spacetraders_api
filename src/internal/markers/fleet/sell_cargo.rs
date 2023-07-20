@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type SellCargo = Marker<
+pub type SellCargo = Endpoint<
     pies_openapi_spacetraders_api::models::SellCargoRequest,
     pies_openapi_spacetraders_api::models::SellCargo201Response,
 >;

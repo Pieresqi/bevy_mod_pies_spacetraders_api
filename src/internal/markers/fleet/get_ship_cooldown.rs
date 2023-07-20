@@ -1,7 +1,7 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
 pub type GetShipCooldown =
-    Marker<(), pies_openapi_spacetraders_api::models::GetShipCooldown200Response>;
+    Endpoint<(), pies_openapi_spacetraders_api::models::GetShipCooldown200Response>;
 
 impl GetShipCooldown {
     pub fn set_request(&mut self, ship_symbol: String) {

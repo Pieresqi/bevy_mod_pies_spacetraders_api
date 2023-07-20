@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type RefuelShip = Marker<
+pub type RefuelShip = Endpoint<
     pies_openapi_spacetraders_api::models::RefuelShipRequest,
     pies_openapi_spacetraders_api::models::RefuelShip200Response,
 >;

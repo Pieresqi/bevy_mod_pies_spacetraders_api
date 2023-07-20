@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type CreateSurvey = Marker<(), pies_openapi_spacetraders_api::models::CreateSurvey201Response>;
+pub type CreateSurvey = Endpoint<(), pies_openapi_spacetraders_api::models::CreateSurvey201Response>;
 
 impl CreateSurvey {
     pub fn set_request(&mut self, ship_symbol: String) {

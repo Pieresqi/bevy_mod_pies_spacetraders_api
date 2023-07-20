@@ -1,6 +1,6 @@
-use crate::internal::{client::QueryConf, marker::Marker};
+use crate::internal::{client::QueryConf, marker::Endpoint};
 
-pub type ListShips = Marker<(), pies_openapi_spacetraders_api::models::GetMyShips200Response>;
+pub type ListShips = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyShips200Response>;
 
 impl ListShips {
     pub fn set_request(

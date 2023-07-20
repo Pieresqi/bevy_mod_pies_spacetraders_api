@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type CreateChart = Marker<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
+pub type CreateChart = Endpoint<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
 
 impl CreateChart {
     pub fn set_request(&mut self, ship_symbol: String) {

@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetContract = Marker<(), pies_openapi_spacetraders_api::models::GetContract200Response>;
+pub type GetContract = Endpoint<(), pies_openapi_spacetraders_api::models::GetContract200Response>;
 
 impl GetContract {
     pub fn set_request(&mut self, contract_id: String) {

@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type ExtractResources = Marker<
+pub type ExtractResources = Endpoint<
     pies_openapi_spacetraders_api::models::ExtractResourcesRequest,
     pies_openapi_spacetraders_api::models::ExtractResources201Response,
 >;

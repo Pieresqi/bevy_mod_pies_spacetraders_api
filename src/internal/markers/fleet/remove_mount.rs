@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type RemoveMount = Marker<
+pub type RemoveMount = Endpoint<
     pies_openapi_spacetraders_api::models::RemoveMountRequest,
     pies_openapi_spacetraders_api::models::RemoveMount201Response,
 >;

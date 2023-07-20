@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetMarket = Marker<(), pies_openapi_spacetraders_api::models::GetMarket200Response>;
+pub type GetMarket = Endpoint<(), pies_openapi_spacetraders_api::models::GetMarket200Response>;
 
 impl GetMarket {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {

@@ -2,7 +2,7 @@ use bevy_ecs::system::Resource;
 
 use super::{
     client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
-    marker::Marker,
+    marker::Endpoint,
     rate_limiter::Rates,
     respond::{handle_response, RespondsInner},
 };
@@ -51,11 +51,11 @@ impl<Q, S> TRequest for Request<Q, S>
 where
     Q: Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-    Marker<Q, S>: TMinreqRequest,
+    Endpoint<Q, S>: TMinreqRequest,
 {
     /// sends requests and stores responses
     fn send_and_receive(&mut self, connection_config: ClientConnectionConfig) {
-        let min_req = Marker::<Q, S>::try_create_minreq_request(
+        let min_req = Endpoint::<Q, S>::try_create_minreq_request(
             connection_config,
             self.request.take(),
             self.query.take(),

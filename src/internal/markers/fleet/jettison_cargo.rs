@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type JettisonCargo = Marker<
+pub type JettisonCargo = Endpoint<
     pies_openapi_spacetraders_api::models::JettisonRequest,
     pies_openapi_spacetraders_api::models::Jettison200Response,
 >;

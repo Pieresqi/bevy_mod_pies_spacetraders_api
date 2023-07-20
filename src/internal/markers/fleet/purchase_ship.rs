@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type PurchaseShip = Marker<
+pub type PurchaseShip = Endpoint<
     pies_openapi_spacetraders_api::models::PurchaseShipRequest,
     pies_openapi_spacetraders_api::models::PurchaseShip201Response,
 >;

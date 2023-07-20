@@ -1,6 +1,6 @@
-use crate::internal::marker::Marker;
+use crate::internal::marker::Endpoint;
 
-pub type GetShip = Marker<(), pies_openapi_spacetraders_api::models::GetMyShip200Response>;
+pub type GetShip = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyShip200Response>;
 
 impl GetShip {
     pub fn set_request(&mut self, ship_symbol: String) {

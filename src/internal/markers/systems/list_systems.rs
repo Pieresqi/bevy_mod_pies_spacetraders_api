@@ -1,6 +1,6 @@
-use crate::internal::{client::QueryConf, marker::Marker};
+use crate::internal::{client::QueryConf, marker::Endpoint};
 
-pub type ListSystems = Marker<(), pies_openapi_spacetraders_api::models::GetSystems200Response>;
+pub type ListSystems = Endpoint<(), pies_openapi_spacetraders_api::models::GetSystems200Response>;
 
 impl ListSystems {
     pub fn set_request(

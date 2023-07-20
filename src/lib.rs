@@ -4,7 +4,7 @@ pub mod prelude {
     pub use super::internal::respond::response_received;
     pub use super::internal::respond::RespondError;
 
-    pub use super::internal::marker::Marker;
+    pub use super::internal::marker::Endpoint;
 
     pub use super::internal::rate_limiter::RateLimit;
     pub use super::internal::rate_limiter::RatePriority;

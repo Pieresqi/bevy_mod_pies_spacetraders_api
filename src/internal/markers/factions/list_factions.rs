@@ -1,6 +1,6 @@
-use crate::internal::{client::QueryConf, marker::Marker};
+use crate::internal::{client::QueryConf, marker::Endpoint};
 
-pub type ListFactions = Marker<(), pies_openapi_spacetraders_api::models::GetFactions200Response>;
+pub type ListFactions = Endpoint<(), pies_openapi_spacetraders_api::models::GetFactions200Response>;
 
 impl ListFactions {
     pub fn set_request(

@@ -11,7 +11,7 @@ use super::{
 };
 
 #[derive(Debug, Resource)]
-pub struct Marker<Q, S>
+pub struct Endpoint<Q, S>
 where
     Q: Send + Sync + serde::Serialize, // what will be sent as json
     for<'a> S: Send + Sync + serde::Deserialize<'a>, // what will be received as json
@@ -22,7 +22,7 @@ where
     pub rates: Option<Rates>,
 }
 
-impl<Q, S> Marker<Q, S>
+impl<Q, S> Endpoint<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
@@ -69,7 +69,7 @@ where
     }
 }
 
-impl<Q, S> FromWorld for Marker<Q, S>
+impl<Q, S> FromWorld for Endpoint<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
@@ -87,7 +87,7 @@ where
     }
 }
 
-impl<Q, S> TMinreqRequest for Marker<Q, S>
+impl<Q, S> TMinreqRequest for Endpoint<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
