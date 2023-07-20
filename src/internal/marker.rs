@@ -15,7 +15,6 @@ pub struct Marker<Q, S>
 where
     Q: Send + Sync + serde::Serialize, // what will be sent as json
     for<'a> S: Send + Sync + serde::Deserialize<'a>, // what will be received as json
-    Self: TMinreqRequest,
 {
     pub target: RequestsNew,
     pub storage: Responds<Q, S>,
@@ -27,7 +26,6 @@ impl<Q, S> Marker<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-    Self: TMinreqRequest,
 {
     pub fn set_rates(&mut self, rates: Rates) {
         self.rates = Some(rates);
@@ -75,7 +73,6 @@ impl<Q, S> FromWorld for Marker<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-    Marker<Q, S>: TMinreqRequest,
 {
     fn from_world(world: &mut bevy_ecs::world::World) -> Self {
         let new = world.resource::<RequestsNew>().clone();
