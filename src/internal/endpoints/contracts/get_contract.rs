@@ -1,4 +1,4 @@
-use crate::internal::marker::Endpoint;
+use crate::internal::endpoint::Endpoint;
 
 pub type GetContract = Endpoint<(), pies_openapi_spacetraders_api::models::GetContract200Response>;
 

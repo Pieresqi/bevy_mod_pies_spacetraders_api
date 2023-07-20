@@ -1,4 +1,4 @@
-use crate::internal::{client::QueryConf, marker::Endpoint};
+use crate::internal::{client::QueryConf, endpoint::Endpoint};
 
 pub type ListWaypointsInSystem =
     Endpoint<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;

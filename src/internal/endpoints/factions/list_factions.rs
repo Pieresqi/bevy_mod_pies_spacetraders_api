@@ -1,4 +1,4 @@
-use crate::internal::{client::QueryConf, marker::Endpoint};
+use crate::internal::{client::QueryConf, endpoint::Endpoint};
 
 pub type ListFactions = Endpoint<(), pies_openapi_spacetraders_api::models::GetFactions200Response>;
 

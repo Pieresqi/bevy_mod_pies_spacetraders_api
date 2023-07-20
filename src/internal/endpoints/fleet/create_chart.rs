@@ -1,4 +1,4 @@
-use crate::internal::marker::Endpoint;
+use crate::internal::endpoint::Endpoint;
 
 pub type CreateChart = Endpoint<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
 

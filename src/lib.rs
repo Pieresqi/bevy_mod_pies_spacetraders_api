@@ -21,11 +21,11 @@ pub mod prelude {
 
     pub use minreq::Method;
 
-    pub use super::markers;
-    pub use super::markers::*;
+    pub use super::endpoints;
+    pub use super::endpoints::*;
 }
 
-pub mod markers {
+pub mod endpoints {
     pub use super::internal::endpoints::get_status::GetStatus;
 
     pub use super::internal::endpoints::register_new_agent::RegisterNewAgent;

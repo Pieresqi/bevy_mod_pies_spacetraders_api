@@ -1,4 +1,4 @@
-use crate::internal::marker::Endpoint;
+use crate::internal::endpoint::Endpoint;
 
 pub type JumpShip = Endpoint<
     pies_openapi_spacetraders_api::models::JumpShipRequest,

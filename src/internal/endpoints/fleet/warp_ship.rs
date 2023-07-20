@@ -1,4 +1,4 @@
-use crate::internal::marker::Endpoint;
+use crate::internal::endpoint::Endpoint;
 
 pub type WarpShip =
     Endpoint<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
