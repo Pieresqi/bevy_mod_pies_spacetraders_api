@@ -11,7 +11,6 @@ pub struct MinreqRequestBuilder<B: serde::Serialize> {
 }
 
 impl<B: serde::Serialize> MinreqRequestBuilder<B> {
-
     pub fn new(bearer_token: String, path: String, request_method: minreq::Method) -> Self {
         Self {
             bearer_token,

@@ -4,6 +4,12 @@ pub type GetAgent = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyAge
 
 impl GetAgent {
     pub fn set_request(&mut self) {
-        self.push_request(minreq::Method::Get, "my/agent".into(), None, None, Authorization::Required);
+        self.push_request(
+            minreq::Method::Get,
+            "my/agent".into(),
+            None,
+            None,
+            Authorization::Required,
+        );
     }
 }

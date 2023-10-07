@@ -3,7 +3,7 @@ use bevy_ecs::{system::Resource, world::FromWorld};
 use super::{
     client::{ClientError, QueryConf},
     rate_limiter::Rates,
-    request::{Request, RequestInstance, Authorization, ChannelRequestHolder},
+    request::{Authorization, ChannelRequestHolder, Request, RequestInstance},
 };
 
 #[derive(Debug, Resource)]
@@ -62,7 +62,6 @@ where
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
 {
     fn from_world(world: &mut bevy_ecs::world::World) -> Self {
-
         let channel_request = world.resource::<ChannelRequestHolder>();
         let (sender, receiver) = crossbeam_channel::unbounded();
 

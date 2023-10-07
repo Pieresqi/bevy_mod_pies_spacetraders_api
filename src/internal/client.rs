@@ -37,7 +37,7 @@ use super::{
         },
     },
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
-    request::{RequestsToBeProcessed, ChannelRequestHolder},
+    request::{ChannelRequestHolder, RequestsToBeProcessed},
     respond::RespondError,
 };
 
@@ -48,7 +48,9 @@ impl Plugin for ClientPlugin {
         app.add_systems(
             PostUpdate,
             dispatch_requests.run_if(
-                move |new: Res<ChannelRequestHolder>, old: Res<RequestsToBeProcessed>, bucket: Res<RateBucket>| {
+                move |new: Res<ChannelRequestHolder>,
+                      old: Res<RequestsToBeProcessed>,
+                      bucket: Res<RateBucket>| {
                     (!new.receiver.is_empty() || !old.requests.is_empty())
                         && (bucket.inner.peek(RateLimit::Normal)
                             || bucket.inner.peek(RateLimit::Burst))
@@ -178,7 +180,7 @@ fn dispatch_requests(
         .drain(..)
         .filter(|request| request.rates.strategy == RateStrategy::Queued)
         .collect::<Vec<_>>();
-    
+
     retain.append(
         &mut burst
             .drain(..)
@@ -198,11 +200,13 @@ pub enum ClientError {
 
 impl std::fmt::Display for ClientError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-
-        let display = format!("{}", match self {
-            Self::Respond(s) => s.to_string(),
-            Self::Connection(s) => s.to_string(),
-        });
+        let display = format!(
+            "{}",
+            match self {
+                Self::Respond(s) => s.to_string(),
+                Self::Connection(s) => s.to_string(),
+            }
+        );
 
         write!(f, "{}", display)
     }

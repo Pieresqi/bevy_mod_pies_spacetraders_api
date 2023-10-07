@@ -2,9 +2,9 @@ use bevy_ecs::system::Resource;
 
 use super::{
     client::{ClientConnectionConfig, ClientError, QueryConf},
+    minreq_request_builder::MinreqRequestBuilder,
     rate_limiter::Rates,
     respond::handle_response,
-    minreq_request_builder::MinreqRequestBuilder
 };
 
 #[derive(Debug, Default, Resource)]
@@ -40,7 +40,7 @@ pub trait TRequest: std::fmt::Debug {
 #[derive(Debug)]
 pub enum Authorization {
     Required,
-    Unnecessary
+    Unnecessary,
 }
 
 #[derive(Debug)]
@@ -67,13 +67,16 @@ where
 {
     /// sends requests and stores responses
     fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig) {
-
-        let min_req = MinreqRequestBuilder::new(connection_config.bearer_token, connection_config.path, self.method)
-            .with_path(self.path)
-            .with_body(self.request)
-            .with_query(self.query)
-            .with_bearer(self.needs_token)
-            .build();
+        let min_req = MinreqRequestBuilder::new(
+            connection_config.bearer_token,
+            connection_config.path,
+            self.method,
+        )
+        .with_path(self.path)
+        .with_body(self.request)
+        .with_query(self.query)
+        .with_bearer(self.needs_token)
+        .build();
 
         let respond = handle_response::<S>(min_req.send());
 
