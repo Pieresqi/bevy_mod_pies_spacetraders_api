@@ -4,7 +4,7 @@ use crate::prelude::ClientConnectionConfig;
 
 use super::{
     client::{ClientError, QueryConf, TMinreqRequest},
-    minreq_request_builder::MinreqRequestBuilderUnready,
+    minreq_request_builder::MinreqRequestBuilder,
     rate_limiter::Rates,
     request::{Request, RequestHolder, RequestsNew},
     respond::Responds,
@@ -100,8 +100,7 @@ where
         path: Option<String>,
         token: bool,
     ) -> Result<minreq::Request, ClientError> {
-        MinreqRequestBuilderUnready::new(config.bearer_token, config.path)
-            .with_method(method.unwrap())
+        MinreqRequestBuilder::new(config.bearer_token, config.path, method.unwrap())
             .with_path(path)
             .with_body(body)
             .with_query(query)
