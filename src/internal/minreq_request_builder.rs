@@ -1,4 +1,4 @@
-use super::{client::{ClientError, QueryConf}, request::Authorization};
+use super::{client::QueryConf, request::Authorization};
 
 pub struct MinreqRequestBuilder<B: serde::Serialize> {
     bearer_token: String,
@@ -50,7 +50,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
 
     #[must_use]
     /// tries to build the http request
-    pub fn build(self) -> Result<minreq::Request, ClientError> {
+    pub fn build(self) -> minreq::Request {
         let mut request = minreq::Request::new(
             self.request_method,
             format!(
@@ -83,6 +83,6 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
                 .with_header("Content-Type", "application/json")
         }
 
-        Ok(request)
+        request
     }
 }

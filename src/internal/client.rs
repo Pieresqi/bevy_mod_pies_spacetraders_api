@@ -134,7 +134,7 @@ pub trait TMinreqRequest {
         method: minreq::Method,
         path: Option<String>,
         token: Authorization,
-    ) -> Result<minreq::Request, ClientError>;
+    ) -> minreq::Request;
 }
 
 fn dispatch_requests(

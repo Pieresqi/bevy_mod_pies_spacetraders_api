@@ -70,11 +70,8 @@ where
             self.needs_token,
         );
 
-        let respond = match min_req {
-            Ok(request) => handle_response::<S>(request.send()),
-            Err(error) => Err(error),
-        };
-
+        let respond = handle_response::<S>(min_req.send());
+        
         self.responds.write().unwrap().push(respond);
     }
 }

@@ -99,7 +99,7 @@ where
         method: minreq::Method,
         path: Option<String>,
         token: Authorization,
-    ) -> Result<minreq::Request, ClientError> {
+    ) -> minreq::Request {
         MinreqRequestBuilder::new(config.bearer_token, config.path, method)
             .with_path(path)
             .with_body(body)
