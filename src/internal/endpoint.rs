@@ -45,7 +45,7 @@ where
                 responds: self.storage.responds.clone(),
                 request,
                 query,
-                method: Some(method),
+                method: method,
                 path: path.map(|inner| inner.to_string()),
                 needs_token,
             }),
@@ -96,11 +96,11 @@ where
         config: ClientConnectionConfig,
         body: Option<B>,
         query: Option<QueryConf>,
-        method: Option<minreq::Method>,
+        method: minreq::Method,
         path: Option<String>,
         token: bool,
     ) -> Result<minreq::Request, ClientError> {
-        MinreqRequestBuilder::new(config.bearer_token, config.path, method.unwrap())
+        MinreqRequestBuilder::new(config.bearer_token, config.path, method)
             .with_path(path)
             .with_body(body)
             .with_query(query)

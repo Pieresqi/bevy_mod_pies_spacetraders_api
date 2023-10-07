@@ -131,7 +131,7 @@ pub trait TMinreqRequest {
         config: ClientConnectionConfig,
         body: Option<B>,
         query: Option<QueryConf>,
-        method: Option<minreq::Method>,
+        method: minreq::Method,
         path: Option<String>,
         token: bool,
     ) -> Result<minreq::Request, ClientError>;
@@ -162,8 +162,6 @@ fn dispatch_requests(
         let connection_config = connection_config.clone();
 
         pool.spawn(async move {
-            let mut request = request;
-
             request.data.send_and_receive(connection_config);
         })
         .detach();
@@ -180,8 +178,6 @@ fn dispatch_requests(
         let connection_config = connection_config.clone();
 
         pool.spawn(async move {
-            let mut request = request;
-
             request.data.send_and_receive(connection_config);
         })
         .detach();

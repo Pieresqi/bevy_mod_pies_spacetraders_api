@@ -27,7 +27,7 @@ pub struct RequestHolder {
 
 pub trait TRequest: std::fmt::Debug {
     /// sends requests and stores responses
-    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig);
+    fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig);
 }
 
 #[derive(Debug)]
@@ -42,7 +42,7 @@ where
     pub request: Option<Q>,
     /// not all endpoints support query (page, limit)
     pub query: Option<QueryConf>,
-    pub method: Option<minreq::Method>,
+    pub method: minreq::Method,
     pub path: Option<String>,
     pub needs_token: bool,
 }
@@ -54,12 +54,12 @@ where
     Endpoint<Q, S>: TMinreqRequest,
 {
     /// sends requests and stores responses
-    fn send_and_receive(&mut self, connection_config: ClientConnectionConfig) {
+    fn send_and_receive(mut self: Box<Self>, connection_config: ClientConnectionConfig) {
         let min_req = Endpoint::<Q, S>::try_create_minreq_request(
             connection_config,
             self.request.take(),
             self.query.take(),
-            self.method.take(),
+            self.method,
             self.path.take(),
             self.needs_token,
         );
