@@ -33,8 +33,22 @@ where
 /// errors received from endpoint
 pub enum RespondError {
     BadRequest(String),
-    Other,
+    Other(String),
 }
+
+impl std::fmt::Display for RespondError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+
+        let display = format!("{}", match self {
+            Self::BadRequest(s) => format!("Server responded: {}", s),
+            Self::Other(s) => format!("Server or other: {}", s),
+        });
+
+        write!(f, "{}", display)
+    }
+}
+
+impl std::error::Error for RespondError {}
 
 ///  converts minreq response and error to marker specific response type and client error
 pub fn handle_response<S: for<'d> serde::Deserialize<'d>>(
@@ -47,17 +61,15 @@ pub fn handle_response<S: for<'d> serde::Deserialize<'d>>(
 
             // request failed
             (400..=499) => {
-                let message = response.as_str().unwrap();
-
                 Err(ClientError::Respond(RespondError::BadRequest(
-                    message.to_string(),
+                    response.as_str().to_string()
                 )))
             }
 
             // server error
-            (500..=599) => Err(ClientError::Respond(RespondError::Other)),
+            (500..=599) => Err(ClientError::Respond(RespondError::Other(response.as_str().to_string()))),
 
-            _ => Err(ClientError::Respond(RespondError::Other)),
+            _ => Err(ClientError::Respond(RespondError::Other(response.as_str().to_string()))),
         },
         Err(error) => Err(ClientError::Connection(error)),
     }
@@ -68,4 +80,15 @@ where
     T: Resource + TRespondsReceived,
 {
     move |res: Res<T>| !res.read_unwrap_is_empty()
+}
+
+// I am sorry.
+trait MyToString {
+    fn to_string(self) -> String;
+}
+
+impl<O, E> MyToString for Result<O, E> where O: ToString, E: std::error::Error {
+    fn to_string(self) -> String {
+        self.map_or_else(|e| e.to_string(), |o| o.to_string())
+    }
 }
