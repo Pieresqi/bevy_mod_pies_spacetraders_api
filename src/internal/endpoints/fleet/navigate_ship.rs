@@ -13,7 +13,7 @@ impl NavigateShip {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/navigate", ship_symbol)),
+            format!("my/ships/{}/navigate", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

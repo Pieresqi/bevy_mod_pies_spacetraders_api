@@ -6,7 +6,7 @@ pub struct MinreqRequestBuilder<B: serde::Serialize> {
     needs_bearer: Authorization,
     body: Option<B>,
     query: Option<QueryConf>,
-    additional_path: Option<String>,
+    additional_path: String,
     request_method: minreq::Method,
 }
 
@@ -18,7 +18,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
             needs_bearer: Authorization::Unnecessary,
             body: None,
             query: None,
-            additional_path: None,
+            additional_path: String::new(),
             request_method,
         }
     }
@@ -30,7 +30,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
     }
 
     /// adds additional endpoint path after base endpoint path
-    pub fn with_path(mut self, path: Option<String>) -> Self {
+    pub fn with_path(mut self, path: String) -> Self {
         self.additional_path = path;
         self
     }
@@ -52,11 +52,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
     pub fn build(self) -> minreq::Request {
         let mut request = minreq::Request::new(
             self.request_method,
-            format!(
-                "{}{}",
-                self.path,
-                self.additional_path.unwrap_or("".to_string())
-            ),
+            self.path + self.additional_path.as_str(),
         );
 
         // add optional bearer token

@@ -13,7 +13,7 @@ impl DeliverCargoToContract {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/contracts/{}/deliver", contract_id)),
+            format!("my/contracts/{}/deliver", contract_id),
             None,
             request.into(),
             Authorization::Required,

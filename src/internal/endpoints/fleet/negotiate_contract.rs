@@ -7,7 +7,7 @@ impl NegotiateContract {
     pub fn set_request(&mut self, ship_symbol: String) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/negotiate/contract", ship_symbol)),
+            format!("my/ships/{}/negotiate/contract", ship_symbol),
             None,
             None,
             Authorization::Required,

@@ -13,7 +13,7 @@ impl SellCargo {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/sell", ship_symbol)),
+            format!("my/ships/{}/sell", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

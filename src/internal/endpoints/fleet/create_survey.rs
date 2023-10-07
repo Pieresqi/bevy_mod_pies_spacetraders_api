@@ -7,7 +7,7 @@ impl CreateSurvey {
     pub fn set_request(&mut self, ship_symbol: String) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/survey", ship_symbol)),
+            format!("my/ships/{}/survey", ship_symbol),
             None,
             None,
             Authorization::Required,

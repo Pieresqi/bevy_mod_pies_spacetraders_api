@@ -13,7 +13,7 @@ impl PatchShipNav {
     ) {
         self.push_request(
             minreq::Method::Patch,
-            Some(&format!("my/ships/{}/nav", ship_symbol)),
+            format!("my/ships/{}/nav", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

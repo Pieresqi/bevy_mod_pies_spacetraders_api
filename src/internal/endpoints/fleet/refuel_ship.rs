@@ -13,7 +13,7 @@ impl RefuelShip {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/scan/refuel", ship_symbol)),
+            format!("my/ships/{}/scan/refuel", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

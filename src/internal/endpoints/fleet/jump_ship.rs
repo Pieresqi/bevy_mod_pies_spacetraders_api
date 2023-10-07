@@ -13,7 +13,7 @@ impl JumpShip {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/jump", ship_symbol)),
+            format!("my/ships/{}/jump", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

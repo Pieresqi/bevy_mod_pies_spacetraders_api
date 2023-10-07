@@ -12,7 +12,7 @@ impl ListWaypointsInSystem {
     ) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!("systems/{}/waypoints", system_symbol)),
+            format!("systems/{}/waypoints", system_symbol),
             QueryConf { limit, page }.into(),
             None,
             Authorization::Required,

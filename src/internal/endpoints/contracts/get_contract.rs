@@ -6,7 +6,7 @@ impl GetContract {
     pub fn set_request(&mut self, contract_id: String) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!("my/contracts/{}", contract_id)),
+            format!("my/contracts/{}", contract_id),
             None,
             None,
             Authorization::Required,

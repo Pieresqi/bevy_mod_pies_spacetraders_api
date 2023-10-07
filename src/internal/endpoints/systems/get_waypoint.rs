@@ -6,10 +6,7 @@ impl GetWaypoint {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!(
-                "systems/{}/waypoints/{}",
-                system_symbol, waypoint_symbol
-            )),
+            format!("systems/{}/waypoints/{}", system_symbol, waypoint_symbol),
             None,
             None,
             Authorization::Required,

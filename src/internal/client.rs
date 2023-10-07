@@ -218,9 +218,9 @@ impl std::error::Error for ClientError {}
 /// client config
 pub struct ClientConnectionConfig {
     /// endpoind base path
-    pub(crate) path: String,
+    pub path: String,
     /// private token for auth
-    pub(crate) bearer_token: String,
+    pub bearer_token: String,
 }
 
 impl ClientConnectionConfig {

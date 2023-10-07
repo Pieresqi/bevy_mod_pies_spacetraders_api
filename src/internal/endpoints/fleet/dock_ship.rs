@@ -6,7 +6,7 @@ impl DockShip {
     pub fn set_request(&mut self, ship_symbol: String) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/dock", ship_symbol)),
+            format!("my/ships/{}/dock", ship_symbol),
             None,
             None,
             Authorization::Required,

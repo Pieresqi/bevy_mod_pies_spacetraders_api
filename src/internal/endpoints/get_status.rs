@@ -6,7 +6,7 @@ impl GetStatus {
     pub fn set_request(&mut self) {
         self.push_request(
             minreq::Method::Get,
-            None,
+            String::new(),
             None,
             None,
             Authorization::Unnecessary,

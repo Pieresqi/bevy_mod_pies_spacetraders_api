@@ -7,7 +7,7 @@ impl WarpShip {
     pub fn set_request(&mut self, request: WarpShipRequest, ship_symbol: String) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/warp", ship_symbol)),
+            format!("my/ships/{}/warp", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

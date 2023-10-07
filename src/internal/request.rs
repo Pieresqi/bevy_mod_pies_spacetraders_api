@@ -50,14 +50,38 @@ where
     for<'a> S: Send + Sync + serde::Deserialize<'a>,
 {
     /// put endpoint responses here
-    pub channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
+    channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
     /// actual data to be sent to the endpoint
-    pub request: Option<Q>,
+    request: Option<Q>,
     /// not all endpoints support query (page, limit)
-    pub query: Option<QueryConf>,
-    pub method: minreq::Method,
-    pub path: Option<String>,
-    pub needs_token: Authorization,
+    query: Option<QueryConf>,
+    method: minreq::Method,
+    path: String,
+    needs_token: Authorization,
+}
+
+impl<Q, S> Request<Q, S>
+where
+    Q: Send + Sync + serde::Serialize,
+    for<'a> S: Send + Sync + serde::Deserialize<'a>,
+{
+    pub fn new(
+        method: minreq::Method,
+        path: String,
+        query: Option<QueryConf>,
+        request: Option<Q>,
+        needs_token: Authorization,
+        channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
+    ) -> Self {
+        Self {
+            request,
+            query,
+            method,
+            path,
+            needs_token,
+            channel_endpoint_sender,
+        }
+    }
 }
 
 impl<Q, S> TRequest for Request<Q, S>
@@ -67,7 +91,7 @@ where
 {
     /// sends requests and stores responses
     fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig) {
-        let min_req = MinreqRequestBuilder::new(
+        let min_req = MinreqRequestBuilder::<Q>::new(
             connection_config.bearer_token,
             connection_config.path,
             self.method,

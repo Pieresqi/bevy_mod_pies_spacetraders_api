@@ -31,21 +31,21 @@ where
     pub fn push_request(
         &mut self,
         method: minreq::Method,
-        path: Option<&str>,
+        path: String,
         query: Option<QueryConf>,
         request: Option<Q>,
         needs_token: Authorization,
     ) {
         let request_h = RequestInstance {
             rates: self.rates.take().unwrap_or_default(),
-            data: Box::new(Request {
-                request,
+            data: Box::new(Request::new(
+                method,
+                path,
                 query,
-                method: method,
-                path: path.map(|inner| inner.to_string()),
+                request,
                 needs_token,
-                channel_endpoint_sender: self.channel_endpoint_sender.clone(),
-            }),
+                self.channel_endpoint_sender.clone(),
+            )),
         };
 
         self.channel_request_sender.try_send(request_h).unwrap();

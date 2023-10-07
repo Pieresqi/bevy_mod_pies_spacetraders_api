@@ -6,7 +6,7 @@ impl GetSystem {
     pub fn set_request(&mut self, system_symbol: String) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!("systems/{}", system_symbol)),
+            format!("systems/{}", system_symbol),
             None,
             None,
             Authorization::Required,

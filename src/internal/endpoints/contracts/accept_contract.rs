@@ -7,7 +7,7 @@ impl AcceptContract {
     pub fn set_request(&mut self, contract_id: String) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/contracts/{}/accept", contract_id)),
+            format!("my/contracts/{}/accept", contract_id),
             None,
             None,
             Authorization::Required,

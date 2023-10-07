@@ -13,7 +13,7 @@ impl RemoveMount {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/mounts/remove", ship_symbol)),
+            format!("my/ships/{}/mounts/remove", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

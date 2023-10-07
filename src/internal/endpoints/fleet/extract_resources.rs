@@ -13,7 +13,7 @@ impl ExtractResources {
     ) {
         self.push_request(
             minreq::Method::Post,
-            Some(&format!("my/ships/{}/extract", ship_symbol)),
+            format!("my/ships/{}/extract", ship_symbol),
             None,
             request.into(),
             Authorization::Required,

@@ -6,7 +6,7 @@ impl GetFaction {
     pub fn set_request(&mut self, faction_symbol: String) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!("factions/{}", faction_symbol)),
+            format!("factions/{}", faction_symbol),
             None,
             None,
             Authorization::Required,

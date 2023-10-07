@@ -6,10 +6,10 @@ impl GetShipyard {
     pub fn set_request(&mut self, system_symbol: String, waypoint_symbol: String) {
         self.push_request(
             minreq::Method::Get,
-            Some(&format!(
+            format!(
                 "systems/{}/waypoints/{}/shipyard",
                 system_symbol, waypoint_symbol
-            )),
+            ),
             None,
             None,
             Authorization::Required,
