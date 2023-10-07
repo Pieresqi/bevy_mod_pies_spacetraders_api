@@ -1,10 +1,7 @@
 use bevy_ecs::{system::Resource, world::FromWorld};
 
-use crate::prelude::ClientConnectionConfig;
-
 use super::{
-    client::{ClientError, QueryConf, TMinreqRequest},
-    minreq_request_builder::MinreqRequestBuilder,
+    client::{ClientError, QueryConf},
     rate_limiter::Rates,
     request::{Request, RequestHolder, RequestsNew, Authorization},
     respond::Responds,
@@ -84,27 +81,5 @@ where
             },
             rates: None,
         }
-    }
-}
-
-impl<Q, S> TMinreqRequest for Endpoint<Q, S>
-where
-    for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
-    for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-{
-    fn try_create_minreq_request<B: serde::Serialize>(
-        config: ClientConnectionConfig,
-        body: Option<B>,
-        query: Option<QueryConf>,
-        method: minreq::Method,
-        path: Option<String>,
-        token: Authorization,
-    ) -> minreq::Request {
-        MinreqRequestBuilder::new(config.bearer_token, config.path, method)
-            .with_path(path)
-            .with_body(body)
-            .with_query(query)
-            .with_bearer(token)
-            .build()
     }
 }

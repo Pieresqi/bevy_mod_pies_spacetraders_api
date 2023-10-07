@@ -1,7 +1,7 @@
 use bevy_ecs::system::{Res, Resource};
 
 use super::{
-    client::{ClientError, TMinreqRequest},
+    client::ClientError,
     endpoint::Endpoint,
 };
 
@@ -23,7 +23,6 @@ impl<Q, S> TRespondsReceived for Endpoint<Q, S>
 where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-    Self: TMinreqRequest,
 {
     fn read_unwrap_is_empty(&self) -> bool {
         self.storage.responds.read().unwrap().is_empty()

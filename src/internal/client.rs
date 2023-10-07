@@ -37,7 +37,7 @@ use super::{
         },
     },
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
-    request::{RequestsNew, RequestsOld, Authorization},
+    request::{RequestsNew, RequestsOld},
     respond::RespondError,
 };
 
@@ -123,18 +123,6 @@ pub const AD: &str = "https://api.spacetraders.io/v2/";
 pub struct QueryConf {
     pub limit: Option<core::num::NonZeroU8>,
     pub page: Option<core::num::NonZeroU8>,
-}
-
-pub trait TMinreqRequest {
-    /// tries to create marker specific endpoint request
-    fn try_create_minreq_request<B: serde::Serialize + std::fmt::Debug>(
-        config: ClientConnectionConfig,
-        body: Option<B>,
-        query: Option<QueryConf>,
-        method: minreq::Method,
-        path: Option<String>,
-        token: Authorization,
-    ) -> minreq::Request;
 }
 
 fn dispatch_requests(

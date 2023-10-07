@@ -1,10 +1,10 @@
 use bevy_ecs::system::Resource;
 
 use super::{
-    client::{ClientConnectionConfig, ClientError, QueryConf, TMinreqRequest},
-    endpoint::Endpoint,
+    client::{ClientConnectionConfig, ClientError, QueryConf},
     rate_limiter::Rates,
     respond::{handle_response, RespondsInner},
+    minreq_request_builder::MinreqRequestBuilder
 };
 
 #[derive(Debug, Default, Resource, Clone)]
@@ -57,21 +57,19 @@ impl<Q, S> TRequest for Request<Q, S>
 where
     Q: Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-    Endpoint<Q, S>: TMinreqRequest,
 {
     /// sends requests and stores responses
-    fn send_and_receive(mut self: Box<Self>, connection_config: ClientConnectionConfig) {
-        let min_req = Endpoint::<Q, S>::try_create_minreq_request(
-            connection_config,
-            self.request.take(),
-            self.query.take(),
-            self.method,
-            self.path.take(),
-            self.needs_token,
-        );
+    fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig) {
+
+        let min_req = MinreqRequestBuilder::new(connection_config.bearer_token, connection_config.path, self.method)
+            .with_path(self.path)
+            .with_body(self.request)
+            .with_query(self.query)
+            .with_bearer(self.needs_token)
+            .build();
 
         let respond = handle_response::<S>(min_req.send());
-        
+
         self.responds.write().unwrap().push(respond);
     }
 }
