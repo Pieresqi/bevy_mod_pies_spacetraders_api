@@ -23,4 +23,5 @@ bevy_tasks = "0.11.0"
 bevy_time = "0.11.0"
 bevy_app = "0.11.0"
 pies_openapi_spacetraders_api = "2023.6.24"
+crossbeam-channel = "0.5.8"
 

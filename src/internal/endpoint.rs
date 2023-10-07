@@ -3,8 +3,7 @@ use bevy_ecs::{system::Resource, world::FromWorld};
 use super::{
     client::{ClientError, QueryConf},
     rate_limiter::Rates,
-    request::{Request, RequestHolder, RequestsNew, Authorization},
-    respond::Responds,
+    request::{Request, RequestInstance, Authorization, ChannelRequestHolder},
 };
 
 #[derive(Debug, Resource)]
@@ -13,10 +12,11 @@ where
     Q: Send + Sync + serde::Serialize, // what will be sent as json
     for<'a> S: Send + Sync + serde::Deserialize<'a>, // what will be received as json
 {
-    pub target: RequestsNew,
-    pub storage: Responds<Q, S>,
-
-    pub rates: Option<Rates>,
+    rates: Option<Rates>,
+    channel_endpoint_receiver: crossbeam_channel::Receiver<Result<S, ClientError>>,
+    channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
+    channel_request_sender: crossbeam_channel::Sender<RequestInstance>,
+    _dummy: std::marker::PhantomData<Q>,
 }
 
 impl<Q, S> Endpoint<Q, S>
@@ -36,33 +36,23 @@ where
         request: Option<Q>,
         needs_token: Authorization,
     ) {
-        self.target.requests.lock().unwrap().push(RequestHolder {
+        let request_h = RequestInstance {
             rates: self.rates.take().unwrap_or_default(),
             data: Box::new(Request {
-                responds: self.storage.responds.clone(),
                 request,
                 query,
                 method: method,
                 path: path.map(|inner| inner.to_string()),
                 needs_token,
+                channel_endpoint_sender: self.channel_endpoint_sender.clone(),
             }),
-        });
-    }
-
-    pub fn write_unwrap(&mut self) -> std::sync::RwLockWriteGuard<'_, Vec<Result<S, ClientError>>> {
-        self.storage.responds.write().unwrap()
-    }
-
-    pub fn get_last_and_clear(&mut self) -> Option<Result<S, ClientError>> {
-        let mut storage = self.write_unwrap();
-
-        let Some(respnse) = storage.pop() else {
-            return None;
         };
 
-        storage.clear();
+        self.channel_request_sender.try_send(request_h).unwrap();
+    }
 
-        Some(respnse)
+    pub fn get_receiver(&self) -> &crossbeam_channel::Receiver<Result<S, ClientError>> {
+        &self.channel_endpoint_receiver
     }
 }
 
@@ -72,14 +62,16 @@ where
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
 {
     fn from_world(world: &mut bevy_ecs::world::World) -> Self {
-        let new = world.resource::<RequestsNew>().clone();
+
+        let channel_request = world.resource::<ChannelRequestHolder>();
+        let (sender, receiver) = crossbeam_channel::unbounded();
+
         Self {
-            target: new,
-            storage: Responds {
-                responds: std::sync::Arc::new(std::sync::RwLock::new(Vec::new())),
-                _request: std::marker::PhantomData::<Q>,
-            },
             rates: None,
+            channel_request_sender: channel_request.sender.clone(),
+            channel_endpoint_sender: sender,
+            channel_endpoint_receiver: receiver,
+            _dummy: std::marker::PhantomData,
         }
     }
 }

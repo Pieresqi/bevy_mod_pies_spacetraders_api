@@ -5,18 +5,8 @@ use super::{
     endpoint::Endpoint,
 };
 
-pub type RespondsInner<S> = std::sync::Arc<std::sync::RwLock<Vec<S>>>;
-
-#[derive(Debug, Resource)]
-/// stores specific responds
-pub struct Responds<Q, S> {
-    pub responds: RespondsInner<Result<S, ClientError>>,
-    /// we dont care what value request has
-    pub _request: core::marker::PhantomData<Q>,
-}
-
 pub trait TRespondsReceived {
-    fn read_unwrap_is_empty(&self) -> bool;
+    fn receiver_is_empty(&self) -> bool;
 }
 
 impl<Q, S> TRespondsReceived for Endpoint<Q, S>
@@ -24,8 +14,8 @@ where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
 {
-    fn read_unwrap_is_empty(&self) -> bool {
-        self.storage.responds.read().unwrap().is_empty()
+    fn receiver_is_empty(&self) -> bool {
+        self.get_receiver().is_empty()
     }
 }
 
@@ -79,7 +69,7 @@ pub fn response_received<T>() -> impl Fn(Res<T>) -> bool
 where
     T: Resource + TRespondsReceived,
 {
-    move |res: Res<T>| !res.read_unwrap_is_empty()
+    move |res: Res<T>| !res.receiver_is_empty()
 }
 
 // I am sorry.

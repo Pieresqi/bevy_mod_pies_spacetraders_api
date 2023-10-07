@@ -3,26 +3,33 @@ use bevy_ecs::system::Resource;
 use super::{
     client::{ClientConnectionConfig, ClientError, QueryConf},
     rate_limiter::Rates,
-    respond::{handle_response, RespondsInner},
+    respond::handle_response,
     minreq_request_builder::MinreqRequestBuilder
 };
 
-#[derive(Debug, Default, Resource, Clone)]
-/// stores all new requests to be processed
-pub struct RequestsNew {
-    pub requests: std::sync::Arc<std::sync::Mutex<Vec<RequestHolder>>>,
-}
-
 #[derive(Debug, Default, Resource)]
-/// stores all old requests to be sent before 'RequestsNew'
-pub struct RequestsOld {
-    pub requests: Vec<RequestHolder>,
+pub struct RequestsToBeProcessed {
+    pub requests: Vec<RequestInstance>,
 }
 
 #[derive(Debug)]
-pub struct RequestHolder {
+pub struct RequestInstance {
     pub rates: Rates,
     pub data: Box<dyn TRequest + Send + Sync>,
+}
+
+#[derive(Resource)]
+pub struct ChannelRequestHolder {
+    pub sender: crossbeam_channel::Sender<RequestInstance>,
+    pub receiver: crossbeam_channel::Receiver<RequestInstance>,
+}
+
+impl Default for ChannelRequestHolder {
+    fn default() -> Self {
+        let (sender, receiver) = crossbeam_channel::unbounded();
+
+        Self { sender, receiver }
+    }
 }
 
 pub trait TRequest: std::fmt::Debug {
@@ -43,7 +50,7 @@ where
     for<'a> S: Send + Sync + serde::Deserialize<'a>,
 {
     /// put endpoint responses here
-    pub responds: RespondsInner<Result<S, ClientError>>,
+    pub channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
     /// actual data to be sent to the endpoint
     pub request: Option<Q>,
     /// not all endpoints support query (page, limit)
@@ -70,6 +77,6 @@ where
 
         let respond = handle_response::<S>(min_req.send());
 
-        self.responds.write().unwrap().push(respond);
+        self.channel_endpoint_sender.try_send(respond).unwrap();
     }
 }

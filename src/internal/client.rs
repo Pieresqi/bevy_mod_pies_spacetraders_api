@@ -37,7 +37,7 @@ use super::{
         },
     },
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
-    request::{RequestsNew, RequestsOld},
+    request::{RequestsToBeProcessed, ChannelRequestHolder},
     respond::RespondError,
 };
 
@@ -48,8 +48,8 @@ impl Plugin for ClientPlugin {
         app.add_systems(
             PostUpdate,
             dispatch_requests.run_if(
-                move |new: Res<RequestsNew>, old: Res<RequestsOld>, bucket: Res<RateBucket>| {
-                    (!new.requests.lock().unwrap().is_empty() || !old.requests.is_empty())
+                move |new: Res<ChannelRequestHolder>, old: Res<RequestsToBeProcessed>, bucket: Res<RateBucket>| {
+                    (!new.receiver.is_empty() || !old.requests.is_empty())
                         && (bucket.inner.peek(RateLimit::Normal)
                             || bucket.inner.peek(RateLimit::Burst))
                 },
@@ -59,8 +59,8 @@ impl Plugin for ClientPlugin {
             Update,
             replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))),
         )
-        .init_resource::<RequestsNew>()
-        .init_resource::<RequestsOld>()
+        .init_resource::<RequestsToBeProcessed>()
+        .init_resource::<ChannelRequestHolder>()
         .init_resource::<RateBucket>()
         .init_resource::<ClientConnectionConfig>()
         .init_resource::<GetStatus>()
@@ -126,13 +126,13 @@ pub struct QueryConf {
 }
 
 fn dispatch_requests(
-    new: ResMut<RequestsNew>,
-    mut old: ResMut<RequestsOld>,
+    new: ResMut<ChannelRequestHolder>,
+    mut old: ResMut<RequestsToBeProcessed>,
     connection_config: Res<ClientConnectionConfig>,
     mut buckets: ResMut<RateBucket>,
 ) {
     let pool = IoTaskPool::get();
-    let mut working = core::mem::take(&mut *new.requests.lock().unwrap());
+    let mut working = new.receiver.try_iter().collect::<Vec<_>>();
 
     working.append(&mut old.requests); // old are placed behind new
     working.sort_by(|a, b| a.rates.comp_rev(&b.rates)); // sorted: low...high; new, old
@@ -178,6 +178,7 @@ fn dispatch_requests(
         .drain(..)
         .filter(|request| request.rates.strategy == RateStrategy::Queued)
         .collect::<Vec<_>>();
+    
     retain.append(
         &mut burst
             .drain(..)

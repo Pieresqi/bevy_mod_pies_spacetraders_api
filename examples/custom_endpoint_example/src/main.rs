@@ -6,6 +6,7 @@ use bevy_mod_pies_spacetraders_api::prelude::*;
 //define new type alias so its easier to write
 // first type is for sending json data, second is for receiving json data
 // specific type depends on server impl, you can use `()` to say it doesnt send and/or receive json data
+// NOTE: you should create your own struct to evade endpoint collision
 type MyCustomRegisterEndpoint = Endpoint<models::RegisterRequest, models::Register201Response>;
 
 fn main() {
@@ -35,7 +36,7 @@ fn my_custom_endpoint_set_request(
 }
 
 // example use in system
-fn send_req_custom_endpoint(mut custom: ResMut<MyCustomRegisterEndpoint>) {
+fn send_req_custom_endpoint(custom: Res<MyCustomRegisterEndpoint>) {
     my_custom_endpoint_set_request(
         &mut custom,
         models::RegisterRequest {
