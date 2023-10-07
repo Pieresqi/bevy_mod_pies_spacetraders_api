@@ -1,4 +1,4 @@
-use crate::internal::{client::QueryConf, endpoint::Endpoint};
+use crate::internal::{client::QueryConf, endpoint::Endpoint, request::Authorization};
 
 pub type ListContracts = Endpoint<(), pies_openapi_spacetraders_api::models::GetContracts200Response>;
 
@@ -13,7 +13,7 @@ impl ListContracts {
             "my/contracts".into(),
             QueryConf { limit, page }.into(),
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

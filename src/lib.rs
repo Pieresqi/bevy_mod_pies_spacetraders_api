@@ -21,6 +21,8 @@ pub mod prelude {
 
     pub use minreq::Method;
 
+    pub use super::internal::request::Authorization;
+
     pub use super::endpoints;
     pub use super::endpoints::*;
 }

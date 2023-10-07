@@ -30,7 +30,7 @@ fn my_custom_endpoint_set_request(
         "register".into(), //additional url path
         None,              // query param
         Some(request), // json data, in case that it doenst need any json data in request then just pass None
-        false,         // needs auth
+        Authorization::Unnecessary,         // needs auth
     );
 }
 

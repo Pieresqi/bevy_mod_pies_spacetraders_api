@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetShipCooldown =
     Endpoint<(), pies_openapi_spacetraders_api::models::GetShipCooldown200Response>;
@@ -10,7 +10,7 @@ impl GetShipCooldown {
             Some(&format!("my/ships/{}/cooldown", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

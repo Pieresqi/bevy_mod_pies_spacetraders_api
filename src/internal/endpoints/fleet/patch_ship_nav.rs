@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type PatchShipNav = Endpoint<
     pies_openapi_spacetraders_api::models::PatchShipNavRequest,
@@ -16,7 +16,7 @@ impl PatchShipNav {
             Some(&format!("my/ships/{}/nav", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type ExtractResources = Endpoint<
     pies_openapi_spacetraders_api::models::ExtractResourcesRequest,
@@ -16,7 +16,7 @@ impl ExtractResources {
             Some(&format!("my/ships/{}/extract", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

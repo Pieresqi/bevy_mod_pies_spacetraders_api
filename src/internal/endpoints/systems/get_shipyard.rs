@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetShipyard = Endpoint<(), pies_openapi_spacetraders_api::models::GetShipyard200Response>;
 
@@ -12,7 +12,7 @@ impl GetShipyard {
             )),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

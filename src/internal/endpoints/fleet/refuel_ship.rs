@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type RefuelShip = Endpoint<
     pies_openapi_spacetraders_api::models::RefuelShipRequest,
@@ -16,7 +16,7 @@ impl RefuelShip {
             Some(&format!("my/ships/{}/scan/refuel", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

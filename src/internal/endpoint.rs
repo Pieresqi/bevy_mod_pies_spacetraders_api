@@ -6,7 +6,7 @@ use super::{
     client::{ClientError, QueryConf, TMinreqRequest},
     minreq_request_builder::MinreqRequestBuilder,
     rate_limiter::Rates,
-    request::{Request, RequestHolder, RequestsNew},
+    request::{Request, RequestHolder, RequestsNew, Authorization},
     respond::Responds,
 };
 
@@ -37,7 +37,7 @@ where
         path: Option<&str>,
         query: Option<QueryConf>,
         request: Option<Q>,
-        needs_token: bool,
+        needs_token: Authorization,
     ) {
         self.target.requests.lock().unwrap().push(RequestHolder {
             rates: self.rates.take().unwrap_or_default(),
@@ -98,7 +98,7 @@ where
         query: Option<QueryConf>,
         method: minreq::Method,
         path: Option<String>,
-        token: bool,
+        token: Authorization,
     ) -> Result<minreq::Request, ClientError> {
         MinreqRequestBuilder::new(config.bearer_token, config.path, method)
             .with_path(path)

@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type JettisonCargo = Endpoint<
     pies_openapi_spacetraders_api::models::JettisonRequest,
@@ -16,7 +16,7 @@ impl JettisonCargo {
             Some(&format!("my/ships/{}/jettison", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

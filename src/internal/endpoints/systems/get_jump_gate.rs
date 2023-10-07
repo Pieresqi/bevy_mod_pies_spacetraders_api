@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetJumpGate = Endpoint<(), pies_openapi_spacetraders_api::models::GetJumpGate200Response>;
 
@@ -12,7 +12,7 @@ impl GetJumpGate {
             )),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

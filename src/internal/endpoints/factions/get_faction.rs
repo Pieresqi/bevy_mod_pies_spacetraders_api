@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetFaction = Endpoint<(), pies_openapi_spacetraders_api::models::GetFaction200Response>;
 
@@ -9,7 +9,7 @@ impl GetFaction {
             Some(&format!("factions/{}", faction_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         )
     }
 }

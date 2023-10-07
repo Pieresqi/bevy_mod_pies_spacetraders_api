@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type ScanWaypoints =
     Endpoint<(), pies_openapi_spacetraders_api::models::CreateShipWaypointScan201Response>;
@@ -10,7 +10,7 @@ impl ScanWaypoints {
             Some(&format!("my/ships/{}/scan/waypoints", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

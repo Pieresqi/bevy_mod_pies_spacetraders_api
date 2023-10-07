@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type RegisterNewAgent = Endpoint<
     pies_openapi_spacetraders_api::models::RegisterRequest,
@@ -12,7 +12,7 @@ impl RegisterNewAgent {
             "register".into(),
             None,
             Some(request),
-            false,
+            Authorization::Unnecessary,
         );
     }
 }

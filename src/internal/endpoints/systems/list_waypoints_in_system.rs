@@ -1,4 +1,4 @@
-use crate::internal::{client::QueryConf, endpoint::Endpoint};
+use crate::internal::{client::QueryConf, endpoint::Endpoint, request::Authorization};
 
 pub type ListWaypointsInSystem =
     Endpoint<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
@@ -15,7 +15,7 @@ impl ListWaypointsInSystem {
             Some(&format!("systems/{}/waypoints", system_symbol)),
             QueryConf { limit, page }.into(),
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

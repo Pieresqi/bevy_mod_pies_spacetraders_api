@@ -31,6 +31,12 @@ pub trait TRequest: std::fmt::Debug {
 }
 
 #[derive(Debug)]
+pub enum Authorization {
+    Required,
+    Unnecessary
+}
+
+#[derive(Debug)]
 pub struct Request<Q, S>
 where
     Q: Send + Sync + serde::Serialize,
@@ -44,7 +50,7 @@ where
     pub query: Option<QueryConf>,
     pub method: minreq::Method,
     pub path: Option<String>,
-    pub needs_token: bool,
+    pub needs_token: Authorization,
 }
 
 impl<Q, S> TRequest for Request<Q, S>

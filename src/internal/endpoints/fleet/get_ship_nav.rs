@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetShipNav = Endpoint<(), pies_openapi_spacetraders_api::models::GetShipNav200Response>;
 
@@ -9,7 +9,7 @@ impl GetShipNav {
             Some(&format!("my/ships/{}/nav", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

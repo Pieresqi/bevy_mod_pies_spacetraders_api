@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type PurchaseCargo = Endpoint<
     pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
@@ -16,7 +16,7 @@ impl PurchaseCargo {
             Some(&format!("my/ships/{}/purchase", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

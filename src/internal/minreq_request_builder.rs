@@ -1,9 +1,9 @@
-use super::client::{ClientError, QueryConf};
+use super::{client::{ClientError, QueryConf}, request::Authorization};
 
 pub struct MinreqRequestBuilder<B: serde::Serialize> {
     bearer_token: String,
     path: String,
-    needs_bearer: bool,
+    needs_bearer: Authorization,
     body: Option<B>,
     query: Option<QueryConf>,
     additional_path: Option<String>,
@@ -16,7 +16,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         Self {
             bearer_token,
             path,
-            needs_bearer: false,
+            needs_bearer: Authorization::Unnecessary,
             body: None,
             query: None,
             additional_path: None,
@@ -25,7 +25,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
     }
 
     /// bearer token will be needed for request
-    pub fn with_bearer(mut self, token: bool) -> Self {
+    pub fn with_bearer(mut self, token: Authorization) -> Self {
         self.needs_bearer = token;
         self
     }
@@ -61,7 +61,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         );
 
         // add optional bearer token
-        if self.needs_bearer {
+        if let Authorization::Required = self.needs_bearer {
             request = request.with_header("Authorization", self.bearer_token);
         }
 

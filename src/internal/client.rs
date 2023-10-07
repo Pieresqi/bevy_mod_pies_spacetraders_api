@@ -37,7 +37,7 @@ use super::{
         },
     },
     rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
-    request::{RequestsNew, RequestsOld},
+    request::{RequestsNew, RequestsOld, Authorization},
     respond::RespondError,
 };
 
@@ -133,7 +133,7 @@ pub trait TMinreqRequest {
         query: Option<QueryConf>,
         method: minreq::Method,
         path: Option<String>,
-        token: bool,
+        token: Authorization,
     ) -> Result<minreq::Request, ClientError>;
 }
 

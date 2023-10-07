@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetContract = Endpoint<(), pies_openapi_spacetraders_api::models::GetContract200Response>;
 
@@ -9,7 +9,7 @@ impl GetContract {
             Some(&format!("my/contracts/{}", contract_id)),
             None,
             None,
-            true,
+            Authorization::Required,
         )
     }
 }

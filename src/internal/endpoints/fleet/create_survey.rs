@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type CreateSurvey = Endpoint<(), pies_openapi_spacetraders_api::models::CreateSurvey201Response>;
 
@@ -9,7 +9,7 @@ impl CreateSurvey {
             Some(&format!("my/ships/{}/survey", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         )
     }
 }

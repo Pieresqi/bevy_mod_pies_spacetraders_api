@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type JumpShip = Endpoint<
     pies_openapi_spacetraders_api::models::JumpShipRequest,
@@ -16,7 +16,7 @@ impl JumpShip {
             Some(&format!("my/ships/{}/jump", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

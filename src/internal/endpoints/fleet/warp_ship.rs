@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type WarpShip =
     Endpoint<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
@@ -10,7 +10,7 @@ impl WarpShip {
             Some(&format!("my/ships/{}/warp", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

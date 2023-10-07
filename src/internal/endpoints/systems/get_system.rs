@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetSystem = Endpoint<(), pies_openapi_spacetraders_api::models::GetSystem200Response>;
 
@@ -9,7 +9,7 @@ impl GetSystem {
             Some(&format!("systems/{}", system_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

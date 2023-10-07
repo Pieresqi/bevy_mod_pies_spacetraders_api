@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type ShipRefine = Endpoint<
     pies_openapi_spacetraders_api::models::ShipRefineRequest,
@@ -16,7 +16,7 @@ impl ShipRefine {
             Some(&format!("my/ships/{}/refine", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

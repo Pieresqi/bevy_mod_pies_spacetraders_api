@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type DockShip = Endpoint<(), pies_openapi_spacetraders_api::models::DockShip200Response>;
 
@@ -9,7 +9,7 @@ impl DockShip {
             Some(&format!("my/ships/{}/dock", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

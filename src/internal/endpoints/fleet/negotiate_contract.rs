@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type NegotiateContract =
     Endpoint<(), pies_openapi_spacetraders_api::models::NegotiateContract200Response>;
@@ -10,7 +10,7 @@ impl NegotiateContract {
             Some(&format!("my/ships/{}/negotiate/contract", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetMarket = Endpoint<(), pies_openapi_spacetraders_api::models::GetMarket200Response>;
 
@@ -12,7 +12,7 @@ impl GetMarket {
             )),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

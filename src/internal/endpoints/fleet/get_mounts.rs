@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetMounts = Endpoint<(), pies_openapi_spacetraders_api::models::GetMounts200Response>;
 
@@ -9,7 +9,7 @@ impl GetMounts {
             Some(&format!("my/ships/{}/mounts", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

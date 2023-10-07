@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type SellCargo = Endpoint<
     pies_openapi_spacetraders_api::models::SellCargoRequest,
@@ -16,7 +16,7 @@ impl SellCargo {
             Some(&format!("my/ships/{}/sell", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

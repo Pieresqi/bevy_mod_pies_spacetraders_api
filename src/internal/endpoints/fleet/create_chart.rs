@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type CreateChart = Endpoint<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
 
@@ -9,7 +9,7 @@ impl CreateChart {
             Some(&format!("my/ships/{}/chart", ship_symbol)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

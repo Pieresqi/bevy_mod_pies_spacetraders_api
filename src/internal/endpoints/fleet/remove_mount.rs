@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type RemoveMount = Endpoint<
     pies_openapi_spacetraders_api::models::RemoveMountRequest,
@@ -16,7 +16,7 @@ impl RemoveMount {
             Some(&format!("my/ships/{}/mounts/remove", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

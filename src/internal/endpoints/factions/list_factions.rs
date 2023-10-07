@@ -1,4 +1,4 @@
-use crate::internal::{client::QueryConf, endpoint::Endpoint};
+use crate::internal::{client::QueryConf, endpoint::Endpoint, request::Authorization};
 
 pub type ListFactions = Endpoint<(), pies_openapi_spacetraders_api::models::GetFactions200Response>;
 
@@ -13,7 +13,7 @@ impl ListFactions {
             "factions".into(),
             QueryConf { limit, page }.into(),
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

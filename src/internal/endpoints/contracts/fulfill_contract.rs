@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type FulfillContract =
     Endpoint<(), pies_openapi_spacetraders_api::models::FulfillContract200Response>;
@@ -10,7 +10,7 @@ impl FulfillContract {
             Some(&format!("my/contracts/{}/fulfill", contract_id)),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

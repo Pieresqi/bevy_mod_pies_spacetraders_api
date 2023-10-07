@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type InstallMount = Endpoint<
     pies_openapi_spacetraders_api::models::InstallMountRequest,
@@ -16,7 +16,7 @@ impl InstallMount {
             Some(&format!("my/ships/{}/mounts/install", ship_symbol)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

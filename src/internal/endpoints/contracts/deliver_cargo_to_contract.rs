@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type DeliverCargoToContract = Endpoint<
     pies_openapi_spacetraders_api::models::DeliverContractRequest,
@@ -16,7 +16,7 @@ impl DeliverCargoToContract {
             Some(&format!("my/contracts/{}/deliver", contract_id)),
             None,
             request.into(),
-            true,
+            Authorization::Required,
         );
     }
 }

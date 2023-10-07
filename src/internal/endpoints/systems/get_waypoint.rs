@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type GetWaypoint = Endpoint<(), pies_openapi_spacetraders_api::models::GetWaypoint200Response>;
 
@@ -12,7 +12,7 @@ impl GetWaypoint {
             )),
             None,
             None,
-            true,
+            Authorization::Required,
         );
     }
 }

@@ -1,4 +1,4 @@
-use crate::internal::endpoint::Endpoint;
+use crate::internal::{endpoint::Endpoint, request::Authorization};
 
 pub type AllSystems = Endpoint<(), Vec<pies_openapi_spacetraders_api::models::System>>;
 
@@ -9,7 +9,7 @@ impl AllSystems {
             "systems.json".into(),
             None,
             None,
-            false,
+            Authorization::Unnecessary,
         );
     }
 }
