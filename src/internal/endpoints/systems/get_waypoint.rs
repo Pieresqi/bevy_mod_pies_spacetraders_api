@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetWaypoint = Endpoint<(), pies_openapi_spacetraders_api::models::GetWaypoint200Response>;
+pub type GetWaypoint = Endpoint<(), space_traders::models::GetWaypoint200Response>;
 
 impl GetWaypoint {
     pub fn set_request(&self, rates: Rates, system_symbol: String, waypoint_symbol: String) {

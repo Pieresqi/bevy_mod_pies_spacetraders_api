@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type CreateChart = Endpoint<(), pies_openapi_spacetraders_api::models::CreateChart201Response>;
+pub type CreateChart = Endpoint<(), space_traders::models::CreateChart201Response>;
 
 impl CreateChart {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

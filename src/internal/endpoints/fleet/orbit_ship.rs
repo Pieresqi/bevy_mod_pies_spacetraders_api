@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type OrbitShip = Endpoint<(), pies_openapi_spacetraders_api::models::OrbitShip200Response>;
+pub type OrbitShip = Endpoint<(), space_traders::models::OrbitShip200Response>;
 
 impl OrbitShip {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

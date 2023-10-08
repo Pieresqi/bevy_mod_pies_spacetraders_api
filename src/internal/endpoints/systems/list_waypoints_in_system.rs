@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type ListWaypointsInSystem =
-    Endpoint<(), pies_openapi_spacetraders_api::models::GetSystemWaypoints200Response>;
+    Endpoint<(), space_traders::models::GetSystemWaypoints200Response>;
 
 impl ListWaypointsInSystem {
     pub fn set_request(

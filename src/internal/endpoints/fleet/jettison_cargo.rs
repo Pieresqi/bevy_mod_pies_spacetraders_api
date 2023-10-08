@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type JettisonCargo = Endpoint<
-    pies_openapi_spacetraders_api::models::JettisonRequest,
-    pies_openapi_spacetraders_api::models::Jettison200Response,
+    space_traders::models::JettisonRequest,
+    space_traders::models::Jettison200Response,
 >;
 
 impl JettisonCargo {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::JettisonRequest,
+        request: space_traders::models::JettisonRequest,
         ship_symbol: String,
     ) {
         self.push_request(

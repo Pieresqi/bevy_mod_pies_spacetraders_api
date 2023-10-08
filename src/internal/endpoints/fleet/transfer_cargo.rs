@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type TransferCargo = Endpoint<
-    pies_openapi_spacetraders_api::models::TransferCargoRequest,
-    pies_openapi_spacetraders_api::models::TransferCargo200Response,
+    space_traders::models::TransferCargoRequest,
+    space_traders::models::TransferCargo200Response,
 >;
 
 impl TransferCargo {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::TransferCargoRequest,
+        request: space_traders::models::TransferCargoRequest,
         ship_symbol: String,
     ) {
         self.push_request(

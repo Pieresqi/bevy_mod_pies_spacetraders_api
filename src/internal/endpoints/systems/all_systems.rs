@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type AllSystems = Endpoint<(), Vec<pies_openapi_spacetraders_api::models::System>>;
+pub type AllSystems = Endpoint<(), Vec<space_traders::models::System>>;
 
 impl AllSystems {
     pub fn set_request(&self, rates: Rates) {

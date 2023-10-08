@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetJumpGate = Endpoint<(), pies_openapi_spacetraders_api::models::GetJumpGate200Response>;
+pub type GetJumpGate = Endpoint<(), space_traders::models::GetJumpGate200Response>;
 
 impl GetJumpGate {
     pub fn set_request(&self, rates: Rates, system_symbol: String, waypoint_symbol: String) {

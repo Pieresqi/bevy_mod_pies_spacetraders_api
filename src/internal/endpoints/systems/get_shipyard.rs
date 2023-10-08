@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetShipyard = Endpoint<(), pies_openapi_spacetraders_api::models::GetShipyard200Response>;
+pub type GetShipyard = Endpoint<(), space_traders::models::GetShipyard200Response>;
 
 impl GetShipyard {
     pub fn set_request(&self, rates: Rates, system_symbol: String, waypoint_symbol: String) {

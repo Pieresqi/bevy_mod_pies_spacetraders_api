@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type GetShipCargo =
-    Endpoint<(), pies_openapi_spacetraders_api::models::GetMyShipCargo200Response>;
+    Endpoint<(), space_traders::models::GetMyShipCargo200Response>;
 
 impl GetShipCargo {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

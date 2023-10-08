@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type FulfillContract =
-    Endpoint<(), pies_openapi_spacetraders_api::models::FulfillContract200Response>;
+    Endpoint<(), space_traders::models::FulfillContract200Response>;
 
 impl FulfillContract {
     pub fn set_request(&self, rates: Rates, contract_id: String) {

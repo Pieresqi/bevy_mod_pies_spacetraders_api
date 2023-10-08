@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type WarpShip =
-    Endpoint<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
+    Endpoint<WarpShipRequest, space_traders::models::NavigateShip200Response>;
 
 impl WarpShip {
     pub fn set_request(&self, rates: Rates, request: WarpShipRequest, ship_symbol: String) {
@@ -19,7 +19,7 @@ impl WarpShip {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
+#[derive(Clone, Debug, PartialEq, serde::Serialize, serde::Deserialize)]
 pub struct WarpShipRequest {
     /// The target destination.
     #[serde(rename = "waypointSymbol")]

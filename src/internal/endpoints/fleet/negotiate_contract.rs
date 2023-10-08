@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type NegotiateContract =
-    Endpoint<(), pies_openapi_spacetraders_api::models::NegotiateContract200Response>;
+    Endpoint<(), space_traders::models::NegotiateContract200Response>;
 
 impl NegotiateContract {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

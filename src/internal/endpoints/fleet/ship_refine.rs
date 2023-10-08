@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type ShipRefine = Endpoint<
-    pies_openapi_spacetraders_api::models::ShipRefineRequest,
-    pies_openapi_spacetraders_api::models::ShipRefine201Response,
+    space_traders::models::ShipRefineRequest,
+    space_traders::models::ShipRefine201Response,
 >;
 
 impl ShipRefine {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::ShipRefineRequest,
+        request: space_traders::models::ShipRefineRequest,
         ship_symbol: String,
     ) {
         self.push_request(

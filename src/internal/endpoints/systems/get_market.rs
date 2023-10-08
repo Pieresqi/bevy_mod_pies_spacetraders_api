@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetMarket = Endpoint<(), pies_openapi_spacetraders_api::models::GetMarket200Response>;
+pub type GetMarket = Endpoint<(), space_traders::models::GetMarket200Response>;
 
 impl GetMarket {
     pub fn set_request(&self, rates: Rates, system_symbol: String, waypoint_symbol: String) {

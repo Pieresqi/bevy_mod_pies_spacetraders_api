@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ListShips = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyShips200Response>;
+pub type ListShips = Endpoint<(), space_traders::models::GetMyShips200Response>;
 
 impl ListShips {
     pub fn set_request(

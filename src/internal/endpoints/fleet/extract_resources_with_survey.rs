@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type ExtractResourcesWithSurvey = Endpoint<
-    pies_openapi_spacetraders_api::models::Survey,
-    pies_openapi_spacetraders_api::models::ExtractResources201Response,
+    space_traders::models::Survey,
+    space_traders::models::ExtractResources201Response,
 >;
 
 impl ExtractResourcesWithSurvey {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::Survey,
+        request: space_traders::models::Survey,
         ship_symbol: String,
     ) {
         self.push_request(

@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetSystem = Endpoint<(), pies_openapi_spacetraders_api::models::GetSystem200Response>;
+pub type GetSystem = Endpoint<(), space_traders::models::GetSystem200Response>;
 
 impl GetSystem {
     pub fn set_request(&self, rates: Rates, system_symbol: String) {

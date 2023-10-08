@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type PurchaseCargo = Endpoint<
-    pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
-    pies_openapi_spacetraders_api::models::PurchaseCargo201Response,
+    space_traders::models::PurchaseCargoRequest,
+    space_traders::models::PurchaseCargo201Response,
 >;
 
 impl PurchaseCargo {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::PurchaseCargoRequest,
+        request: space_traders::models::PurchaseCargoRequest,
         ship_symbol: String,
     ) {
         self.push_request(

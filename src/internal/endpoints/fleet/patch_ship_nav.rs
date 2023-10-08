@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type PatchShipNav = Endpoint<
-    pies_openapi_spacetraders_api::models::PatchShipNavRequest,
-    pies_openapi_spacetraders_api::models::GetShipNav200Response,
+    space_traders::models::PatchShipNavRequest,
+    space_traders::models::GetShipNav200Response,
 >;
 
 impl PatchShipNav {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::PatchShipNavRequest,
+        request: space_traders::models::PatchShipNavRequest,
         ship_symbol: String,
     ) {
         self.push_request(

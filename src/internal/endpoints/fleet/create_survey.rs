@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type CreateSurvey =
-    Endpoint<(), pies_openapi_spacetraders_api::models::CreateSurvey201Response>;
+    Endpoint<(), space_traders::models::CreateSurvey201Response>;
 
 impl CreateSurvey {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

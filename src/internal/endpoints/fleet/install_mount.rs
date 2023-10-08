@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type InstallMount = Endpoint<
-    pies_openapi_spacetraders_api::models::InstallMountRequest,
-    pies_openapi_spacetraders_api::models::InstallMount201Response,
+    space_traders::models::InstallMountRequest,
+    space_traders::models::InstallMount201Response,
 >;
 
 impl InstallMount {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::InstallMountRequest,
+        request: space_traders::models::InstallMountRequest,
         ship_symbol: String,
     ) {
         self.push_request(

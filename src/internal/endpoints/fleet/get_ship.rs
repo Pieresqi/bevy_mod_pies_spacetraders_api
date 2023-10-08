@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetShip = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyShip200Response>;
+pub type GetShip = Endpoint<(), space_traders::models::GetMyShip200Response>;
 
 impl GetShip {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type RemoveMount = Endpoint<
-    pies_openapi_spacetraders_api::models::RemoveMountRequest,
-    pies_openapi_spacetraders_api::models::RemoveMount201Response,
+    space_traders::models::RemoveMountRequest,
+    space_traders::models::RemoveMount201Response,
 >;
 
 impl RemoveMount {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::RemoveMountRequest,
+        request: space_traders::models::RemoveMountRequest,
         ship_symbol: String,
     ) {
         self.push_request(

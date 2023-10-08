@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type ScanSystems =
-    Endpoint<(), pies_openapi_spacetraders_api::models::CreateShipSystemScan201Response>;
+    Endpoint<(), space_traders::models::CreateShipSystemScan201Response>;
 
 impl ScanSystems {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetAgent = Endpoint<(), pies_openapi_spacetraders_api::models::GetMyAgent200Response>;
+pub type GetAgent = Endpoint<(), space_traders::models::GetMyAgent200Response>;
 
 impl GetAgent {
     pub fn set_request(&self, rates: Rates) {

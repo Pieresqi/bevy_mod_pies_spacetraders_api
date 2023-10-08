@@ -3,7 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type DockShip = Endpoint<(), pies_openapi_spacetraders_api::models::DockShip200Response>;
+pub type DockShip = Endpoint<(), space_traders::models::DockShip200Response>;
 
 impl DockShip {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

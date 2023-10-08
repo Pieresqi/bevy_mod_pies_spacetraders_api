@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type GetShipCooldown =
-    Endpoint<(), pies_openapi_spacetraders_api::models::GetShipCooldown200Response>;
+    Endpoint<(), space_traders::models::GetShipCooldown200Response>;
 
 impl GetShipCooldown {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

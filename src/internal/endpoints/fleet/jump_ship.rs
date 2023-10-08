@@ -4,15 +4,15 @@ use crate::{
 };
 
 pub type JumpShip = Endpoint<
-    pies_openapi_spacetraders_api::models::JumpShipRequest,
-    pies_openapi_spacetraders_api::models::JumpShip200Response,
+    space_traders::models::JumpShipRequest,
+    space_traders::models::JumpShip200Response,
 >;
 
 impl JumpShip {
     pub fn set_request(
         &self,
         rates: Rates,
-        request: pies_openapi_spacetraders_api::models::JumpShipRequest,
+        request: space_traders::models::JumpShipRequest,
         ship_symbol: String,
     ) {
         self.push_request(

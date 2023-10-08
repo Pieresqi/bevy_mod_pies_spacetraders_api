@@ -4,7 +4,7 @@ use crate::{
 };
 
 pub type ScanWaypoints =
-    Endpoint<(), pies_openapi_spacetraders_api::models::CreateShipWaypointScan201Response>;
+    Endpoint<(), space_traders::models::CreateShipWaypointScan201Response>;
 
 impl ScanWaypoints {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {
