@@ -16,6 +16,8 @@ pub mod prelude {
 
     pub use super::internal::endpoints::agents::get_public_agent::GetPublicAgent200Response;
     pub use super::internal::endpoints::fleet::warp_ship::WarpShipRequest;
+    pub use super::internal::client::ClientError;
+    pub use super::internal::client::QueryConf;
 
     pub use space_traders::models;
     pub use space_traders::models::*;
