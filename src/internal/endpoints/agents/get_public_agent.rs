@@ -1,5 +1,3 @@
-use serde::{Deserialize, Serialize};
-
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
     prelude::Rates,
@@ -20,7 +18,7 @@ impl GetPublicAgent {
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Default, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Default, serde::Serialize, serde::Deserialize)]
 pub struct GetPublicAgent200Response {
     #[serde(rename = "data")]
     pub data: Box<pies_openapi_spacetraders_api::models::Agent>,
