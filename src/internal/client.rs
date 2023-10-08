@@ -8,7 +8,7 @@ use bevy_time::common_conditions::on_timer;
 
 use super::{
     endpoints::{
-        agents::get_agent::GetAgent,
+        agents::{get_agent::GetAgent, get_public_agent::GetPublicAgent, list_agents::ListAgents},
         contracts::{
             accept_contract::AcceptContract, deliver_cargo_to_contract::DeliverCargoToContract,
             fulfill_contract::FulfillContract, get_contract::GetContract,
@@ -17,8 +17,9 @@ use super::{
         factions::{get_faction::GetFaction, list_factions::ListFactions},
         fleet::{
             create_chart::CreateChart, create_survey::CreateSurvey, dock_ship::DockShip,
-            extract_resources::ExtractResources, get_mounts::GetMounts, get_ship::GetShip,
-            get_ship_cargo::GetShipCargo, get_ship_cooldown::GetShipCooldown,
+            extract_resources::ExtractResources,
+            extract_resources_with_survey::ExtractResourcesWithSurvey, get_mounts::GetMounts,
+            get_ship::GetShip, get_ship_cargo::GetShipCargo, get_ship_cooldown::GetShipCooldown,
             get_ship_nav::GetShipNav, install_mount::InstallMount, jettison_cargo::JettisonCargo,
             jump_ship::JumpShip, list_ships::ListShips, navigate_ship::NavigateShip,
             negotiate_contract::NegotiateContract, orbit_ship::OrbitShip,
@@ -69,6 +70,8 @@ impl Plugin for ClientPlugin {
         .init_resource::<RegisterNewAgent>()
         // agents
         .init_resource::<GetAgent>()
+        .init_resource::<ListAgents>()
+        .init_resource::<GetPublicAgent>()
         // contracts
         .init_resource::<AcceptContract>()
         .init_resource::<DeliverCargoToContract>()
@@ -83,6 +86,7 @@ impl Plugin for ClientPlugin {
         .init_resource::<CreateSurvey>()
         .init_resource::<DockShip>()
         .init_resource::<ExtractResources>()
+        .init_resource::<ExtractResourcesWithSurvey>()
         .init_resource::<GetMounts>()
         .init_resource::<GetShipCargo>()
         .init_resource::<GetShipCooldown>()

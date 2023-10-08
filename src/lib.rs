@@ -15,6 +15,7 @@ pub mod prelude {
     pub use super::internal::client::ClientPlugin;
 
     pub use super::internal::endpoints::fleet::warp_ship::WarpShip;
+    pub use super::internal::endpoints::agents::get_public_agent::GetPublicAgent200Response;
 
     pub use pies_openapi_spacetraders_api::models;
     pub use pies_openapi_spacetraders_api::models::*;
@@ -33,6 +34,8 @@ pub mod endpoints {
     pub use super::internal::endpoints::register_new_agent::RegisterNewAgent;
 
     pub use super::internal::endpoints::agents::get_agent::GetAgent;
+    pub use super::internal::endpoints::agents::get_public_agent::GetPublicAgent;
+    pub use super::internal::endpoints::agents::list_agents::ListAgents;
 
     pub use super::internal::endpoints::contracts::accept_contract::AcceptContract;
     pub use super::internal::endpoints::contracts::deliver_cargo_to_contract::DeliverCargoToContract;
@@ -56,6 +59,7 @@ pub mod endpoints {
     pub use super::internal::endpoints::fleet::create_survey::CreateSurvey;
     pub use super::internal::endpoints::fleet::dock_ship::DockShip;
     pub use super::internal::endpoints::fleet::extract_resources::ExtractResources;
+    pub use super::internal::endpoints::fleet::extract_resources_with_survey::ExtractResourcesWithSurvey;
     pub use super::internal::endpoints::fleet::get_mounts::GetMounts;
     pub use super::internal::endpoints::fleet::get_ship::GetShip;
     pub use super::internal::endpoints::fleet::get_ship_cargo::GetShipCargo;

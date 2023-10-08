@@ -2,6 +2,7 @@ pub mod create_chart;
 pub mod create_survey;
 pub mod dock_ship;
 pub mod extract_resources;
+pub mod extract_resources_with_survey;
 pub mod get_mounts;
 pub mod get_ship;
 pub mod get_ship_cargo;
