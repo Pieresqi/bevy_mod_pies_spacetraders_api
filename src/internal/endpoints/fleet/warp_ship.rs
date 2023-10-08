@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type WarpShip =
-    Endpoint<WarpShipRequest, space_traders::models::NavigateShip200Response>;
+pub type WarpShip = Endpoint<WarpShipRequest, space_traders::models::NavigateShip200Response>;
 
 impl WarpShip {
     pub fn set_request(&self, rates: Rates, request: WarpShipRequest, ship_symbol: String) {

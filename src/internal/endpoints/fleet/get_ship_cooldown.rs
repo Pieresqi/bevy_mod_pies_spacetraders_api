@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type GetShipCooldown =
-    Endpoint<(), space_traders::models::GetShipCooldown200Response>;
+pub type GetShipCooldown = Endpoint<(), space_traders::models::GetShipCooldown200Response>;
 
 impl GetShipCooldown {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

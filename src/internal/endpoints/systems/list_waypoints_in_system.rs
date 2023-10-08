@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ListWaypointsInSystem =
-    Endpoint<(), space_traders::models::GetSystemWaypoints200Response>;
+pub type ListWaypointsInSystem = Endpoint<(), space_traders::models::GetSystemWaypoints200Response>;
 
 impl ListWaypointsInSystem {
     pub fn set_request(

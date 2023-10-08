@@ -3,10 +3,8 @@ use crate::{
     prelude::Rates,
 };
 
-pub type SellCargo = Endpoint<
-    space_traders::models::SellCargoRequest,
-    space_traders::models::SellCargo201Response,
->;
+pub type SellCargo =
+    Endpoint<space_traders::models::SellCargoRequest, space_traders::models::SellCargo201Response>;
 
 impl SellCargo {
     pub fn set_request(

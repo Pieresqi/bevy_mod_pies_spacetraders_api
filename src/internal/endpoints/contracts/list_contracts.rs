@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ListContracts =
-    Endpoint<(), space_traders::models::GetContracts200Response>;
+pub type ListContracts = Endpoint<(), space_traders::models::GetContracts200Response>;
 
 impl ListContracts {
     pub fn set_request(

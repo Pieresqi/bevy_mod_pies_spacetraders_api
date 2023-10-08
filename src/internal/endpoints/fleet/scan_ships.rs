@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ScanShips =
-    Endpoint<(), space_traders::models::CreateShipShipScan201Response>;
+pub type ScanShips = Endpoint<(), space_traders::models::CreateShipShipScan201Response>;
 
 impl ScanShips {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

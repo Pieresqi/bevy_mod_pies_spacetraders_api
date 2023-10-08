@@ -3,10 +3,8 @@ use crate::{
     prelude::Rates,
 };
 
-pub type JettisonCargo = Endpoint<
-    space_traders::models::JettisonRequest,
-    space_traders::models::Jettison200Response,
->;
+pub type JettisonCargo =
+    Endpoint<space_traders::models::JettisonRequest, space_traders::models::Jettison200Response>;
 
 impl JettisonCargo {
     pub fn set_request(

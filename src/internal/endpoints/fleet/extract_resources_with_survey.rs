@@ -3,10 +3,8 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ExtractResourcesWithSurvey = Endpoint<
-    space_traders::models::Survey,
-    space_traders::models::ExtractResources201Response,
->;
+pub type ExtractResourcesWithSurvey =
+    Endpoint<space_traders::models::Survey, space_traders::models::ExtractResources201Response>;
 
 impl ExtractResourcesWithSurvey {
     pub fn set_request(

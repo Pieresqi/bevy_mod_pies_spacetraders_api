@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type AcceptContract =
-    Endpoint<(), space_traders::models::AcceptContract200Response>;
+pub type AcceptContract = Endpoint<(), space_traders::models::AcceptContract200Response>;
 
 impl AcceptContract {
     pub fn set_request(&self, rates: Rates, contract_id: String) {

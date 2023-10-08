@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type CreateSurvey =
-    Endpoint<(), space_traders::models::CreateSurvey201Response>;
+pub type CreateSurvey = Endpoint<(), space_traders::models::CreateSurvey201Response>;
 
 impl CreateSurvey {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {

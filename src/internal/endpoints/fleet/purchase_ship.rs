@@ -9,11 +9,7 @@ pub type PurchaseShip = Endpoint<
 >;
 
 impl PurchaseShip {
-    pub fn set_request(
-        &self,
-        rates: Rates,
-        request: space_traders::models::PurchaseShipRequest,
-    ) {
+    pub fn set_request(&self, rates: Rates, request: space_traders::models::PurchaseShipRequest) {
         self.push_request(
             rates,
             minreq::Method::Post,

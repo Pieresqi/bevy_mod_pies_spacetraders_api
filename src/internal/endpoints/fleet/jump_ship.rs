@@ -3,10 +3,8 @@ use crate::{
     prelude::Rates,
 };
 
-pub type JumpShip = Endpoint<
-    space_traders::models::JumpShipRequest,
-    space_traders::models::JumpShip200Response,
->;
+pub type JumpShip =
+    Endpoint<space_traders::models::JumpShipRequest, space_traders::models::JumpShip200Response>;
 
 impl JumpShip {
     pub fn set_request(

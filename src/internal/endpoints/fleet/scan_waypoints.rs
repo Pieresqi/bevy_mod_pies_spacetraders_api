@@ -3,8 +3,7 @@ use crate::{
     prelude::Rates,
 };
 
-pub type ScanWaypoints =
-    Endpoint<(), space_traders::models::CreateShipWaypointScan201Response>;
+pub type ScanWaypoints = Endpoint<(), space_traders::models::CreateShipWaypointScan201Response>;
 
 impl ScanWaypoints {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {
