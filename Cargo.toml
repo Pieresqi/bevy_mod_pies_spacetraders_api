@@ -14,14 +14,14 @@ repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
 
 [dependencies]
 futures-lite = "1.13.0"
-minreq = { version = "2.8.1", features = ["https", "json-using-serde"] }
-serde = "1.0.164"
-serde_json = "1.0.96"
+minreq = { version = "2.10.0", features = ["https", "json-using-serde"] }
+serde = "1.0.188"
+serde_json = "1.0.100"
 htb = "0.2.2"
-bevy_ecs = "0.11.0"
-bevy_tasks = "0.11.0"
-bevy_time = "0.11.0"
-bevy_app = "0.11.0"
-pies_openapi_spacetraders_api = "2023.6.24"
+bevy_ecs = "0.11.3"
+bevy_tasks = "0.11.3"
+bevy_time = "0.11.3"
+bevy_app = "0.11.3"
+pies_openapi_spacetraders_api = "2023.9.30"
 crossbeam-channel = "0.5.8"
 
