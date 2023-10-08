@@ -13,8 +13,7 @@ repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["core", "offi-types"]
-core = []
+default = ["offi-types"]
 offi-types = []
 
 [dependencies]
