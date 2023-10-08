@@ -12,6 +12,11 @@ repository = "https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[features]
+default = ["core", "offi-types"]
+core = []
+offi-types = []
+
 [dependencies]
 futures-lite = "1.13.0"
 minreq = { version = "2.10.0", features = ["https", "json-using-serde"] }

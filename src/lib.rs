@@ -12,11 +12,8 @@ pub mod prelude {
     pub use super::internal::rate_limiter::Rates;
 
     pub use super::internal::client::ClientConnectionConfig;
-    pub use super::internal::client::ClientPlugin;
-
-    pub use super::internal::endpoints::agents::get_public_agent::GetPublicAgent200Response;
-    pub use super::internal::endpoints::fleet::warp_ship::WarpShipRequest;
     pub use super::internal::client::ClientError;
+    pub use super::internal::client::ClientPlugin;
     pub use super::internal::client::QueryConf;
 
     pub use space_traders::models;
@@ -26,10 +23,16 @@ pub mod prelude {
 
     pub use super::internal::request::Authorization;
 
-    pub use super::endpoints;
-    pub use super::endpoints::*;
+    #[cfg(feature = "offi-types")]
+    pub use super::{endpoints, endpoints::*};
+
+    #[cfg(feature = "offi-types")]
+    pub use super::internal::endpoints::{
+        agents::get_public_agent::GetPublicAgent200Response, fleet::warp_ship::WarpShipRequest,
+    };
 }
 
+#[cfg(feature = "offi-types")]
 pub mod endpoints {
     pub use super::internal::endpoints::get_status::GetStatus;
 

@@ -67,6 +67,7 @@ impl Plugin for ClientPlugin {
         .init_resource::<RateBucket>()
         .init_resource::<ClientConnectionConfig>();
 
+        #[cfg(feature = "offi-types")]
         app.init_resource::<GetStatus>()
             .init_resource::<RegisterNewAgent>()
             // agents
