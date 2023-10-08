@@ -14,8 +14,8 @@ pub mod prelude {
     pub use super::internal::client::ClientConnectionConfig;
     pub use super::internal::client::ClientPlugin;
 
-    pub use super::internal::endpoints::fleet::warp_ship::WarpShip;
     pub use super::internal::endpoints::agents::get_public_agent::GetPublicAgent200Response;
+    pub use super::internal::endpoints::fleet::warp_ship::WarpShipRequest;
 
     pub use pies_openapi_spacetraders_api::models;
     pub use pies_openapi_spacetraders_api::models::*;
