@@ -17,12 +17,12 @@ Issues / Pull requests / criticism / requests welcome.
 
 ## Simple Example
 
-<https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api/blob/e5136f34ce35cd2f8d2620f94ab1ad93e3a3ce17/examples/simple_example/src/main.rs>
+https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api/blob/e5136f34ce35cd2f8d2620f94ab1ad93e3a3ce17/examples/simple_example/src/main.rs
 
 ## Version Compatibility Table
 
 |Bevy|Crate|
-|-|-|-|
+|-|-|
 |`0.11`|`0.4.0`, `0.3.0`, `0.2.0`|
 |`0.10`|`0.1.1`, `0.1.0`|
 
