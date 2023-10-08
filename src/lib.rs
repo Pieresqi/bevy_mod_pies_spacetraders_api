@@ -81,8 +81,3 @@ pub mod endpoints {
     pub use super::internal::endpoints::fleet::transfer_cargo::TransferCargo;
     pub use super::internal::endpoints::fleet::warp_ship::WarpShip;
 }
-
-pub mod _internal {
-    // be free
-    pub use super::internal::*;
-}
