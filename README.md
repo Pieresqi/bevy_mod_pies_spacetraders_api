@@ -17,7 +17,7 @@ Issues / Pull requests / criticism / requests welcome.
 
 ## Simple Example
 
-<https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api/blob/8e9c736fcddc18177f2466d4df28685c84364c4f/examples/simple_example/src/main.rs#L1-L40>
+<https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api/tree/master/examples/simple_example/src/main.rs#L1-L40>
 
 ## Version Compatibility Table
 
