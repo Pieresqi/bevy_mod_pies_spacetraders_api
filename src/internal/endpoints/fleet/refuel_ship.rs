@@ -1,4 +1,7 @@
-use crate::internal::{endpoint::Endpoint, request::Authorization};
+use crate::{
+    internal::{endpoint::Endpoint, request::Authorization},
+    prelude::Rates,
+};
 
 pub type RefuelShip = Endpoint<
     pies_openapi_spacetraders_api::models::RefuelShipRequest,
@@ -7,11 +10,13 @@ pub type RefuelShip = Endpoint<
 
 impl RefuelShip {
     pub fn set_request(
-        &mut self,
+        &self,
+        rates: Rates,
         request: pies_openapi_spacetraders_api::models::RefuelShipRequest,
         ship_symbol: String,
     ) {
         self.push_request(
+            rates,
             minreq::Method::Post,
             format!("my/ships/{}/scan/refuel", ship_symbol),
             None,

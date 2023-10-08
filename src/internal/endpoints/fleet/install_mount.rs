@@ -1,4 +1,7 @@
-use crate::internal::{endpoint::Endpoint, request::Authorization};
+use crate::{
+    internal::{endpoint::Endpoint, request::Authorization},
+    prelude::Rates,
+};
 
 pub type InstallMount = Endpoint<
     pies_openapi_spacetraders_api::models::InstallMountRequest,
@@ -7,11 +10,13 @@ pub type InstallMount = Endpoint<
 
 impl InstallMount {
     pub fn set_request(
-        &mut self,
+        &self,
+        rates: Rates,
         request: pies_openapi_spacetraders_api::models::InstallMountRequest,
         ship_symbol: String,
     ) {
         self.push_request(
+            rates,
             minreq::Method::Post,
             format!("my/ships/{}/mounts/install", ship_symbol),
             None,

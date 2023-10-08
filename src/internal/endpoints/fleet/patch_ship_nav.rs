@@ -1,4 +1,7 @@
-use crate::internal::{endpoint::Endpoint, request::Authorization};
+use crate::{
+    internal::{endpoint::Endpoint, request::Authorization},
+    prelude::Rates,
+};
 
 pub type PatchShipNav = Endpoint<
     pies_openapi_spacetraders_api::models::PatchShipNavRequest,
@@ -7,11 +10,13 @@ pub type PatchShipNav = Endpoint<
 
 impl PatchShipNav {
     pub fn set_request(
-        &mut self,
+        &self,
+        rates: Rates,
         request: pies_openapi_spacetraders_api::models::PatchShipNavRequest,
         ship_symbol: String,
     ) {
         self.push_request(
+            rates,
             minreq::Method::Patch,
             format!("my/ships/{}/nav", ship_symbol),
             None,

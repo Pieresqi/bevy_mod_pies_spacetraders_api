@@ -12,7 +12,6 @@ where
     Q: Send + Sync + serde::Serialize, // what will be sent as json
     for<'a> S: Send + Sync + serde::Deserialize<'a>, // what will be received as json
 {
-    rates: Option<Rates>,
     channel_endpoint_receiver: crossbeam_channel::Receiver<Result<S, ClientError>>,
     channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
     channel_request_sender: crossbeam_channel::Sender<RequestInstance>,
@@ -24,12 +23,9 @@ where
     for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
     for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
 {
-    pub fn set_rates(&mut self, rates: Rates) {
-        self.rates = Some(rates);
-    }
-
     pub fn push_request(
-        &mut self,
+        &self,
+        rates: Rates,
         method: minreq::Method,
         path: String,
         query: Option<QueryConf>,
@@ -37,7 +33,7 @@ where
         needs_token: Authorization,
     ) {
         let request_h = RequestInstance {
-            rates: self.rates.take().unwrap_or_default(),
+            rates,
             data: Box::new(Request::new(
                 method,
                 path,
@@ -66,7 +62,6 @@ where
         let (sender, receiver) = crossbeam_channel::unbounded();
 
         Self {
-            rates: None,
             channel_request_sender: channel_request.sender.clone(),
             channel_endpoint_sender: sender,
             channel_endpoint_receiver: receiver,

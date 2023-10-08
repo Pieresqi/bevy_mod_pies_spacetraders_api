@@ -1,11 +1,15 @@
-use crate::internal::{endpoint::Endpoint, request::Authorization};
+use crate::{
+    internal::{endpoint::Endpoint, request::Authorization},
+    prelude::Rates,
+};
 
 pub type WarpShip =
     Endpoint<WarpShipRequest, pies_openapi_spacetraders_api::models::NavigateShip200Response>;
 
 impl WarpShip {
-    pub fn set_request(&mut self, request: WarpShipRequest, ship_symbol: String) {
+    pub fn set_request(&self, rates: Rates, request: WarpShipRequest, ship_symbol: String) {
         self.push_request(
+            rates,
             minreq::Method::Post,
             format!("my/ships/{}/warp", ship_symbol),
             None,
