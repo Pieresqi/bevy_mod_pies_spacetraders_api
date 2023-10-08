@@ -18,22 +18,19 @@ fn add_token(mut config: ResMut<ClientConnectionConfig>) {
     config.set_bearer_token("XXX");
 }
 // there's no need to specify 'endpoints::' but it makes it easy to know available apis
-fn set_status(mut status: Res<endpoints::GetStatus>) {
-    // setting rates is optional (defaults: RateLimit::Normal, RateStrategy::Queued, RatePriority::Normal)
-    // will be reset after sending request
-    status.set_rates(Rates {
+fn set_status(status: Res<endpoints::GetStatus>) {
+    // we can send request with this method, each API has it's own impl and will require different args
+    status.set_request(Rates {
         // we will use Burst limiter - up to 10 requests per second over 10 seconds
         limit: RateLimit::Burst,
         // request will be queued untill wa can send it
         strategy: RateStrategy::Queued,
         ..default()
     });
-    // we can send request with this method, each API has it's own impl and will require different args
-    status.set_request();
 }
 
 // each API is it's own Resource
-fn get_status(mut status: Res<endpoints::GetStatus>) {
+fn get_status(status: Res<endpoints::GetStatus>) {
     for status in status.get_receiver().try_iter() {
         match status {
             Ok(status) => info!("{:?}", status),

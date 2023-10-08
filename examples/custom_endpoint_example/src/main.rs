@@ -22,15 +22,16 @@ fn main() {
 // create new function which will make it easier to make request
 // we can also define new trait and in it add fn like `set_request_custom` so its called: `endpoint.set_request_custom`
 fn my_custom_endpoint_set_request(
-    endpoint: &mut MyCustomRegisterEndpoint,
+    endpoint: &MyCustomRegisterEndpoint,
     request: models::RegisterRequest,
 ) {
     // what we specify there depends on server impl
     endpoint.push_request(
-        Method::Post,               //type of http request
-        "register".into(),          //additional url path
+        Rates::default(),           // rate limiter configuration
+        Method::Post,               // type of http request
+        "register".into(),          // additional url path
         None,                       // query param
-        Some(request), // json data, in case that it doenst need any json data in request then just pass None
+        Some(request),              // json data, in case that it doenst need any json data in request then just pass None
         Authorization::Unnecessary, // needs auth
     );
 }
@@ -38,7 +39,7 @@ fn my_custom_endpoint_set_request(
 // example use in system
 fn send_req_custom_endpoint(custom: Res<MyCustomRegisterEndpoint>) {
     my_custom_endpoint_set_request(
-        &mut custom,
+        &custom,
         models::RegisterRequest {
             faction: todo!(),
             symbol: todo!(),
