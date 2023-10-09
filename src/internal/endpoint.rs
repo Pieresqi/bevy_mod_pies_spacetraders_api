@@ -3,7 +3,7 @@ use bevy_ecs::{system::Resource, world::FromWorld};
 use super::{
     client::{ClientError, QueryConf},
     rate_limiter::Rates,
-    request::{Authorization, ChannelRequestHolder, Request, RequestInstance},
+    request::{Authorization, ChannelRequestHolder, Request, RequestInstance}, respond::TRespondsReceived,
 };
 
 #[derive(Debug, Resource)]
@@ -67,5 +67,15 @@ where
             channel_endpoint_receiver: receiver,
             _dummy: std::marker::PhantomData,
         }
+    }
+}
+
+impl<Q, S> TRespondsReceived for Endpoint<Q, S>
+where
+    for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
+    for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
+{
+    fn receiver_is_empty(&self) -> bool {
+        self.get_receiver().is_empty()
     }
 }

@@ -1,19 +1,9 @@
 use bevy_ecs::system::{Res, Resource};
 
-use super::{client::ClientError, endpoint::Endpoint};
+use super::client::ClientError;
 
 pub trait TRespondsReceived {
     fn receiver_is_empty(&self) -> bool;
-}
-
-impl<Q, S> TRespondsReceived for Endpoint<Q, S>
-where
-    for<'a> Q: 'a + Send + Sync + serde::Serialize + std::fmt::Debug,
-    for<'a> S: 'a + Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
-{
-    fn receiver_is_empty(&self) -> bool {
-        self.get_receiver().is_empty()
-    }
 }
 
 #[derive(Debug)]
