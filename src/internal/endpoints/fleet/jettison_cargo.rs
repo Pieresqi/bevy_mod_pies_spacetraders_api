@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type JettisonCargo =
@@ -13,13 +13,11 @@ impl JettisonCargo {
         request: space_traders::models::JettisonRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/jettison", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/jettison", ship_symbol))
+                .set_body(request),
         );
     }
 }

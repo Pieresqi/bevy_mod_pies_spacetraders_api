@@ -1,19 +1,16 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type DockShip = Endpoint<(), space_traders::models::DockShip200Response>;
 
 impl DockShip {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/dock", ship_symbol),
-            None,
-            None,
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/dock", ship_symbol)),
         );
     }
 }

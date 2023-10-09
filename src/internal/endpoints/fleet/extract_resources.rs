@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type ExtractResources = Endpoint<
@@ -15,13 +15,11 @@ impl ExtractResources {
         request: space_traders::models::ExtractResourcesRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/extract", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/extract", ship_symbol))
+                .set_body(request),
         );
     }
 }

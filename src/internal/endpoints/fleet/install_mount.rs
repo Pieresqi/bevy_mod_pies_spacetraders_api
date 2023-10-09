@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type InstallMount = Endpoint<
@@ -15,13 +15,11 @@ impl InstallMount {
         request: space_traders::models::InstallMountRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/mounts/install", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_body(request)
+                .set_additional_path(format!("my/ships/{}/mounts/install", ship_symbol)),
         );
     }
 }

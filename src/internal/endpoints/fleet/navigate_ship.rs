@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{Rates, MinreqRequestBuilder},
 };
 
 pub type NavigateShip = Endpoint<
@@ -15,13 +15,6 @@ impl NavigateShip {
         request: space_traders::models::NavigateShipRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
-            rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/navigate", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
-        );
+        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_additional_path(format!("my/ships/{}/navigate", ship_symbol)).set_body(request));
     }
 }

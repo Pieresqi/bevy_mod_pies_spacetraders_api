@@ -1,9 +1,8 @@
 use super::{client::QueryConf, request::Authorization};
 
+#[derive(Debug)]
 pub struct MinreqRequestBuilder<B: serde::Serialize> {
-    bearer_token: String,
-    path: String,
-    needs_bearer: Authorization,
+    auth_type: Authorization,
     body: Option<B>,
     query: Option<QueryConf>,
     additional_path: String,
@@ -11,53 +10,47 @@ pub struct MinreqRequestBuilder<B: serde::Serialize> {
 }
 
 impl<B: serde::Serialize> MinreqRequestBuilder<B> {
-    pub fn new(bearer_token: String, path: String, request_method: minreq::Method) -> Self {
-        Self {
-            bearer_token,
-            path,
-            needs_bearer: Authorization::Unnecessary,
-            body: None,
-            query: None,
-            additional_path: String::new(),
-            request_method,
-        }
-    }
-
     /// bearer token will be needed for request
-    pub fn with_bearer(mut self, token: Authorization) -> Self {
-        self.needs_bearer = token;
+    pub fn set_authorization(mut self, token: Authorization) -> Self {
+        self.auth_type = token;
         self
     }
 
     /// adds additional endpoint path after base endpoint path
-    pub fn with_path(mut self, path: String) -> Self {
-        self.additional_path = path;
+    pub fn set_additional_path<I: Into<String>>(mut self, path: I) -> Self {
+        self.additional_path = path.into();
         self
     }
 
     /// adds limit and page query to the request
-    pub fn with_query(mut self, query: Option<QueryConf>) -> Self {
-        self.query = query;
+    pub fn set_query(mut self, query: QueryConf) -> Self {
+        self.query = Some(query);
         self
     }
 
     /// adds json payload to the request
-    pub fn with_body(mut self, body: Option<B>) -> Self {
-        self.body = body;
+    pub fn set_body(mut self, body: B) -> Self {
+        self.body = Some(body);
         self
     }
 
-    #[must_use]
-    /// tries to build the http request
-    pub fn build(self) -> minreq::Request {
-        let mut request = minreq::Request::new(
-            self.request_method,
-            self.path + self.additional_path.as_str(),
-        );
+    pub fn new(method: minreq::Method, authorization: Authorization) -> Self {
+        Self {
+            auth_type: authorization,
+            body: None,
+            query: None,
+            additional_path: String::new(),
+            request_method: method,
+        }
+    }
+
+    pub(crate) fn build(self, bearer_token: String, path: String) -> minreq::Request {
+        let mut request =
+            minreq::Request::new(self.request_method, path + self.additional_path.as_str());
 
         // add optional bearer token
-        if let Authorization::Required = self.needs_bearer {
-            request = request.with_header("Authorization", self.bearer_token);
+        if let Authorization::Required = self.auth_type {
+            request = request.with_header("Authorization", bearer_token);
         }
 
         // add optional query

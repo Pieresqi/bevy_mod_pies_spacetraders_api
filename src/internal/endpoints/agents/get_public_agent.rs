@@ -1,19 +1,16 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type GetPublicAgent = Endpoint<(), GetPublicAgent200Response>;
 
 impl GetPublicAgent {
     pub fn set_request(&self, rates: Rates, agent_symbol: String) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            format!("agents/{}", agent_symbol),
-            None,
-            None,
-            Authorization::Unnecessary,
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Unnecessary)
+                .set_additional_path(format!("agents/{}", agent_symbol)),
         );
     }
 }

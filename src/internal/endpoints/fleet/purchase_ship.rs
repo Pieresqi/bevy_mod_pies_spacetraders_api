@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{Rates, MinreqRequestBuilder},
 };
 
 pub type PurchaseShip = Endpoint<
@@ -10,13 +10,6 @@ pub type PurchaseShip = Endpoint<
 
 impl PurchaseShip {
     pub fn set_request(&self, rates: Rates, request: space_traders::models::PurchaseShipRequest) {
-        self.push_request(
-            rates,
-            minreq::Method::Post,
-            "my/ships".into(),
-            None,
-            request.into(),
-            Authorization::Required,
-        );
+        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_body(request).set_additional_path("my/ships"));
     }
 }

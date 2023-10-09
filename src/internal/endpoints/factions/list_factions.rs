@@ -1,6 +1,6 @@
 use crate::{
     internal::{client::QueryConf, endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type ListFactions = Endpoint<(), space_traders::models::GetFactions200Response>;
@@ -12,13 +12,11 @@ impl ListFactions {
         limit: Option<core::num::NonZeroU8>,
         page: Option<core::num::NonZeroU8>,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            "factions".into(),
-            QueryConf { limit, page }.into(),
-            None,
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
+                .set_additional_path("factions")
+                .set_query(QueryConf { limit, page }),
         );
     }
 }

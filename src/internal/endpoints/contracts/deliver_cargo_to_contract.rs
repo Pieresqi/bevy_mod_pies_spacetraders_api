@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type DeliverCargoToContract = Endpoint<
@@ -15,13 +15,11 @@ impl DeliverCargoToContract {
         request: space_traders::models::DeliverContractRequest,
         contract_id: String,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/contracts/{}/deliver", contract_id),
-            None,
-            request.into(),
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/contracts/{}/deliver", contract_id))
+                .set_body(request),
         );
     }
 }

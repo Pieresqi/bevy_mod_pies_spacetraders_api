@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type JumpShip =
@@ -13,13 +13,11 @@ impl JumpShip {
         request: space_traders::models::JumpShipRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/jump", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/jump", ship_symbol))
+                .set_body(request),
         );
     }
 }

@@ -1,6 +1,6 @@
 use crate::{
     internal::{client::QueryConf, endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type ListContracts = Endpoint<(), space_traders::models::GetContracts200Response>;
@@ -12,13 +12,11 @@ impl ListContracts {
         limit: Option<core::num::NonZeroU8>,
         page: Option<core::num::NonZeroU8>,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            "my/contracts".into(),
-            QueryConf { limit, page }.into(),
-            None,
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
+                .set_additional_path("my/contracts")
+                .set_query(QueryConf { limit, page }),
         );
     }
 }

@@ -1,27 +1,41 @@
 use bevy_ecs::system::Resource;
 
 use super::{
-    client::{ClientConnectionConfig, ClientError, QueryConf},
+    client::{ClientConnectionConfig, ClientError},
     minreq_request_builder::MinreqRequestBuilder,
     rate_limiter::Rates,
-    respond::handle_response,
+    respond::{handle_response, TRespond},
 };
 
-#[derive(Debug, Default, Resource)]
-pub struct RequestsToBeProcessed {
-    pub requests: Vec<RequestInstance>,
+pub trait TRequest<'a>: 'a + Send + Sync + serde::Serialize {}
+impl<'a, T> TRequest<'a> for T where T: 'a + Send + Sync + serde::Serialize {}
+
+#[derive(Debug)]
+pub enum Authorization {
+    Required,
+    Unnecessary,
+}
+
+pub trait TRequestDataInner: std::fmt::Debug {
+    /// sends requests and stores responses
+    fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig);
 }
 
 #[derive(Debug)]
-pub struct RequestInstance {
+pub struct RequestData {
     pub rates: Rates,
-    pub data: Box<dyn TRequest + Send + Sync>,
+    pub data: Box<dyn TRequestDataInner + Send + Sync>,
+}
+
+#[derive(Debug, Default, Resource)]
+pub struct RequestsToBeProcessed {
+    pub requests: Vec<RequestData>,
 }
 
 #[derive(Resource)]
 pub struct ChannelRequestHolder {
-    pub sender: crossbeam_channel::Sender<RequestInstance>,
-    pub receiver: crossbeam_channel::Receiver<RequestInstance>,
+    pub sender: crossbeam_channel::Sender<RequestData>,
+    pub receiver: crossbeam_channel::Receiver<RequestData>,
 }
 
 impl Default for ChannelRequestHolder {
@@ -32,75 +46,41 @@ impl Default for ChannelRequestHolder {
     }
 }
 
-pub trait TRequest: std::fmt::Debug {
-    /// sends requests and stores responses
-    fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig);
-}
-
 #[derive(Debug)]
-pub enum Authorization {
-    Required,
-    Unnecessary,
-}
-
-#[derive(Debug)]
-pub struct Request<Q, S>
+pub struct RequestDataInner<Q, S>
 where
-    Q: Send + Sync + serde::Serialize,
-    for<'a> S: Send + Sync + serde::Deserialize<'a>,
+    for<'a> Q: TRequest<'a>,
+    for<'a> S: TRespond<'a>,
 {
-    /// put endpoint responses here
     channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
-    /// actual data to be sent to the endpoint
-    request: Option<Q>,
-    /// not all endpoints support query (page, limit)
-    query: Option<QueryConf>,
-    method: minreq::Method,
-    path: String,
-    needs_token: Authorization,
+    builder: MinreqRequestBuilder<Q>,
 }
 
-impl<Q, S> Request<Q, S>
+impl<Q, S> RequestDataInner<Q, S>
 where
-    Q: Send + Sync + serde::Serialize,
-    for<'a> S: Send + Sync + serde::Deserialize<'a>,
+    for<'a> Q: TRequest<'a>,
+    for<'a> S: TRespond<'a>,
 {
     pub fn new(
-        method: minreq::Method,
-        path: String,
-        query: Option<QueryConf>,
-        request: Option<Q>,
-        needs_token: Authorization,
         channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
+        builder: MinreqRequestBuilder<Q>,
     ) -> Self {
         Self {
-            request,
-            query,
-            method,
-            path,
-            needs_token,
             channel_endpoint_sender,
+            builder,
         }
     }
 }
 
-impl<Q, S> TRequest for Request<Q, S>
+impl<Q, S> TRequestDataInner for RequestDataInner<Q, S>
 where
-    Q: Send + Sync + serde::Serialize + std::fmt::Debug,
-    for<'a> S: Send + Sync + serde::Deserialize<'a> + std::fmt::Debug,
+    for<'a> Q: TRequest<'a> + std::fmt::Debug,
+    for<'a> S: TRespond<'a> + std::fmt::Debug,
 {
-    /// sends requests and stores responses
     fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig) {
-        let min_req = MinreqRequestBuilder::<Q>::new(
-            connection_config.bearer_token,
-            connection_config.path,
-            self.method,
-        )
-        .with_path(self.path)
-        .with_body(self.request)
-        .with_query(self.query)
-        .with_bearer(self.needs_token)
-        .build();
+        let min_req = self
+            .builder
+            .build(connection_config.bearer_token, connection_config.path);
 
         let respond = handle_response::<S>(min_req.send());
 

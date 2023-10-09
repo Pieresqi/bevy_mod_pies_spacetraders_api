@@ -1,19 +1,16 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type GetContract = Endpoint<(), space_traders::models::GetContract200Response>;
 
 impl GetContract {
     pub fn set_request(&self, rates: Rates, contract_id: String) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            format!("my/contracts/{}", contract_id),
-            None,
-            None,
-            Authorization::Required,
-        )
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
+                .set_additional_path(format!("my/contracts/{}", contract_id)),
+        );
     }
 }

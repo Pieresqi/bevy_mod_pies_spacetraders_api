@@ -125,7 +125,7 @@ impl Plugin for ClientPlugin {
     }
 }
 
-pub const AD: &str = "https://api.spacetraders.io/v2/";
+pub const BASE_PATH: &str = "https://api.spacetraders.io/v2/";
 
 #[derive(Debug, Clone)]
 pub struct QueryConf {
@@ -256,7 +256,7 @@ impl ClientConnectionConfig {
 impl Default for ClientConnectionConfig {
     fn default() -> Self {
         Self {
-            path: AD.to_string(),
+            path: BASE_PATH.to_string(),
             bearer_token: String::new(),
         }
     }

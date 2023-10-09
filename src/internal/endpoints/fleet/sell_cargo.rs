@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{Rates, MinreqRequestBuilder},
 };
 
 pub type SellCargo =
@@ -13,13 +13,6 @@ impl SellCargo {
         request: space_traders::models::SellCargoRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
-            rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/sell", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
-        );
+        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_body(request).set_additional_path(format!("my/ships/{}/sell", ship_symbol)));
     }
 }

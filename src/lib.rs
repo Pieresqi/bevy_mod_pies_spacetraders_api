@@ -21,6 +21,7 @@ pub mod prelude {
 
     pub use minreq::Method;
 
+    pub use super::internal::minreq_request_builder::MinreqRequestBuilder;
     pub use super::internal::request::Authorization;
 
     #[cfg(feature = "offi-types")]

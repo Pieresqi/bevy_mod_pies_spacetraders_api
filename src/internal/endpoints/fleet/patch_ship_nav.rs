@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{Rates, MinreqRequestBuilder},
 };
 
 pub type PatchShipNav = Endpoint<
@@ -15,13 +15,6 @@ impl PatchShipNav {
         request: space_traders::models::PatchShipNavRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
-            rates,
-            minreq::Method::Patch,
-            format!("my/ships/{}/nav", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
-        );
+        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Patch, Authorization::Required).set_body(request).set_additional_path(format!("my/ships/{}/nav", ship_symbol)));
     }
 }

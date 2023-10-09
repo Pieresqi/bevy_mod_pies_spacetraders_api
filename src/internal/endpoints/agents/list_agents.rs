@@ -1,6 +1,6 @@
 use crate::{
     internal::{client::QueryConf, endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type ListAgents = Endpoint<(), space_traders::models::GetAgents200Response>;
@@ -12,13 +12,11 @@ impl ListAgents {
         limit: Option<core::num::NonZeroU8>,
         page: Option<core::num::NonZeroU8>,
     ) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            "agents".into(),
-            QueryConf { limit, page }.into(),
-            None,
-            Authorization::Unnecessary,
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Unnecessary)
+                .set_additional_path("agents")
+                .set_query(QueryConf { limit, page }),
         );
     }
 }

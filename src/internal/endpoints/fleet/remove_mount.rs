@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{Rates, MinreqRequestBuilder},
 };
 
 pub type RemoveMount = Endpoint<
@@ -15,13 +15,6 @@ impl RemoveMount {
         request: space_traders::models::RemoveMountRequest,
         ship_symbol: String,
     ) {
-        self.push_request(
-            rates,
-            minreq::Method::Post,
-            format!("my/ships/{}/mounts/remove", ship_symbol),
-            None,
-            request.into(),
-            Authorization::Required,
-        );
+        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_body(request).set_additional_path(format!("my/ships/{}/mounts/remove", ship_symbol)));
     }
 }

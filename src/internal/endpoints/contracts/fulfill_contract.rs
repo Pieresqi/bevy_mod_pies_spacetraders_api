@@ -1,19 +1,16 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type FulfillContract = Endpoint<(), space_traders::models::FulfillContract200Response>;
 
 impl FulfillContract {
     pub fn set_request(&self, rates: Rates, contract_id: String) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            format!("my/contracts/{}/fulfill", contract_id),
-            None,
-            None,
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/contracts/{}/fulfill", contract_id)),
         );
     }
 }

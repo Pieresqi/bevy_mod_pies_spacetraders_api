@@ -6,7 +6,7 @@ use bevy_mod_pies_spacetraders_api::prelude::*;
 //define new type alias so its easier to write
 // first type is for sending json data, second is for receiving json data
 // specific type depends on server impl, you can use `()` to say it doesnt send and/or receive json data
-// NOTE: you should create your own struct to evade endpoint collision
+// NOTE: you should create your own struct for generic par to evade endpoint collision
 type MyCustomRegisterEndpoint = Endpoint<models::RegisterRequest, models::Register201Response>;
 
 fn main() {
@@ -26,13 +26,15 @@ fn my_custom_endpoint_set_request(
     request: models::RegisterRequest,
 ) {
     // what we specify there depends on server impl
-    endpoint.push_request(
-        Rates::default(),           // rate limiter configuration
-        Method::Post,               // type of http request
-        "register".into(),          // additional url path
-        None,                       // query param
-        Some(request),              // json data, in case that it doenst need any json data in request then just pass None
-        Authorization::Unnecessary, // needs auth
+    endpoint.send_request(
+        Rates::default(),                           // rate limiter configuration
+        MinreqRequestBuilder::new(
+            Method::Post,                           // type of http request
+            Authorization::Unnecessary              // needs auth
+        )
+                .set_additional_path("register")    // additional url path
+                .set_body(request)                  // json data
+                .set_query(todo!())                 // query param
     );
 }
 

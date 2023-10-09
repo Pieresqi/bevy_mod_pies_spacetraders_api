@@ -1,19 +1,16 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type GetShipCooldown = Endpoint<(), space_traders::models::GetShipCooldown200Response>;
 
 impl GetShipCooldown {
     pub fn set_request(&self, rates: Rates, ship_symbol: String) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Get,
-            format!("my/ships/{}/cooldown", ship_symbol),
-            None,
-            None,
-            Authorization::Required,
+            MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/cooldown", ship_symbol)),
         );
     }
 }

@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::Rates,
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type RegisterNewAgent =
@@ -8,13 +8,11 @@ pub type RegisterNewAgent =
 
 impl RegisterNewAgent {
     pub fn set_request(&self, rates: Rates, request: space_traders::models::RegisterRequest) {
-        self.push_request(
+        self.send_request(
             rates,
-            minreq::Method::Post,
-            "register".into(),
-            None,
-            Some(request),
-            Authorization::Unnecessary,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Unnecessary)
+                .set_additional_path("register")
+                .set_body(request),
         );
     }
 }

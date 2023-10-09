@@ -2,6 +2,9 @@ use bevy_ecs::system::{Res, Resource};
 
 use super::client::ClientError;
 
+pub trait TRespond<'a>: 'a + Send + Sync + serde::Deserialize<'a> {}
+impl<'a, T> TRespond<'a> for T where T: 'a + Send + Sync + serde::Deserialize<'a> {}
+
 pub trait TRespondsReceived {
     fn receiver_is_empty(&self) -> bool;
 }
@@ -30,7 +33,7 @@ impl std::fmt::Display for RespondError {
 impl std::error::Error for RespondError {}
 
 ///  converts minreq response and error to marker specific response type and client error
-pub fn handle_response<S: for<'d> serde::Deserialize<'d>>(
+pub fn handle_response<S: for<'a> serde::Deserialize<'a>>(
     response: Result<minreq::Response, minreq::Error>,
 ) -> Result<S, ClientError> {
     match response {
