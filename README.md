@@ -10,7 +10,7 @@ Issues / Pull requests / criticism / requests welcome.
 
 ## Features
 
-- Simple and Ergonomic (I hope) API
+- Simple and Ergonomic API
 - Integrated rate limiter
 - Made for Bevy
 - Easily create new API (endpoints)
