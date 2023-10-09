@@ -67,7 +67,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         // add optional json body
         if let Some(body) = self.body {
             request = request
-                .with_body(serde_json::to_string(&body).unwrap())
+                .with_json(&body).unwrap()
                 .with_header("Content-Type", "application/json")
         }
 
