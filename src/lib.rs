@@ -24,11 +24,12 @@ pub mod prelude {
     pub use super::internal::request::Authorization;
 
     #[cfg(feature = "offi-types")]
-    pub use super::{endpoints, endpoints::*};
-
-    #[cfg(feature = "offi-types")]
-    pub use super::internal::endpoints::{
-        agents::get_public_agent::GetPublicAgent200Response, fleet::warp_ship::WarpShipRequest,
+    pub use super::{
+        endpoints,
+        endpoints::*,
+        internal::endpoints::{
+            agents::get_public_agent::GetPublicAgent200Response, fleet::warp_ship::WarpShipRequest,
+        },
     };
 }
 
