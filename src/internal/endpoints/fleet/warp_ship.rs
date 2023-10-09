@@ -1,13 +1,18 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::{Rates, MinreqRequestBuilder},
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type WarpShip = Endpoint<WarpShipRequest, space_traders::models::NavigateShip200Response>;
 
 impl WarpShip {
     pub fn set_request(&self, rates: Rates, request: WarpShipRequest, ship_symbol: String) {
-        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_additional_path(format!("my/ships/{}/warp", ship_symbol)).set_body(request));
+        self.send_request(
+            rates,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_additional_path(format!("my/ships/{}/warp", ship_symbol))
+                .set_body(request),
+        );
     }
 }
 

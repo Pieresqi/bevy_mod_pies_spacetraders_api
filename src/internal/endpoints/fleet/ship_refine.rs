@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::{Rates, MinreqRequestBuilder},
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type ShipRefine = Endpoint<
@@ -15,6 +15,11 @@ impl ShipRefine {
         request: space_traders::models::ShipRefineRequest,
         ship_symbol: String,
     ) {
-        self.send_request(rates, MinreqRequestBuilder::new( minreq::Method::Post, Authorization::Required).set_body(request).set_additional_path(format!("my/ships/{}/refine", ship_symbol)));
+        self.send_request(
+            rates,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_body(request)
+                .set_additional_path(format!("my/ships/{}/refine", ship_symbol)),
+        );
     }
 }

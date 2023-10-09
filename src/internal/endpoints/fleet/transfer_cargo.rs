@@ -1,6 +1,6 @@
 use crate::{
     internal::{endpoint::Endpoint, request::Authorization},
-    prelude::{Rates, MinreqRequestBuilder},
+    prelude::{MinreqRequestBuilder, Rates},
 };
 
 pub type TransferCargo = Endpoint<
@@ -15,6 +15,11 @@ impl TransferCargo {
         request: space_traders::models::TransferCargoRequest,
         ship_symbol: String,
     ) {
-        self.send_request(rates, MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required).set_body(request).set_additional_path(format!("my/ships/{}/transfer", ship_symbol)));
+        self.send_request(
+            rates,
+            MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
+                .set_body(request)
+                .set_additional_path(format!("my/ships/{}/transfer", ship_symbol)),
+        );
     }
 }

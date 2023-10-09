@@ -46,7 +46,10 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
 
     pub(crate) fn build(self, bearer_token: String, path: String) -> minreq::Request {
         let mut request =
-            minreq::Request::new(self.request_method, path + self.additional_path.as_str()).with_timeout(5).with_max_headers_size(10000).with_max_status_line_length(1000);
+            minreq::Request::new(self.request_method, path + self.additional_path.as_str())
+                .with_timeout(5)
+                .with_max_headers_size(10000)
+                .with_max_status_line_length(1000);
 
         // add optional bearer token
         if let Authorization::Required = self.auth_type {
@@ -67,7 +70,8 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         // add optional json body
         if let Some(body) = self.body {
             request = request
-                .with_json(&body).unwrap()
+                .with_json(&body)
+                .unwrap()
                 .with_header("Content-Type", "application/json")
         }
 
