@@ -17,7 +17,48 @@ Issues / Pull requests / criticism / requests welcome.
 
 ## Simple Example
 
-<https://github.com/Pieresqi/bevy_mod_pies_spacetraders_api/blob/dc764331992834540657841e7fe7753f2987e81d/examples/simple_example/src/main.rs#L1-L40>
+```rust
+use bevy::{log::LogPlugin, prelude::*};
+use bevy_mod_pies_spacetraders_api::prelude::*;
+
+fn main() {
+    App::new()
+        .add_plugins(MinimalPlugins)
+        .add_plugins(LogPlugin::default())
+        // we will need this, it sets up stuff
+        .add_plugins(ClientPlugin)
+        .add_systems(Startup, add_token)
+        .add_systems(Update, set_status.run_if(run_once()))
+        .add_systems(Update, get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
+        .run();
+}
+
+fn add_token(mut config: ResMut<ClientConnectionConfig>) {
+    // bearer token, almost every API needs it
+    config.set_bearer_token("XXX");
+}
+
+fn set_status(status: Res<endpoints::GetStatus>) {
+    // we can send request with this method, each API has it's own impl and will require different args
+    status.set_request(Rates {
+        // we will use Burst limiter - up to 10 requests per second over 10 seconds
+        limit: RateLimit::Burst,
+        // request will be queued untill wa can send it
+        strategy: RateStrategy::Queued,
+        ..default()
+    });
+}
+
+// each API is it's own Resource
+fn get_status(status: Res<endpoints::GetStatus>) {
+    for status in status.get_receiver().try_iter() {
+        match status {
+            Ok(status) => info!("{:?}", status),
+            Err(error) => warn!("{:?}", error),
+        }
+    }
+}
+```
 
 ## Version Compatibility Table
 
