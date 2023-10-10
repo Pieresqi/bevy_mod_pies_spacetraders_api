@@ -8,11 +8,11 @@ use super::{
     respond::{TRespond, TRespondsReceived},
 };
 
-#[derive(Debug, Resource)]
+#[derive(Resource)]
 pub struct Endpoint<Q, S>
 where
-    for<'a> Q: TRequest<'a>,
-    for<'a> S: TRespond<'a>,
+    Q: TRequest,
+    S: TRespond,
 {
     channel_endpoint_receiver: crossbeam_channel::Receiver<Result<S, ClientError>>,
     channel_endpoint_sender: crossbeam_channel::Sender<Result<S, ClientError>>,
@@ -22,8 +22,8 @@ where
 
 impl<Q, S> Endpoint<Q, S>
 where
-    for<'a> Q: TRequest<'a> + std::fmt::Debug,
-    for<'a> S: TRespond<'a> + std::fmt::Debug,
+    Q: TRequest,
+    S: TRespond,
 {
     pub fn send_request(&self, rates: Rates, builder: MinreqRequestBuilder<Q>) {
         let request_h = RequestData {
@@ -44,8 +44,8 @@ where
 
 impl<Q, S> FromWorld for Endpoint<Q, S>
 where
-    for<'a> Q: TRequest<'a> + std::fmt::Debug,
-    for<'a> S: TRespond<'a> + std::fmt::Debug,
+    Q: TRequest,
+    S: TRespond,
 {
     fn from_world(world: &mut bevy_ecs::world::World) -> Self {
         let channel_request = world.resource::<ChannelRequestHolder>();
@@ -62,8 +62,8 @@ where
 
 impl<Q, S> TRespondsReceived for Endpoint<Q, S>
 where
-    for<'a> Q: TRequest<'a> + std::fmt::Debug,
-    for<'a> S: TRespond<'a> + std::fmt::Debug,
+    Q: TRequest,
+    S: TRespond,
 {
     fn receiver_is_empty(&self) -> bool {
         self.get_receiver().is_empty()
