@@ -11,8 +11,7 @@ impl GetWaypoint {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
                 .set_additional_path(format!(
-                    "systems/{}/waypoints/{}",
-                    system_symbol, waypoint_symbol
+                    "systems/{system_symbol}/waypoints/{waypoint_symbol}"
                 )),
         );
     }

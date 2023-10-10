@@ -10,7 +10,7 @@ impl ScanShips {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
-                .set_additional_path(format!("my/ships/{}/scan/ships", ship_symbol)),
+                .set_additional_path(format!("my/ships/{ship_symbol}/scan/ships")),
         );
     }
 }

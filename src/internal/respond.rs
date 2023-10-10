@@ -19,11 +19,11 @@ pub enum RespondError {
 impl std::fmt::Display for RespondError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display = (match self {
-                Self::BadRequest(s) => format!("Server responded: {}", s),
-                Self::Other(s) => format!("Server or other: {}", s),
+                Self::BadRequest(s) => format!("Server responded: {s}"),
+                Self::Other(s) => format!("Server or other: {s}"),
             }).to_string();
 
-        write!(f, "{}", display)
+        write!(f, "{display}")
     }
 }
 

@@ -18,7 +18,7 @@ impl NavigateShip {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
-                .set_additional_path(format!("my/ships/{}/navigate", ship_symbol))
+                .set_additional_path(format!("my/ships/{ship_symbol}/navigate"))
                 .set_body(request),
         );
     }

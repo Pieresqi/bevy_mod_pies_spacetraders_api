@@ -207,7 +207,7 @@ impl std::fmt::Display for ClientError {
                 Self::Connection(s) => s.to_string(),
             }).to_string();
 
-        write!(f, "{}", display)
+        write!(f, "{display}")
     }
 }
 

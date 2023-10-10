@@ -10,7 +10,7 @@ impl GetContract {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
-                .set_additional_path(format!("my/contracts/{}", contract_id)),
+                .set_additional_path(format!("my/contracts/{contract_id}")),
         );
     }
 }

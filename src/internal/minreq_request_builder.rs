@@ -59,11 +59,11 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         // add optional query
         if let Some(query) = self.query {
             if let Some(limit) = query.limit {
-                request = request.with_param("limit", limit.to_string())
+                request = request.with_param("limit", limit.to_string());
             }
 
             if let Some(page) = query.page {
-                request = request.with_param("page", page.to_string())
+                request = request.with_param("page", page.to_string());
             }
         }
 
@@ -72,7 +72,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
             request = request
                 .with_json(&body)
                 .unwrap()
-                .with_header("Content-Type", "application/json")
+                .with_header("Content-Type", "application/json");
         }
 
         request

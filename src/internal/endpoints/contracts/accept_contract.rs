@@ -10,7 +10,7 @@ impl AcceptContract {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
-                .set_additional_path(format!("my/contracts/{}/accept", contract_id)),
+                .set_additional_path(format!("my/contracts/{contract_id}/accept")),
         );
     }
 }

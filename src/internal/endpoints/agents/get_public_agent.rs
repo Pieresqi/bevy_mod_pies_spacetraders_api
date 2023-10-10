@@ -10,7 +10,7 @@ impl GetPublicAgent {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Unnecessary)
-                .set_additional_path(format!("agents/{}", agent_symbol)),
+                .set_additional_path(format!("agents/{agent_symbol}")),
         );
     }
 }

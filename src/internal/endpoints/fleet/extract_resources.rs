@@ -18,7 +18,7 @@ impl ExtractResources {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
-                .set_additional_path(format!("my/ships/{}/extract", ship_symbol))
+                .set_additional_path(format!("my/ships/{ship_symbol}/extract"))
                 .set_body(request),
         );
     }

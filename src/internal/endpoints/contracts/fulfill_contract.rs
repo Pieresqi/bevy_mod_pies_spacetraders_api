@@ -10,7 +10,7 @@ impl FulfillContract {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
-                .set_additional_path(format!("my/contracts/{}/fulfill", contract_id)),
+                .set_additional_path(format!("my/contracts/{contract_id}/fulfill")),
         );
     }
 }

@@ -10,7 +10,7 @@ impl GetFaction {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
-                .set_additional_path(format!("factions/{}", faction_symbol)),
+                .set_additional_path(format!("factions/{faction_symbol}")),
         );
     }
 }

@@ -19,7 +19,7 @@ impl RemoveMount {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
                 .set_body(request)
-                .set_additional_path(format!("my/ships/{}/mounts/remove", ship_symbol)),
+                .set_additional_path(format!("my/ships/{ship_symbol}/mounts/remove")),
         );
     }
 }

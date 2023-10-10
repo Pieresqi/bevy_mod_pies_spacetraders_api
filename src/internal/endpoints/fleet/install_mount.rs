@@ -19,7 +19,7 @@ impl InstallMount {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
                 .set_body(request)
-                .set_additional_path(format!("my/ships/{}/mounts/install", ship_symbol)),
+                .set_additional_path(format!("my/ships/{ship_symbol}/mounts/install")),
         );
     }
 }

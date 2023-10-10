@@ -10,7 +10,7 @@ impl GetMounts {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
-                .set_additional_path(format!("my/ships/{}/mounts", ship_symbol)),
+                .set_additional_path(format!("my/ships/{ship_symbol}/mounts")),
         );
     }
 }

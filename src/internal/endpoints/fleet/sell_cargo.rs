@@ -17,7 +17,7 @@ impl SellCargo {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Post, Authorization::Required)
                 .set_body(request)
-                .set_additional_path(format!("my/ships/{}/sell", ship_symbol)),
+                .set_additional_path(format!("my/ships/{ship_symbol}/sell")),
         );
     }
 }
