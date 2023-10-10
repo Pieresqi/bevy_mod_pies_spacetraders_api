@@ -202,13 +202,10 @@ pub enum ClientError {
 
 impl std::fmt::Display for ClientError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let display = format!(
-            "{}",
-            match self {
+        let display = (match self {
                 Self::Respond(s) => s.to_string(),
                 Self::Connection(s) => s.to_string(),
-            }
-        );
+            }).to_string();
 
         write!(f, "{}", display)
     }
@@ -228,13 +225,13 @@ pub struct ClientConnectionConfig {
 impl ClientConnectionConfig {
     pub fn set_endpoint_path<I: Into<String>>(&mut self, end_path: I) {
         self.path = end_path.into();
-        if !self.path.ends_with("/") {
-            self.path.push_str("/");
+        if !self.path.ends_with('/') {
+            self.path.push('/');
         }
     }
 
     pub fn set_bearer_token<I: Into<String>>(&mut self, bear_token: I) {
-        self.bearer_token = bear_token.into().into();
+        self.bearer_token = bear_token.into();
         if !self.bearer_token.starts_with("Bearer ") {
             self.bearer_token = format!("Bearer {}", self.bearer_token);
         }
