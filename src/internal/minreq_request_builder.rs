@@ -4,7 +4,7 @@ use super::{client::QueryConf, request::Authorization};
 pub struct MinreqRequestBuilder<B: serde::Serialize> {
     auth_type: Authorization,
     body: Option<B>,
-    query: Option<QueryConf>,
+    query: QueryConf,
     additional_path: String,
     request_method: minreq::Method,
 }
@@ -24,7 +24,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
 
     /// adds limit and page query to the request
     pub fn set_query(mut self, query: QueryConf) -> Self {
-        self.query = Some(query);
+        self.query = query;
         self
     }
 
@@ -34,11 +34,14 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         self
     }
 
-    pub fn new(method: minreq::Method, authorization: Authorization) -> Self {
+    pub const fn new(method: minreq::Method, authorization: Authorization) -> Self {
         Self {
             auth_type: authorization,
             body: None,
-            query: None,
+            query: QueryConf {
+                limit: None,
+                page: None,
+            },
             additional_path: String::new(),
             request_method: method,
         }
@@ -56,15 +59,14 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
             request = request.with_header("Authorization", bearer_token);
         }
 
-        // add optional query
-        if let Some(query) = self.query {
-            if let Some(limit) = query.limit {
-                request = request.with_param("limit", limit.to_string());
-            }
+        // add optional query limit
+        if let Some(limit) = self.query.limit {
+            request = request.with_param("limit", limit.to_string());
+        }
 
-            if let Some(page) = query.page {
-                request = request.with_param("page", page.to_string());
-            }
+        // add optional query page
+        if let Some(page) = self.query.page {
+            request = request.with_param("page", page.to_string());
         }
 
         // add optional json body
