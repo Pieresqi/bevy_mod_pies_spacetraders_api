@@ -97,14 +97,6 @@ impl Default for RateBucket {
 }
 
 /// replenishes buckets based on delta of update set
-pub fn replenish_buckets_step(mut buckets: ResMut<RateBucket>, time: Res<Time>) {
-    buckets
-        .inner
-        .advance(if time.delta() > std::time::Duration::from_secs_f32(RS) {
-            time.delta()
-        } else {
-            std::time::Duration::from_secs_f32(RS)
-        });
+pub fn replenish_buckets(mut buckets: ResMut<RateBucket>, time: Res<Time>) {
+    buckets.inner.advance(time.delta());
 }
-
-pub const RS: f32 = 0.1;

@@ -4,7 +4,6 @@ use bevy_ecs::{
     system::{Res, ResMut, Resource},
 };
 use bevy_tasks::IoTaskPool;
-use bevy_time::common_conditions::on_timer;
 
 use super::{
     endpoints::{
@@ -37,7 +36,7 @@ use super::{
             list_systems::ListSystems, list_waypoints_in_system::ListWaypointsInSystem,
         },
     },
-    rate_limiter::{replenish_buckets_step, RateBucket, RateLimit, RateStrategy, RS},
+    rate_limiter::{replenish_buckets, RateBucket, RateLimit, RateStrategy},
     request::{ChannelRequestHolder, RequestsToBeProcessed},
     respond::RespondError,
 };
@@ -58,10 +57,7 @@ impl Plugin for ClientPlugin {
                 },
             ),
         )
-        .add_systems(
-            Update,
-            replenish_buckets_step.run_if(on_timer(std::time::Duration::from_secs_f32(RS))),
-        )
+        .add_systems(Update, replenish_buckets)
         .init_resource::<RequestsToBeProcessed>()
         .init_resource::<ChannelRequestHolder>()
         .init_resource::<RateBucket>()
