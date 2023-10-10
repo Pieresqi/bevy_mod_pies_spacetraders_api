@@ -203,9 +203,10 @@ pub enum ClientError {
 impl std::fmt::Display for ClientError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let display = (match self {
-                Self::Respond(s) => s.to_string(),
-                Self::Connection(s) => s.to_string(),
-            }).to_string();
+            Self::Respond(s) => s.to_string(),
+            Self::Connection(s) => s.to_string(),
+        })
+        .to_string();
 
         write!(f, "{display}")
     }
