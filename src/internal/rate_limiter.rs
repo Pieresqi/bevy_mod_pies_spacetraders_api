@@ -67,6 +67,17 @@ pub struct RateBucket {
     pub inner: htb::HTB<RateLimit>,
 }
 
+impl RateBucket {
+    pub(crate) fn consume_token_for_each<F: FnMut() -> ()>(&mut self, label: RateLimit, mut f: F) {
+        while self.inner.peek(label) {
+
+            f();
+    
+            self.inner.take(label);
+        }
+    }
+}
+
 impl Default for RateBucket {
     fn default() -> Self {
         let mut bucket = Self {

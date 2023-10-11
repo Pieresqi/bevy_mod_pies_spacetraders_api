@@ -145,37 +145,30 @@ fn dispatch_requests(
         .into_iter()
         .partition(|request| request.rates.limit == RateLimit::Normal);
 
-    while buckets.inner.peek(RateLimit::Normal) {
+
+    buckets.consume_token_for_each(RateLimit::Normal, || {
         // gets request from back, old high are consumed before new low
-        let Some(request) = normal.pop() else {
-            break;
-        };
+        if let Some(request) = normal.pop() {
+            let connection_config = connection_config.clone();
 
-        let connection_config = connection_config.clone();
+            pool.spawn(async move {
+                request.data.send_and_receive(connection_config);
+            })
+            .detach();
+        }
+    });
 
-        pool.spawn(async move {
-            request.data.send_and_receive(connection_config);
-        })
-        .detach();
+    buckets.consume_token_for_each(RateLimit::Burst, || {
+        // gets request from back, old high are consumed before new low
+        if let Some(request) = burst.pop() {
+            let connection_config = connection_config.clone();
 
-        buckets.inner.take(RateLimit::Normal);
-    }
-
-    while buckets.inner.peek(RateLimit::Burst) {
-        // gets request from back, so old high are consumed before new low
-        let Some(request) = burst.pop() else {
-            break;
-        };
-
-        let connection_config = connection_config.clone();
-
-        pool.spawn(async move {
-            request.data.send_and_receive(connection_config);
-        })
-        .detach();
-
-        buckets.inner.take(RateLimit::Burst);
-    }
+            pool.spawn(async move {
+                request.data.send_and_receive(connection_config);
+            })
+            .detach();
+        }
+    });
 
     // extract leftover queue requests
     let mut retain = normal
