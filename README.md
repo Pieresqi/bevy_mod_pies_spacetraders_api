@@ -27,8 +27,7 @@ fn main() {
         .add_plugins(LogPlugin::default())
         // we will need this, it sets up stuff
         .add_plugins(ClientPlugin)
-        .add_systems(Startup, add_token)
-        .add_systems(Update, set_status.run_if(run_once()))
+        .add_systems(Startup, (add_token, set_status).chain())
         .add_systems(Update, get_status.run_if(/* custom run condition is provided: */response_received::<GetStatus>()))
         .run();
 }
