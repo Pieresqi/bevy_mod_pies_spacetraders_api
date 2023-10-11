@@ -10,6 +10,7 @@ pub mod prelude {
     pub use super::internal::rate_limiter::RatePriority;
     pub use super::internal::rate_limiter::RateStrategy;
     pub use super::internal::rate_limiter::Rates;
+    pub use super::internal::rate_limiter::RateBucket;
 
     pub use super::internal::client::ClientConnectionConfig;
     pub use super::internal::client::ClientError;
@@ -23,6 +24,7 @@ pub mod prelude {
 
     pub use super::internal::minreq_request_builder::MinreqRequestBuilder;
     pub use super::internal::request::Authorization;
+    pub use super::internal::request::RequestsToBeProcessed;
 
     #[cfg(feature = "offi-types")]
     pub use super::{
