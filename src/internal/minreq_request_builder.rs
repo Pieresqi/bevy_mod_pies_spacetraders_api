@@ -50,6 +50,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
     pub(crate) fn build(self, bearer_token: String, path: String) -> minreq::Request {
         let mut request =
             minreq::Request::new(self.request_method, path + self.additional_path.as_str())
+                // not sure what values to put here
                 .with_timeout(33)
                 .with_max_headers_size(10000)
                 .with_max_status_line_length(1000);

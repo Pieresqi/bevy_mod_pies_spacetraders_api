@@ -130,7 +130,7 @@ pub struct QueryConfig {
 }
 
 fn dispatch_requests(
-    new: ResMut<ChannelRequestHolder>,
+    new: Res<ChannelRequestHolder>,
     mut old: ResMut<RequestsToBeProcessed>,
     connection_config: Res<ClientConnectionConfig>,
     mut buckets: ResMut<RateBucket>,
