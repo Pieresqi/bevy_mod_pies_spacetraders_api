@@ -1,5 +1,5 @@
 use crate::{
-    internal::{client::QueryConf, endpoint::Endpoint, request::Authorization},
+    internal::{client::QueryConfig, endpoint::Endpoint, request::Authorization},
     prelude::{MinreqRequestBuilder, Rates},
 };
 
@@ -16,7 +16,7 @@ impl ListAgents {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Unnecessary)
                 .set_additional_path("agents")
-                .set_query(QueryConf { limit, page }),
+                .set_query(QueryConfig { limit, page }),
         );
     }
 }

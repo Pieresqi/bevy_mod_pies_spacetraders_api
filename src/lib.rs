@@ -14,7 +14,7 @@ pub mod prelude {
     pub use super::internal::client::ClientConnectionConfig;
     pub use super::internal::client::ClientError;
     pub use super::internal::client::ClientPlugin;
-    pub use super::internal::client::QueryConf;
+    pub use super::internal::client::QueryConfig;
 
     pub use space_traders::models;
     pub use space_traders::models::*;

@@ -124,7 +124,7 @@ impl Plugin for ClientPlugin {
 pub const BASE_PATH: &str = "https://api.spacetraders.io/v2/";
 
 #[derive(Debug, Default)]
-pub struct QueryConf {
+pub struct QueryConfig {
     pub limit: Option<core::num::NonZeroU8>,
     pub page: Option<core::num::NonZeroU8>,
 }

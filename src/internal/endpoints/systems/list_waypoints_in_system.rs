@@ -1,5 +1,5 @@
 use crate::{
-    internal::{client::QueryConf, endpoint::Endpoint, request::Authorization},
+    internal::{client::QueryConfig, endpoint::Endpoint, request::Authorization},
     prelude::{MinreqRequestBuilder, Rates},
 };
 
@@ -17,7 +17,7 @@ impl ListWaypointsInSystem {
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
                 .set_additional_path(format!("systems/{system_symbol}/waypoints"))
-                .set_query(QueryConf { limit, page }),
+                .set_query(QueryConfig { limit, page }),
         );
     }
 }

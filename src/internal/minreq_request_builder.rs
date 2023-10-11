@@ -1,10 +1,10 @@
-use super::{client::QueryConf, request::Authorization};
+use super::{client::QueryConfig, request::Authorization};
 
 #[derive(Debug)]
 pub struct MinreqRequestBuilder<B: serde::Serialize> {
     auth_type: Authorization,
     body: Option<B>,
-    query: QueryConf,
+    query: QueryConfig,
     additional_path: String,
     request_method: minreq::Method,
 }
@@ -23,7 +23,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
     }
 
     /// adds limit and page query to the request
-    pub fn set_query(mut self, query: QueryConf) -> Self {
+    pub fn set_query(mut self, query: QueryConfig) -> Self {
         self.query = query;
         self
     }
@@ -38,7 +38,7 @@ impl<B: serde::Serialize> MinreqRequestBuilder<B> {
         Self {
             auth_type: authorization,
             body: None,
-            query: QueryConf {
+            query: QueryConfig {
                 limit: None,
                 page: None,
             },
