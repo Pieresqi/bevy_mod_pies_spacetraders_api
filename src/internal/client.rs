@@ -145,7 +145,6 @@ fn dispatch_requests(
         .into_iter()
         .partition(|request| request.rates.limit == RateLimit::Normal);
 
-
     buckets.consume_token_for_each(RateLimit::Normal, || {
         // gets request from back, old high are consumed before new low
         if let Some(request) = normal.pop() {

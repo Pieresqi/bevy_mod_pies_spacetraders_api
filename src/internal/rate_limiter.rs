@@ -70,9 +70,8 @@ pub struct RateBucket {
 impl RateBucket {
     pub(crate) fn consume_token_for_each<F: FnMut() -> ()>(&mut self, label: RateLimit, mut f: F) {
         while self.inner.peek(label) {
-
             f();
-    
+
             self.inner.take(label);
         }
     }
