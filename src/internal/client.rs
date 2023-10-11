@@ -218,16 +218,16 @@ impl std::error::Error for ClientError {}
 /// client config
 pub struct ClientConnectionConfig {
     /// endpoind base path
-    pub path: String,
+    pub base_path: String,
     /// private token for auth
     pub bearer_token: String,
 }
 
 impl ClientConnectionConfig {
     pub fn set_endpoint_path<I: Into<String>>(&mut self, end_path: I) {
-        self.path = end_path.into();
-        if !self.path.ends_with('/') {
-            self.path.push('/');
+        self.base_path = end_path.into();
+        if !self.base_path.ends_with('/') {
+            self.base_path.push('/');
         }
     }
 
@@ -239,7 +239,7 @@ impl ClientConnectionConfig {
     }
 
     pub fn get_endpoint_path(&self) -> &str {
-        &self.path
+        &self.base_path
     }
 
     pub fn get_bearer_token(&self) -> &str {
@@ -250,7 +250,7 @@ impl ClientConnectionConfig {
 impl Default for ClientConnectionConfig {
     fn default() -> Self {
         Self {
-            path: BASE_PATH.to_string(),
+            base_path: BASE_PATH.to_string(),
             bearer_token: String::new(),
         }
     }

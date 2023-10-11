@@ -78,7 +78,7 @@ where
     fn send_and_receive(self: Box<Self>, connection_config: ClientConnectionConfig) {
         let min_req = self
             .builder
-            .build(connection_config.bearer_token, connection_config.path);
+            .build(connection_config.bearer_token, connection_config.base_path);
 
         let respond = handle_response::<S>(min_req.send());
 
