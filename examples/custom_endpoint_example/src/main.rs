@@ -25,7 +25,8 @@ fn my_custom_endpoint_set_request(
     endpoint: &MyCustomRegisterEndpoint,
     request: models::RegisterRequest,
 ) {
-    // what we specify there depends on server impl
+    // what we specify there depends on server impl, 
+    // MinreqRequestBuilder offers builder pattern so we can specifiy "optional" stuff like query, body, etc
     endpoint.send_request(
         Rates::default(),                           // rate limiter configuration
         MinreqRequestBuilder::new(
@@ -34,7 +35,7 @@ fn my_custom_endpoint_set_request(
         )
                 .set_additional_path("register")    // additional url path
                 .set_body(request)                  // json data
-                .set_query(todo!())                 // query param
+                .set_query(QueryConfig::new())      // query param
     );
 }
 
