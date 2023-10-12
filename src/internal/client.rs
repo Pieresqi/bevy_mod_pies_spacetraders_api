@@ -129,6 +129,24 @@ pub struct QueryConfig {
     pub page: Option<core::num::NonZeroU8>,
 }
 
+impl QueryConfig {
+    pub fn new() -> Self {
+        Self::default()
+    }
+
+    pub fn set_limit(mut self, limit: u8) -> Self {
+        self.limit = core::num::NonZeroU8::new(limit);
+
+        self
+    }
+
+    pub fn set_page(mut self, page: u8) -> Self {
+        self.page = core::num::NonZeroU8::new(page);
+
+        self
+    }
+}
+
 fn dispatch_requests(
     new: Res<ChannelRequestHolder>,
     mut old: ResMut<RequestsToBeProcessed>,
