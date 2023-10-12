@@ -6,11 +6,11 @@ pub mod prelude {
 
     pub use super::internal::endpoint::Endpoint;
 
+    pub use super::internal::rate_limiter::RateBucket;
     pub use super::internal::rate_limiter::RateLimit;
     pub use super::internal::rate_limiter::RatePriority;
     pub use super::internal::rate_limiter::RateStrategy;
     pub use super::internal::rate_limiter::Rates;
-    pub use super::internal::rate_limiter::RateBucket;
 
     pub use super::internal::client::ClientConnectionConfig;
     pub use super::internal::client::ClientError;
