@@ -6,11 +6,7 @@ use crate::{
 pub type ListSystems = Endpoint<(), space_traders::models::GetSystems200Response>;
 
 impl ListSystems {
-    pub fn set_request(
-        &self,
-        rates: Rates,
-        query_config: QueryConfig
-    ) {
+    pub fn set_request(&self, rates: Rates, query_config: QueryConfig) {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)

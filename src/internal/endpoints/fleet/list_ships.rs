@@ -6,11 +6,7 @@ use crate::{
 pub type ListShips = Endpoint<(), space_traders::models::GetMyShips200Response>;
 
 impl ListShips {
-    pub fn set_request(
-        &self,
-        rates: Rates,
-        query_config: QueryConfig
-    ) {
+    pub fn set_request(&self, rates: Rates, query_config: QueryConfig) {
         self.send_request(
             rates,
             MinreqRequestBuilder::new(minreq::Method::Get, Authorization::Required)
