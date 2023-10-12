@@ -17,7 +17,6 @@ default = ["offi-types"]
 offi-types = []
 
 [dependencies]
-futures-lite = "1.13.0"
 minreq = { version = "2.10.0", features = ["https", "json-using-serde"] }
 serde = "1.0.188"
 htb = "0.2.2"
