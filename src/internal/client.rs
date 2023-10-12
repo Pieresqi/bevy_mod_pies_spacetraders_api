@@ -147,26 +147,34 @@ fn dispatch_requests(
 
     buckets.consume_token_for_each(RateLimit::Normal, || {
         // gets request from back, old high are consumed before new low
-        if let Some(request) = normal.pop() {
-            let connection_config = connection_config.clone();
+        let Some(request) = normal.pop() else {
+            return false;
+        };
 
-            pool.spawn(async move {
-                request.data.send_and_receive(connection_config);
-            })
-            .detach();
-        }
+        let connection_config = connection_config.clone();
+
+        pool.spawn(async move {
+            request.data.send_and_receive(connection_config);
+        })
+        .detach();
+
+        true
     });
 
     buckets.consume_token_for_each(RateLimit::Burst, || {
         // gets request from back, old high are consumed before new low
-        if let Some(request) = burst.pop() {
-            let connection_config = connection_config.clone();
+        let Some(request) = burst.pop() else {
+            return false;
+        };
 
-            pool.spawn(async move {
-                request.data.send_and_receive(connection_config);
-            })
-            .detach();
-        }
+        let connection_config = connection_config.clone();
+
+        pool.spawn(async move {
+            request.data.send_and_receive(connection_config);
+        })
+        .detach();
+
+        true
     });
 
     // extract leftover queue requests
